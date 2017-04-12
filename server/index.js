@@ -11,60 +11,60 @@ mongoose.connect(config.get('database.host'))
 mongoose.connection.on('error', console.error.bind(console, 'db error:'))
 
 const server = new Hapi.Server({
-  connections: {
-    routes: {
-      files: {
-        relativeTo: Path.join(Path.dirname(__dirname), 'dist')
-      }
-    }
-  }
+	connections: {
+		routes: {
+			files: {
+				relativeTo: Path.join(Path.dirname(__dirname), 'dist')
+			}
+		}
+	}
 })
 
 server.connection({
-  host: 'localhost',
-  port: process.env.PORT || 8000
+	host: 'localhost',
+	port: process.env.PORT || 8000
 })
 
 // if (process.env.NODE_ENV === 'development') {
-  const webpack = require('webpack')
-  const WebpackPlugin = require('hapi-webpack-plugin')
-  const wpconfig = require('../webpack/config.dev')
+	const webpack = require('webpack')
+	const WebpackPlugin = require('hapi-webpack-plugin')
+	const wpconfig = require('../webpack/config.dev')
 
-  server.register({
-    register: WebpackPlugin,
-    options: {
-      compiler: webpack(wpconfig),
-      assets: {
-        noInfo: true,
-        publicPath: wpconfig.output.publicPath,
-        quiet: true
-      }
-    }
-  }, (error) => {
-    if (error) throw error;
-  })
+	server.register({
+		register: WebpackPlugin,
+		options: {
+			compiler: webpack(wpconfig),
+			assets: {
+				noInfo: true,
+				publicPath: wpconfig.output.publicPath,
+				quiet: true
+			}
+		}
+	}, (error) => {
+		if (error) throw error;
+	})
 // }
 
 server.register([
-  {
-    register: Inert
-  },
+	{
+		register: Inert
+	},
 
-  {
-    register: base
-  },
+	{
+		register: base
+	},
 
-  {
-    register: auth
-  },
+	{
+		register: auth
+	},
 
-  {
-    register: items
-  }
+	{
+		register: items
+	}
 ], (error) => {
-  if (error) throw error
+	if (error) throw error
 
-  server.start(() => {
-    console.info('Sample stack listening at:', server.info.uri)
-  })
+	server.start(() => {
+		console.info('Sample stack listening at:', server.info.uri)
+	})
 })
