@@ -25,7 +25,7 @@ server.connection({
   port: process.env.PORT || 8000
 })
 
-if (process.env.NODE_ENV === 'development') {
+// if (process.env.NODE_ENV === 'development') {
   const webpack = require('webpack')
   const WebpackPlugin = require('hapi-webpack-plugin')
   const wpconfig = require('../webpack/config.dev')
@@ -43,7 +43,7 @@ if (process.env.NODE_ENV === 'development') {
   }, (error) => {
     if (error) throw error;
   })
-}
+// }
 
 server.register([
   {
