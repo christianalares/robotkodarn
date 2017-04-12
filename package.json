@@ -1,14 +1,14 @@
 {
-  "name": "sample-stack",
+  "name": "robotkodarn",
   "version": "0.0.1",
   "description": "A sample stack",
   "main": "index.js",
   "author": "Jonas Stattin",
   "scripts": {
-    "mongo:start": "mongod --config /usr/local/etc/mongod.conf --fork --logpath /dev/null",
+    "mongo:start": "mongod",
     "mongo:stop": "mongo admin --eval 'db.shutdownServer()' > /dev/null",
     "build:clean": "rimraf dist/client/static",
-    "dev": "npm run build:clean && NODE_ENV=development node index.js"
+    "dev": "npm run build:clean && node index.js"
   },
   "dependencies": {
     "babel-core": "^6.10.4",
