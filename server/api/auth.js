@@ -2,12 +2,12 @@ import config from 'config'
 import CookieAuth from 'hapi-auth-cookie'
 
 const login = (request, reply) => {
+
 	if (!request.payload.username || !request.payload.password) {
 		return reply({message: 'Missing username or password'}).code(401)
 	}
 
-	if (request.payload.username === config.get('auth.username') &&
-			request.payload.password === config.get('auth.password')) {
+	if (request.payload.username === config.get('auth.username') && request.payload.password === config.get('auth.password')) {
 
 			const { username } = request.payload
 

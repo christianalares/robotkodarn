@@ -11,6 +11,7 @@ import App from './components/App'
 import List from './components/List'
 import Create from './components/Create'
 import Authenticate from './components/Authenticate'
+import Editor from './components/Editor'
 
 const reduxRouterMiddleware = syncHistory(browserHistory)
 const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware, thunkMiddleware)(createStore)
@@ -24,7 +25,8 @@ render((
 
 				<Route path="/list" component={List}/>
 				<Route path="/create" component={Create}/>
-				<Route path='/authenticate' component={Authenticate}/>
+				<Route path="/authenticate" component={Authenticate}/>
+				<Route path="/editor" component={Editor}/>
 			</Route>
 		</Router>
 	</Provider>
