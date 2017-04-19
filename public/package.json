@@ -8,7 +8,7 @@
     "mongo:start": "mongod",
     "mongo:stop": "mongo admin --eval 'db.shutdownServer()' > /dev/null",
     "build:clean": "rimraf dist/client/static",
-    "dev": "npm run build:clean&&set NODE_ENV=development&&node index.js"
+    "dev": "npm run build:clean && node index.js"
   },
   "dependencies": {
     "babel-core": "^6.10.4",
@@ -36,5 +36,9 @@
     "redux-thunk": "^2.1.0",
     "rimraf": "^2.5.2",
     "webpack": "^1.13.1"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.0",
+    "style-loader": "^0.16.1"
   }
 }
