@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import AceEditor from 'react-ace'
-// import styles from './style.css'
+import styles from './editor.css'
 
 import 'brace/mode/c_cpp'
 import 'brace/theme/monokai'
