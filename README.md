@@ -3,6 +3,12 @@
 
 Based on https://github.com/primavera133/sample-stack
 
+This setup uses Vagrant, make sure to follow the installation process here: https://box.scotch.io/
+
+---
+
+
+
 ## If running MongoDB locally:
 1. Start the VM - `vagrant up`
 2. SSH into it - `vagrant ssh`
