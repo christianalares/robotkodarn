@@ -17,11 +17,11 @@ This setup uses Vagrant, make sure to follow the installation process here: http
 5. Start the app `yarn run dev` (or `npm run dev` if you prefer)
 6. The app should now be running at 192.168.33.11:8000
 
-Note: If step 4 doesn't work, make sure you have a folder in the root directory /data/db.
+Note: If step 4 doesn't work, make sure you have a folder in the root directory /data/db with the correct permissions.
+
 Do this by:
 
-1. `sudo mkdir -p /data/db`
-2. `sudo chmod 777 /data/db`
+`sudo mkdir -p /data/db && sudo chmod 777 /data/db`
 
 ## If you want to run MongoDB from the cloud:
 The config file is already set up for connecting to the cloud based db so just skip step 4
