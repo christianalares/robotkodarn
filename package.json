@@ -5,10 +5,10 @@
   "main": "index.js",
   "author": "Jonas Stattin",
   "scripts": {
-    "mongo:start": "mongod --config /usr/local/etc/mongod.conf --fork --logpath /dev/null",
+    "mongo:start": "mongod",
     "mongo:stop": "mongo admin --eval 'db.shutdownServer()' > /dev/null",
     "build:clean": "rimraf dist/client/static",
-    "dev": "npm run build:clean && NODE_ENV=development node index.js"
+    "dev": "npm run build:clean && node index.js"
   },
   "dependencies": {
     "babel-core": "^6.10.4",
@@ -25,6 +25,7 @@
     "inert": "^4.0.0",
     "mongoose": "^4.5.3",
     "react": "^15.1.0",
+    "react-ace": "^4.2.1",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.5.1",
@@ -34,5 +35,9 @@
     "redux-thunk": "^2.1.0",
     "rimraf": "^2.5.2",
     "webpack": "^1.13.1"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.0",
+    "style-loader": "^0.16.1"
   }
 }

@@ -27,12 +27,12 @@ export class Editor extends Component {
 		return (
 			<AceEditor
 				fontSize="18px"
-			    mode="c_cpp"
-			    theme="monokai"
-			    onChange={onChange}
-			    name="UNIQUE_ID_OF_DIV"
-			    editorProps={{$blockScrolling: true}}
-			    value={helloWorld}
+				mode="c_cpp"
+				theme="monokai"
+				onChange={onChange}
+				name="UNIQUE_ID_OF_DIV"
+				editorProps={{$blockScrolling: true}}
+				value={helloWorld}
 			/>
 		)
 	}
