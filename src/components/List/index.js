@@ -41,6 +41,7 @@ export class List extends Component {
 		return (
 			<div>
 				<h1>List</h1>
+
 				<nav>
 					<Link to="/create">Create</Link>
 					<button onClick={this.handleSignOut.bind(this)}>Sign out</button>
