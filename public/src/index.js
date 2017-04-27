@@ -21,7 +21,7 @@ render((
 	<Provider store={store}>
 		<Router history={browserHistory}>
 			<Route path="/" component={App}>
-				<IndexRedirect to='/editor'/>
+				<IndexRedirect to='/list'/>
 
 				<Route path="/list" component={List}/>
 				<Route path="/create" component={Create}/>
