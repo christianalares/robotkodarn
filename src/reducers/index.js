@@ -3,6 +3,6 @@ import { routeReducer } from 'redux-simple-router'
 import items from './items'
 
 export default combineReducers({
-	routeReducer,
-	items
+  routeReducer,
+  items
 })
