@@ -5,6 +5,7 @@ import Navbar from './../Navbar'
 import Sidebar from './../Sidebar'
 import Editor from './../Editor'
 import Console from './../Console'
+import ActionButtons from './../ActionButtons'
 
 import './student.css'
 

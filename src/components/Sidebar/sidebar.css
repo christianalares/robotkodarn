@@ -2,7 +2,7 @@
 	position: relative;
 	background-color: #ecf0f1;
 	float: left;
-	width: 25vw;
+	width: 25%;
 	height: calc(100vh - 50px);
 }
 	.main-sidebar h2 {
