@@ -2,8 +2,10 @@
 	position: relative;
 	background-color: #ecf0f1;
 	float: left;
-	width: 25vw;
+	/*width: 25%;*/
+	width: 350px;
 	height: calc(100vh - 50px);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 }
 	.main-sidebar h2 {
 		text-align: center;
@@ -11,10 +13,13 @@
 
 	.main-sidebar .hamburger {
 		position: absolute;
-		top: 10px;
+		top: 5px;
 		right: 10px;
 		font-size: 1.5rem;
 	}
+		.main-sidebar .hamburger:hover {
+			opacity: .8;
+		}
 	.main-sidebar .partlist {
 		margin-top: 20px;
 		height: 50vh;
@@ -28,6 +33,9 @@
 			.main-sidebar .partlist li a,
 			.main-sidebar .referencelist li a {
 				margin-left: 5px;
+			}
+			.main-sidebar .partlist li.active a {
+				font-weight: bold;
 			}
 
 	.main-sidebar .referencelist {

@@ -1,0 +1,12 @@
+.action-button-wrapper {
+    float: right;
+    margin-top: -37px;
+}
+.action-button-wrapper a:first-of-type {
+    margin-right: 10px;
+}
+
+/* FontAwesome */
+.action-button-wrapper span.fa {
+    margin-right: 10px;
+}

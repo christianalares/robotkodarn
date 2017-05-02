@@ -10,7 +10,7 @@ class PartList extends React.Component {
     render() {
         return (
             <ul className="partlist">
-                <li><FA name='file-code-o' /> <a href="#">Intro</a></li>
+                <li className="active"><FA name='file-code-o' /> <a href="#">Intro</a></li>
                 <li><FA name='file-code-o' /> <a href="#">Motorer</a></li>
                 <li><FA name='file-code-o' /> <a href="#">Sensorer</a></li>
                 <li><FA name='file-code-o' /> <a href="#">LCD-display</a></li>

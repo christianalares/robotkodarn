@@ -43,7 +43,7 @@ export class Editor extends Component {
 					onChange={onChange}
 					name="code-editor"
 					width="auto"
-					height="55%"
+					height="90%"
 					editorProps={{$blockScrolling: true}}
 					value={helloWorld}
 					showPrintMargin={false}
