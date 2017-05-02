@@ -24,20 +24,31 @@ export class Editor extends Component {
 		super(props)
 	}
 
+	// handleTabClick() {
+	// 	console.log( 'handleTabClick' )
+	// }
+
 	render () {
 		return (
-			<AceEditor
-				fontSize="16px"
-				mode="c_cpp"
-				theme="chrome"
-				onChange={onChange}
-				name="code-editor"
-				width="auto"
-				height="55%"
-				editorProps={{$blockScrolling: true}}
-				value={helloWorld}
-				showPrintMargin={false}
-			/>
+			<div className="code-wrapper">
+				<ul>
+					<li><a href="#">Din kod</a></li>
+					<li><a href="#">Original</a></li>
+				</ul>
+				
+				<AceEditor
+					fontSize="16px"
+					mode="c_cpp"
+					onChange={onChange}
+					name="code-editor"
+					width="auto"
+					height="55%"
+					editorProps={{$blockScrolling: true}}
+					value={helloWorld}
+					showPrintMargin={false}
+				/>
+			</div>
+
 		)
 	}
 }
