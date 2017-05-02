@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Navbar from './../Navbar'
 import Sidebar from './../Sidebar'
 import Editor from './../Editor'
+import Console from './../Console'
 
 import './student.css'
 
@@ -21,6 +22,7 @@ export class Student extends Component {
 				<div className="main-pane">
 					<h2>Intro</h2>
 					<Editor />
+					<Console />
 				</div>
             </div>
 		)
