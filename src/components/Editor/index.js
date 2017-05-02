@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import AceEditor from 'react-ace'
-import styles from './editor.css'
 
 import 'brace/mode/c_cpp'
 import 'brace/theme/monokai'
+
+import styles from './editor.css'
 
 const helloWorld = `// my first program in C++
 #include <iostream>
@@ -26,13 +27,16 @@ export class Editor extends Component {
 	render () {
 		return (
 			<AceEditor
-				fontSize="18px"
+				fontSize="16px"
 				mode="c_cpp"
-				theme="monokai"
+				theme="chrome"
 				onChange={onChange}
-				name="UNIQUE_ID_OF_DIV"
+				name="code-editor"
+				width="auto"
+				height="55%"
 				editorProps={{$blockScrolling: true}}
 				value={helloWorld}
+				showPrintMargin={false}
 			/>
 		)
 	}

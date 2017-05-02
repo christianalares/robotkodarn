@@ -16,6 +16,8 @@ import Editor from './components/Editor'
 import Student from './components/Student'
 
 import './index.css'
+// import './font-awesome.min.css'
+// import '../node_modules/react-fontawesome/lib/'
 
 const reduxRouterMiddleware = syncHistory(browserHistory)
 const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware, thunkMiddleware)(createStore)

@@ -1,0 +1,7 @@
+.main-pane {
+    float: right;
+    width: 75vw;
+    height: calc(100vh - 50px);
+    /*background-color: rgba(0, 0, 0, .1);*/
+    padding: 0 20px;
+}

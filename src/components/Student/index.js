@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 
 import Navbar from './../Navbar'
 import Sidebar from './../Sidebar'
+import Editor from './../Editor'
+
+import './student.css'
 
 export class Student extends Component {
 	constructor (props) {
@@ -15,6 +18,10 @@ export class Student extends Component {
             <div>
                 <Navbar />
                 <Sidebar />
+				<div className="main-pane">
+					<h2>Intro</h2>
+					<Editor />
+				</div>
             </div>
 		)
 	}

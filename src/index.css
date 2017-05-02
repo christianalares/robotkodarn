@@ -40,6 +40,9 @@ h4, h5, h6 {
 
 p { font-size: 1.5em; margin: 0; }
 
+ul { font-size: 1.5em; margin: 0; padding: 0; list-style: none; }
+
+
 .container {
     margin: 0 auto;
     /*padding: 0;*/
@@ -49,4 +52,15 @@ p { font-size: 1.5em; margin: 0; }
 
 a {
     text-decoration: none;
+    color: #18bc9c;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+hr {
+	border: none;
+	border-top: 1px solid rgba(0, 0, 0, .1);
+	border-bottom: 1px solid rgba(255, 255, 255, .2);
+	width: 100%;
 }
