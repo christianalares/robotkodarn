@@ -20,6 +20,7 @@ export class Student extends Component {
                 <Sidebar />
 				<div className="main-pane">
 					<h2>Intro</h2>
+					<ActionButtons />
 					<Editor />
 				</div>
             </div>

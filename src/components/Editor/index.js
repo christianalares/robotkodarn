@@ -32,13 +32,14 @@ export class Editor extends Component {
 		return (
 			<div className="code-wrapper">
 				<ul>
-					<li><a href="#">Din kod</a></li>
+					<li className="active"><a href="#">Din kod</a></li>
 					<li><a href="#">Original</a></li>
 				</ul>
-				
+
 				<AceEditor
 					fontSize="16px"
 					mode="c_cpp"
+					theme="chrome"
 					onChange={onChange}
 					name="code-editor"
 					width="auto"
