@@ -10,7 +10,8 @@ class Navbar extends React.Component {
     render() {
         return (
             <nav className="main-navbar">
-                <a className="logo" href="#">🤖</a>
+                {/*<a className="logo" href="#">🤖</a>*/}
+                <div className="logo-robot"></div>
                 <WorkshopPincode />
             </nav>
         );

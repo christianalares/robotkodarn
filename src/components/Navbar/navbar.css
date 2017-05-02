@@ -19,3 +19,14 @@
     padding: 5px 10px;
     margin: 10px;
 }
+
+.logo-robot {
+    background: transparent url('./../../img/robot2.png') left top no-repeat;
+    background-size: 100% 100%;
+    width: 60px;
+    height: 57px;
+    position: absolute;
+    top: 3px;
+    left: 25px;
+    z-index: 1000;
+}
