@@ -5,8 +5,14 @@ import styles from './console.css'
 
 export class Console extends Component {
 	render() {
+
+		let consoleClass = styles.consoleWrapper
+		if(this.props.user === 'teacher') {
+			consoleClass = styles.consoleWrapperTeacher
+		}
+
 		return (
-			<div className={styles.consoleWrapper}>
+			<div className={consoleClass}>
 				<h4>Konsol</h4>
 				<div className={styles.console}>
 					

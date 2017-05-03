@@ -1,7 +1,11 @@
 :local .consoleWrapper {
 	margin-top: 20px;
 	height: calc(30% - 24px);
+}
 
+:local .consoleWrapperTeacher {
+	margin-top: 20px;
+	height: 30%;
 }
 	:local .console {
 		width: 100%;

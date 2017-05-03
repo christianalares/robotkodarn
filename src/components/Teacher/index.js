@@ -24,7 +24,7 @@ export class Teacher extends Component {
 					<h2>Intro</h2>
 					<ActionButtons />
 					<Editor />
-					<Console />
+					<Console user="teacher" />
 				</div>
             </div>
 		)
