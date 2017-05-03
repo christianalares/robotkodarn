@@ -1,6 +1,6 @@
 :local .consoleWrapper {
 	margin-top: 20px;
-	height: 30%;
+	height: calc(30% - 24px);
 
 }
 	:local .console {

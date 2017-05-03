@@ -14,6 +14,7 @@ class ReferenceList extends React.Component {
                 <li><FA name='external-link' /> <a href="#">http://...</a></li>
                 <li><FA name='external-link' /> <a href="#">http://...</a></li>
                 <li><FA name='external-link' /> <a href="#">http://...</a></li>
+                { this.props.user === 'teacher' && (<li><FA name='plus' /> <a href="#">Lägg till...</a></li>) }
             </ul>
         );
     }

@@ -15,19 +15,22 @@
     100% { background: #e74c3c; }
 }
 
-:local .logo {
-    text-align: center;
-    font-size: 10rem;
+:local .wrapper {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
 
 :local .loginField {
     width: 20vw;
     min-width: 200px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
+    margin: 0 auto;
+}
+:local .logo {
+    font-family: "Reenie Beanie";
+    font-size: 10rem;
 }
 
 :local input {
@@ -45,6 +48,7 @@
     outline: none;
     transition: all .2s ease-in-out;
     font-size: 1rem;
+    margin-top: 40px;
 }
     :local input:focus {
         border: 2px solid #2c3e50;
