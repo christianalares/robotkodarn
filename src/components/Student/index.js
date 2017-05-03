@@ -6,6 +6,7 @@ import Sidebar from './../Sidebar'
 import Editor from './../Editor'
 import Console from './../Console'
 import ActionButtons from './../ActionButtons'
+import Snippets from './../Snippets'
 
 import styles from './student.css'
 
@@ -24,6 +25,7 @@ export class Student extends Component {
 					<h2>Intro</h2>
 					<ActionButtons />
 					<Editor />
+					<Snippets />
 					<Console />
 				</div>
             </div>
