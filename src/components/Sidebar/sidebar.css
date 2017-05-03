@@ -6,19 +6,36 @@
 	height: calc(100vh - 50px);
 	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 }
+
+	.main-sidebar .content {
+		width: 90%;
+		display: inline-block;
+	}
+
 	.main-sidebar h2 {
 		text-align: center;
 	}
 
 	.main-sidebar .hamburger {
-		position: absolute;
-		top: 5px;
-		right: 10px;
+		position: relative;
+		vertical-align: top;
+		display: inline-block;
+		width: 10%;
 		font-size: 1.5rem;
+		height: 100%;
 	}
 		.main-sidebar .hamburger:hover {
 			opacity: .8;
 		}
+
+		.main-sidebar .hamburger span {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			margin: 0 auto;
+		}
+
 	.main-sidebar .partlist {
 		margin-top: 20px;
 		height: 50vh;

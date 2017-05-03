@@ -14,12 +14,14 @@ class Sidebar extends React.Component {
 
         return (
             <div className="main-sidebar">
-                <a className='hamburger' href="#"><FA name='times' /></a>
-                <h2>Workshop 1</h2>
-                <PartList />
-                <hr />
-                <h2>Referenslänkar</h2>
-                <ReferenceList />
+                <div className="content">
+                    <h2>Workshop 1</h2>
+                    <PartList />
+                    <hr />
+                    <h2>Referenslänkar</h2>
+                    <ReferenceList />
+                </div>
+                <a className='hamburger' href="#"><FA name='angle-double-left' /></a>
             </div>
         );
     }
