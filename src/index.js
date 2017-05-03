@@ -14,8 +14,10 @@ import Create from './components/Create'
 import Authenticate from './components/Authenticate'
 import Editor from './components/Editor'
 import Student from './components/Student'
+import Teacher from './components/Teacher'
 
 import './index.css'
+
 // import './font-awesome.min.css'
 // import '../node_modules/react-fontawesome/lib/'
 
@@ -35,6 +37,7 @@ render((
 				<Route path="/authenticate" component={Authenticate}/>
 				<Route path="/editor" component={Editor}/>
 				<Route path="/student" component={Student}/>
+				<Route path="/teacher" component={Teacher}/>
 			</Route>
 		</Router>
 	</Provider>
