@@ -7,7 +7,7 @@ import Editor from './../Editor'
 import Console from './../Console'
 import ActionButtons from './../ActionButtons'
 
-import './student.css'
+import styles from './student.css'
 
 export class Student extends Component {
 	constructor (props) {
@@ -20,7 +20,7 @@ export class Student extends Component {
             <div>
                 <Navbar />
                 <Sidebar />
-				<div className="main-pane">
+				<div className={styles.mainPane}>
 					<h2>Intro</h2>
 					<ActionButtons />
 					<Editor />

@@ -1,4 +1,4 @@
-.main-sidebar {
+:local .mainSidebar {
 	position: relative;
 	background-color: #ecf0f1;
 	float: left;
@@ -7,28 +7,32 @@
 	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 }
 
-	.main-sidebar .content {
+	:local .mainSidebar .content {
 		width: 90%;
 		display: inline-block;
 	}
 
-	.main-sidebar h2 {
+	:local .mainSidebar h2 {
 		text-align: center;
 	}
 
-	.main-sidebar .hamburger {
+	:local .mainSidebar .hamburger {
 		position: relative;
 		vertical-align: top;
 		display: inline-block;
 		width: 10%;
+		position: absolute;
+		top: 5px;
+		right: 10px;
 		font-size: 1.5rem;
 		height: 100%;
+		border-left: 1px solid rgba(0,0,0,0.1);
 	}
-		.main-sidebar .hamburger:hover {
+		:local .mainSidebar .hamburger:hover {
 			opacity: .8;
 		}
 
-		.main-sidebar .hamburger span {
+		:local .mainSidebar .hamburger span {
 			position: absolute;
 			left: 50%;
 			top: 50%;
@@ -36,27 +40,27 @@
 			margin: 0 auto;
 		}
 
-	.main-sidebar .partlist {
-		margin-top: 20px;
-		height: 50vh;
-	}
+		:local .mainSidebar .partList {
+			margin-top: 20px;
+			height: 50vh;
+		}
 
-		.main-sidebar .partlist li,
-		.main-sidebar .referencelist li {
+		:local .mainSidebar .partList li,
+		:local .mainSidebar .referenceList li {
 			margin: 5px 0 0 40px;
 			font-size: 1.2rem;
 		}
-			.main-sidebar .partlist li a,
-			.main-sidebar .referencelist li a {
+			:local .mainSidebar .partList li a,
+			:local .mainSidebar .referenceList li a {
 				margin-left: 5px;
 			}
-			.main-sidebar .partlist li.active a {
+			:local .mainSidebar .partList li.active a {
 				font-weight: bold;
 			}
 
-	.main-sidebar .referencelist {
+	:local .mainSidebar .referenceList {
 		margin-top: 20px;
 	}
-		.main-sidebar .referencelist li {
+		:local .mainSidebar .referenceList li {
 			/*font-size: 1rem;*/
 		}
