@@ -39,7 +39,7 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				loader: 'style-loader!css-loader'
+				loader: 'style-loader!css-loader?localIdentName=[local]-[hash:base64:10]'
 			},
 			{
 				test: /\.(png|jpg)$/,
