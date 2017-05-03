@@ -1,4 +1,5 @@
 :local .mainPane {
+	transition: width 1s ease-out;
     float: right;
     width: calc(100% - 350px);
     height: calc(100vh - 50px);
