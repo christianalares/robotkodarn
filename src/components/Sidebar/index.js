@@ -16,10 +16,10 @@ class Sidebar extends React.Component {
             <div className={styles.mainSidebar}>
                 <div className="content">
                     <h2>Workshop 1</h2>
-                    <PartList />
+                    <PartList user={this.props.user}/>
                     <hr />
                     <h2>Referenslänkar</h2>
-                    <ReferenceList />
+                    <ReferenceList user={this.props.user} />
                 </div>
                 <a className={styles.hamburger} href="#"><FA name='angle-double-left' /></a>
             </div>
