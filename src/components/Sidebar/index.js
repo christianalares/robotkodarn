@@ -9,6 +9,18 @@ import styles from './sidebar.css'
 
 class Sidebar extends React.Component {
 
+    constructor() {
+        super()
+    }
+
+    onclick() {
+        let sidebar = this.refs.button.parentElement
+        sidebar.style.marginLeft = '-316px'
+
+        let mainPane = sidebar.nextElementSibling
+        mainPane.style.width = "calc(100% - 34px)"
+    }
+
     render() {
         // console.log( FontAwesome )
 
@@ -16,12 +28,12 @@ class Sidebar extends React.Component {
             <div className={styles.mainSidebar}>
                 <div className="content">
                     <h2>Workshop 1</h2>
-                    <PartList />
+                    <PartList user={this.props.user}/>
                     <hr />
                     <h2>Referenslänkar</h2>
-                    <ReferenceList />
+                    <ReferenceList user={this.props.user} />
                 </div>
-                <a className={styles.hamburger} href="#"><FA name='angle-double-left' /></a>
+                <a className={styles.hamburger} href="#" onClick={this.onclick.bind(this)} ref="button"><FA name='angle-double-left' /></a>
             </div>
         );
     }

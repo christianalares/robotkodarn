@@ -14,6 +14,7 @@ class PartList extends React.Component {
                 <li><FA name='file-code-o' /> <a href="#">Motorer</a></li>
                 <li><FA name='file-code-o' /> <a href="#">Sensorer</a></li>
                 <li><FA name='file-code-o' /> <a href="#">LCD-display</a></li>
+                { this.props.user === 'teacher' && (<li><FA name='plus' /> <a href="#">Lägg till...</a></li>) }
             </ul>
         );
     }

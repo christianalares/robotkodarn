@@ -19,7 +19,7 @@ export class Teacher extends Component {
 		return (
             <div>
                 <Navbar />
-                <Sidebar />
+                <Sidebar user='teacher' />
 				<div className={styles.mainPane}>
 					<h2>Intro</h2>
 					<ActionButtons />
