@@ -1,9 +1,9 @@
-.console-wrapper {
+:local .consoleWrapper {
 	margin-top: 20px;
 	height: 30%;
 
 }
-	.console {
+	:local .console {
 		width: 100%;
 		height: calc(100% - 34px);
 		border: 1px solid #e5e5e5;

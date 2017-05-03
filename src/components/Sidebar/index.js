@@ -4,7 +4,7 @@ import FA from 'react-fontawesome'
 import PartList from './PartList'
 import ReferenceList from './ReferenceList'
 
-import './sidebar.css'
+import styles from './sidebar.css'
 
 
 class Sidebar extends React.Component {
@@ -13,8 +13,8 @@ class Sidebar extends React.Component {
         // console.log( FontAwesome )
 
         return (
-            <div className="main-sidebar">
-                <a className='hamburger' href="#"><FA name='times' /></a>
+            <div className={styles.mainSidebar}>
+                <a className={styles.hamburger} href="#"><FA name='times' /></a>
                 <h2>Workshop 1</h2>
                 <PartList />
                 <hr />

@@ -1,4 +1,4 @@
-.main-navbar {
+:local .mainNavbar {
     position: absolute;
     top: 0;
     left: 0;
@@ -7,12 +7,12 @@
     background-color: #2c3e50;
 }
 
-.logo {
+:local .logo {
     font-size: 4em;
     margin: 10px;
 }
 
-.workshop-pin-code {
+:local .workshopPinCode {
     float: right;
     color: white;
     border: 1px solid white;
@@ -20,7 +20,7 @@
     margin: 10px;
 }
 
-.logo-robot {
+:local .logoRobot {
     background: transparent url('./../../img/robot2.png') left top no-repeat;
     background-size: 100% 100%;
     width: 60px;

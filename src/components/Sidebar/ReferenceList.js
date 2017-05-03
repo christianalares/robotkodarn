@@ -2,14 +2,14 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import FA from 'react-fontawesome' 
 
-import './sidebar.css'
+import styles from './sidebar.css'
 
 
 class ReferenceList extends React.Component {
 
     render() {
         return (
-            <ul className="referencelist">
+            <ul className={styles.referenceList}>
                 <li><FA name='external-link' /> <a href="#">http://...</a></li>
                 <li><FA name='external-link' /> <a href="#">http://...</a></li>
                 <li><FA name='external-link' /> <a href="#">http://...</a></li>

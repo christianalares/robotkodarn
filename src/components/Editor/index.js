@@ -30,9 +30,9 @@ export class Editor extends Component {
 
 	render () {
 		return (
-			<div className="code-wrapper">
+			<div className={styles.codeWrapper}>
 				<ul>
-					<li className="active"><a href="#">Din kod</a></li>
+					<li className={styles.active}><a href="#">Din kod</a></li>
 					<li><a href="#">Original</a></li>
 				</ul>
 
@@ -41,7 +41,7 @@ export class Editor extends Component {
 					mode="c_cpp"
 					theme="chrome"
 					onChange={onChange}
-					name="code-editor"
+					name="codeEditor"
 					width="auto"
 					height="90%"
 					editorProps={{$blockScrolling: true}}

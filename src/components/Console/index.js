@@ -6,9 +6,9 @@ import styles from './console.css'
 export class Console extends Component {
 	render() {
 		return (
-			<div className="console-wrapper">
+			<div className={styles.consoleWrapper}>
 				<h4>Konsol</h4>
-				<div className='console'>
+				<div className={styles.console}>
 					
 				</div>
 			</div>

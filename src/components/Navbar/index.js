@@ -3,15 +3,14 @@ import { connect } from 'react-redux'
 
 import WorkshopPincode from './WorkshopPincode'
 
-import './navbar.css'
+import styles from './navbar.css'
 
 class Navbar extends React.Component {
 
     render() {
         return (
-            <nav className="main-navbar">
-                {/*<a className="logo" href="#">🤖</a>*/}
-                <div className="logo-robot"></div>
+            <nav className={styles.mainNavbar}>
+                <div className={styles.logoRobot}></div>
                 <WorkshopPincode />
             </nav>
         );
