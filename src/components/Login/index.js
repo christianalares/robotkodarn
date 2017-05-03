@@ -12,10 +12,12 @@ export class Login extends Component {
 
 		return (
             <div className="screen">
-                <h1 className={styles.logo}>Robotkodarn</h1>
-                <div className={styles.loginField}>
-                    <input type="text" placeholder="Workshop PIN" />
-                    <button className="button primary">Logga in</button>
+                <div className={styles.wrapper}>
+                    <h1 className={styles.logo}>Robotkodarn</h1>
+                    <div className={styles.loginField}>
+                        <input type="text" placeholder="Workshop PIN" />
+                        <button className="button primary">Logga in</button>
+                    </div>
                 </div>
             </div>
 		)
