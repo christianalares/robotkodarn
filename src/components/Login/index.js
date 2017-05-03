@@ -11,7 +11,7 @@ export class Login extends Component {
 	render () {
 
 		return (
-            <div>
+            <div className="screen">
                 <h1 className={styles.logo}>Robotkodarn</h1>
                 <div className={styles.loginField}>
                     <input type="text" placeholder="Workshop PIN" />

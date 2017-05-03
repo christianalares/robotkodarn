@@ -1,14 +1,17 @@
-body {
-    background-color: #f9f9f9;
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
     animation: bgcolor 20s infinite;
     animation-direction: alternate;
 }
 
 @keyframes bgcolor {
-    0%   { background: #f9f9f9; }
-    25%  { background: #18bc9c; }
-    50%  { background: #3498db; }
-    75%  { background: #f39c12; }
+    0%   { background: #18bc9c; }
+    33%  { background: #3498db; }
+    66%  { background: #f39c12; }
     100% { background: #e74c3c; }
 }
 
