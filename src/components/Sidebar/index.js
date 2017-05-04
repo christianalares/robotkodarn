@@ -3,59 +3,56 @@ import { connect } from 'react-redux'
 import FA from 'react-fontawesome'
 import PartList from './PartList'
 import ReferenceList from './ReferenceList'
+import { closeSidebar } from '../../actions/sidebar'
 
 import styles from './sidebar.css'
 
 class Sidebar extends React.Component {
 
-    constructor() {
-        super()
-        this.onclick = this.onclick.bind(this);
-    }
+	constructor () {
+		super()
+		this.handleOnClick = this.handleOnClick.bind(this);
+		this.getSidebarClassName = this.getSidebarClassName.bind(this);
+	}
 
-    onclick() {
-    	let arrow = this.refs.button.children[0]
-        let sidebar = this.refs.button.parentElement
-        let mainPane = sidebar.nextElementSibling
+	handleOnClick () {
+		this.props.dispatch(closeSidebar())
+	}
 
-        if (!sidebar.classList.contains('collapse')) {
-        	arrow.style.animation = 'spinRight 1s 1 alternate'
-        	arrow.style.animationFillMode = 'forwards'
 
-        	sidebar.classList.add('collapse')
-        	sidebar.style.marginLeft = '-316px'
+	getSidebarClassName() {
+		console.log('getSidebarClassName')
+		if (this.props.isSidebarOpen) {
+			console.log('OPEN')
+			return styles.mainSidebar
+		} else {
+			console.log('CLOSE')
+			return styles.mainSidebarClosed
+		}
+	}
 
-        	mainPane.style.width = 'calc(100% - 34px)'
-        } else {
-        	arrow.style.animation = 'spinLeft 1s 1 alternate'
-
-        	sidebar.classList.remove('collapse')
-        	sidebar.style.marginLeft = '0'
-
-        	mainPane.style.width = 'calc(100% - 350px)'
-        }
-    }
-
-    render() {
-        // console.log( FontAwesome )
-
-        return (
-            <div className={styles.mainSidebar}>
-                <div className="content">
-                    <h2>Workshop 1</h2>
-                    <PartList user={this.props.user}/>
-                    <hr />
-                    <h2>Referenslänkar</h2>
-                    <ReferenceList user={this.props.user} />
-                </div>
-                <a className={styles.hamburger} href="#" onClick={this.onclick} ref="button"><FA name='angle-double-left' /></a>
-            </div>
-        );
-    }
+	render () {
+		// console.log( FontAwesome )
+		//console.log(11111, this.props.isSidebarOpen, this.getSidebarClassName)
+		return (
+			<div className={this.getSidebarClassName()}>
+				<div className="content">
+					<h2>Workshop 1</h2>
+					<PartList user={this.props.user}/>
+					<hr />
+					<h2>Referenslänkar</h2>
+					<ReferenceList user={this.props.user}/>
+				</div>
+				<a className={styles.hamburger} href="#" onClick={this.handleOnClick} ref="button"><FA
+					name='angle-double-left'/></a>
+			</div>
+		);
+	}
 }
 
 function mapStateToProps (state) {
 	return {
+		isSidebarOpen: state.sidebar.open,
 		items: state.items.list
 	}
 }

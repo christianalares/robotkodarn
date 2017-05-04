@@ -8,7 +8,7 @@
     "mongo:start": "mongod",
     "mongo:stop": "mongo admin --eval 'db.shutdownServer()' > /dev/null",
     "build:clean": "rimraf dist/client/static",
-    "dev": "npm run build:clean && node index.js"
+    "dev": "npm run build:clean && nodemon index.js"
   },
   "dependencies": {
     "babel-core": "^6.10.4",
