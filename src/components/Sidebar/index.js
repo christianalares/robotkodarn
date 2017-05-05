@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import FA from 'react-fontawesome'
 import PartList from './PartList'
 import ReferenceList from './ReferenceList'
-import { closeSidebar, openSidebar } from '../../actions/sidebar'
+// import { closeSidebar, openSidebar } from '../../actions/sidebar'
+import { toggleSidebar } from '../../actions/sidebar'
+
 
 import styles from './sidebar.css'
 
@@ -11,16 +13,19 @@ class Sidebar extends React.Component {
 
 	constructor () {
 		super()
-		this.handleSidebarClick = this.handleSidebarClick.bind(this);
-		this.getSidebarClassName = this.getSidebarClassName.bind(this);
+		this.handleSidebarClick = this.handleSidebarClick.bind(this)
+		this.getSidebarClassName = this.getSidebarClassName.bind(this)
 	}
 
 	handleSidebarClick () {
-		if(this.props.isSidebarOpen) {
-			this.props.dispatch(closeSidebar())
-		} else {
-			this.props.dispatch(openSidebar())
-		}
+		// if(this.props.isSidebarOpen) {
+		// 	this.props.dispatch(closeSidebar())
+		// } else {
+		// 	this.props.dispatch(openSidebar())
+		// }
+
+		this.props.dispatch(toggleSidebar(!this.props.isSidebarOpen))
+
 	}
 
 
