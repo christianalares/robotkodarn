@@ -6,10 +6,13 @@
 	height: calc(100vh - 50px);
 	border-right: 1px solid rgba(0, 0, 0, .12);
 	box-shadow: inset 0 0 20px rgba(0, 0, 0, .2);
-	transition: margin-left 0.5s;
+	transition: margin-left .5s;
+	/*backface-visibility: hidden;*/
 }
 :local .mainSidebarClosed {
 	margin-left: -316px;
+	/*transform: translateX(-316px);*/
+	/*margin-right: -316px;*/
 }
 
 	:local .mainSidebar .content {
