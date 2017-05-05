@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import FA from 'react-fontawesome'
 import PartList from './PartList'
 import ReferenceList from './ReferenceList'
-import { closeSidebar, openSidebar } from '../../actions/sidebar'
+import { toggleSidebar } from '../../actions/sidebar'
+
 
 import styles from './sidebar.css'
 
@@ -16,11 +17,7 @@ class Sidebar extends React.Component {
 	}
 
 	handleSidebarClick () {
-		if(this.props.isSidebarOpen) {
-			this.props.dispatch(closeSidebar())
-		} else {
-			this.props.dispatch(openSidebar())
-		}
+		this.props.dispatch( toggleSidebar(!this.props.isSidebarOpen) )
 	}
 
 
@@ -56,8 +53,7 @@ class Sidebar extends React.Component {
 
 function mapStateToProps (state) {
 	return {
-		isSidebarOpen: state.sidebar.open,
-		items: state.items.list
+		isSidebarOpen: state.sidebar.open
 	}
 }
 
