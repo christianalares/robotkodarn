@@ -12,6 +12,7 @@ class Sidebar extends React.Component {
 
 	constructor () {
 		super()
+
 		this.handleSidebarClick = this.handleSidebarClick.bind(this)
 		this.getSidebarClassName = this.getSidebarClassName.bind(this)
 	}

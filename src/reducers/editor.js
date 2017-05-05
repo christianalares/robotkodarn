@@ -1,13 +1,14 @@
 import { handleActions } from 'redux-actions'
 
 export default handleActions({
-	SET_SIDEBAR_OPEN: (state, action) => {
-		// console.log( state, action )
+	SET_EDITOR_TAB: (state, action) => {
+		console.log( state, action )
+
 		return ({
 			...state,
-			open: action.payload
+			activeTab: action.payload
 		})
 	}
 }, {
-	open: true
+	activeTab: 'user'
 })
