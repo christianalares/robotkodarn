@@ -8,6 +8,8 @@ import Console from './../Console'
 import ActionButtons from './../ActionButtons'
 import Snippets from './../Snippets'
 
+import { closeSidebar, openSidebar } from '../../actions/sidebar'
+
 import styles from './student.css'
 
 export class Student extends Component {
@@ -35,6 +37,7 @@ export class Student extends Component {
 
 function mapStateToProps (state) {
 	return {
+		isSidebarOpen: state.sidebar.open,
 		items: state.items.list
 	}
 }

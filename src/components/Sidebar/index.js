@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import FA from 'react-fontawesome'
 import PartList from './PartList'
 import ReferenceList from './ReferenceList'
-import { closeSidebar } from '../../actions/sidebar'
+import { closeSidebar, openSidebar } from '../../actions/sidebar'
 
 import styles from './sidebar.css'
 
@@ -11,42 +11,46 @@ class Sidebar extends React.Component {
 
 	constructor () {
 		super()
-		this.handleOnClick = this.handleOnClick.bind(this);
+		this.handleSidebarClick = this.handleSidebarClick.bind(this);
 		this.getSidebarClassName = this.getSidebarClassName.bind(this);
 	}
 
-	handleOnClick () {
-		this.props.dispatch(closeSidebar())
+	handleSidebarClick () {
+		if(this.props.isSidebarOpen) {
+			this.props.dispatch(closeSidebar())
+		} else {
+			this.props.dispatch(openSidebar())
+		}
 	}
 
 
 	getSidebarClassName() {
-		console.log('getSidebarClassName')
 		if (this.props.isSidebarOpen) {
-			console.log('OPEN')
 			return styles.mainSidebar
 		} else {
-			console.log('CLOSE')
-			return styles.mainSidebarClosed
+			return styles.mainSidebar + ' ' + styles.mainSidebarClosed
+		}
+	}
+
+	getCloseBtnClassName() {
+		if (!this.props.isSidebarOpen) {
+			return styles.rotated
 		}
 	}
 
 	render () {
-		// console.log( FontAwesome )
-		//console.log(11111, this.props.isSidebarOpen, this.getSidebarClassName)
 		return (
 			<div className={this.getSidebarClassName()}>
 				<div className="content">
 					<h2>Workshop 1</h2>
-					<PartList user={this.props.user}/>
+					<PartList user={this.props.user} />
 					<hr />
 					<h2>Referenslänkar</h2>
-					<ReferenceList user={this.props.user}/>
+					<ReferenceList user={this.props.user} />
 				</div>
-				<a className={styles.hamburger} href="#" onClick={this.handleOnClick} ref="button"><FA
-					name='angle-double-left'/></a>
+				<a className={styles.closeBtn} href="#" onClick={this.handleSidebarClick}><FA className={this.getCloseBtnClassName()} name='angle-double-left'/></a>
 			</div>
-		);
+		)
 	}
 }
 
