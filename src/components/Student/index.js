@@ -15,6 +15,16 @@ import styles from './student.css'
 export class Student extends Component {
 	constructor (props) {
 		super(props)
+
+		this.getMainPainClassName = this.getMainPainClassName.bind(this)
+	}
+
+	getMainPainClassName() {
+		if(this.props.isSidebarOpen) {
+			return styles.mainPane
+		} else {
+			return styles.mainPane + ' ' + styles.mainPaneExpanded
+		}
 	}
 
 	render () {
@@ -23,7 +33,7 @@ export class Student extends Component {
             <div>
                 <Navbar />
                 <Sidebar />
-				<div className={styles.mainPane}>
+				<div className={this.getMainPainClassName()}>
 					<h2>Intro</h2>
 					<ActionButtons />
 					<Editor />
