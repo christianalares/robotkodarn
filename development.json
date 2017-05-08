@@ -1,0 +1,10 @@
+{
+    "auth": {
+        "username": "admin",
+        "password": "robot",
+        "key": "EgPrcWSqwCkaV5N6BkpAAYdac3MgpFhBvNZ5hLtJkdvLwu2C5PsamQADMt9pbE5R"
+    },
+    "database": {
+        "host": "mongodb://arduino:robotkodarn@robotkodarn-shard-00-00-mgdrh.mongodb.net:27017,robotkodarn-shard-00-01-mgdrh.mongodb.net:27017,robotkodarn-shard-00-02-mgdrh.mongodb.net:27017/database?ssl=true&replicaSet=Robotkodarn-shard-0&authSource=admin"
+    }
+}

@@ -6,6 +6,8 @@ import config from 'config'
 import base from './base'
 import auth from './api/auth'
 import items from './api/items'
+import workshops from './api/workshops'
+import users from './api/users'
 
 mongoose.connect(config.get('database.host'))
 mongoose.connection.on('error', console.error.bind(console, 'db error:'))
@@ -60,6 +62,12 @@ server.register([
 
 	{
 		register: items
+	},
+	{
+		register: workshops
+	},
+	{
+		register: users
 	}
 ], (error) => {
 	if (error) throw error
