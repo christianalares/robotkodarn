@@ -1,31 +1,36 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { signIn } from '../../actions/authenticate.js'
 
 import styles from './admin.css'
 
 export class Admin extends Component {
 	constructor (props) {
 		super(props)
-        this.handleSubmit = this.handleSubmit.bind()
+        this.handleSubmit = this.handleSubmit.bind(this)
+
+        this.state = {
+            username: this.refs.username,
+            password: this.refs.password
+        }
 	}
 
-
     handleSubmit(e) {
-        console.log(e)
         e.preventDefault()
-        this.props.dispatch(signIn())
+
+        this.props.dispatch(signIn(this.state, '/teacher'))
     }
 
 	render () {
 
 		return (
             <div>
-                <form>
+                <form onSubmit={this.handleSubmit.bind(this)}>
                     <label htmlFor="userName">Användarnamn</label>
-                    <input id="userName" type="text" />
+                    <input ref="username" onChange={e => this.setState({username: e.target.value})} id="userName" type="text" />
                     <label htmlFor="password">Password</label>
-                    <input id="password" type="text" />
-                    <input type="submit" onClick={this.handleSubmit}/>
+                    <input ref="password" onChange={e => this.setState({password: e.target.value})} id="password" type="text" />
+                    <input type="submit" />
                 </form>
             </div>
 		)
