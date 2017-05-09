@@ -22,15 +22,15 @@ exports.register = (server, options, next) => {
 		path: '/api/users',
 		config: {
 		handler: getUsers,
-		auth: 'session'
+		// auth: 'session'
 		}
 	},
 	{
 		method: 'GET',
-		path: '/api/user/{id}',
+		path: '/api/users/{id}',
 		config: {
 		handler: getUser,
-		auth: 'session'
+		// auth: 'session'
 		}
 	}
 

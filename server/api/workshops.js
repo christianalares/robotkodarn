@@ -27,10 +27,10 @@ exports.register = (server, options, next) => {
 	},
 	{
 		method: 'GET',
-		path: '/api/workshop/{id}',
+		path: '/api/workshops/{id}',
 		config: {
 		handler: getWorkshop,
-		auth: 'session'
+		// auth: 'session'
 		}
 	}
 

@@ -8,7 +8,7 @@ const workshopSchema = Schema({
 	pincode: {
 		type: String, unique: true, required: true
 	},
-	userID: {
+	_userID: {
 		type: Number, unique: true, required: true
 	},
 	parts: [{
