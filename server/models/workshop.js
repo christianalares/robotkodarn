@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose'
 
 const workshopSchema = Schema({
 	
-	titel: {
+	title: {
 		type: String, required: true
 	},
 	pincode: {
