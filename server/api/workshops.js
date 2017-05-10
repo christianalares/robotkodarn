@@ -36,7 +36,7 @@ exports.register = (server, options, next) => {
 		handler: getWorkshop,
 		// auth: 'session'
 		}
-	}
+	},
 	{
 		method: 'POST',
 		path: '/api/workshops',
