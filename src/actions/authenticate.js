@@ -11,6 +11,6 @@ export const signIn = (credentials, path) => (dispatch) => {
 			dispatch(routeActions.push(path))
 		}
 	}
-
+	console.log('hej')
 	request.send(JSON.stringify(credentials))
 }

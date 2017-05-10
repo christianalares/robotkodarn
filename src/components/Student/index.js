@@ -14,10 +14,10 @@ export class Student extends Component {
 	constructor (props) {
 		super(props)
 
-		this.getMainPainClassName = this.getMainPainClassName.bind(this)
+		this.getMainPaneClassName = this.getMainPaneClassName.bind(this)
 	}
 
-	getMainPainClassName() {
+	getMainPaneClassName() {
 		if(this.props.isSidebarOpen) {
 			return styles.mainPane
 		} else {
@@ -31,7 +31,7 @@ export class Student extends Component {
             <div>
                 <Navbar />
                 <Sidebar />
-				<div className={this.getMainPainClassName()}>
+				<div className={this.getMainPaneClassName()}>
 					<h2>Intro</h2>
 					<ActionButtons />
 					<Editor />

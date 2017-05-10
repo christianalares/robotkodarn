@@ -1,5 +1,3 @@
-import {routeActions} from 'redux-simple-router'
-
 export const signIn = (credentials, path) => (dispatch) => {
 	const request = new XMLHttpRequest()
 	request.open('POST', '/api/authenticate', true)

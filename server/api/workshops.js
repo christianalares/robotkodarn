@@ -16,6 +16,10 @@ const getWorkshop = (request, reply) => {
   })
 }
 
+const addWorkshop = (request, reply) => {
+	console.log('addWorkshop')
+}
+
 exports.register = (server, options, next) => {
 	server.route([{
 		method: 'GET',
@@ -31,6 +35,13 @@ exports.register = (server, options, next) => {
 		config: {
 		handler: getWorkshop,
 		// auth: 'session'
+		}
+	}
+	{
+		method: 'POST',
+		path: '/api/workshops',
+		config: {
+		handler: addWorkshop
 		}
 	}
 

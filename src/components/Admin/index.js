@@ -7,11 +7,10 @@ import styles from './admin.css'
 export class Admin extends Component {
 	constructor (props) {
 		super(props)
-        this.handleSubmit = this.handleSubmit.bind(this)
 
         this.state = {
-            username: this.refs.username,
-            password: this.refs.password
+            username: null,
+            password: null
         }
 	}
 
@@ -24,7 +23,7 @@ export class Admin extends Component {
 	render () {
 
 		return (
-            <div>
+            <div className={styles.login}>
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <label htmlFor="userName">Användarnamn</label>
                     <input ref="username" onChange={e => this.setState({username: e.target.value})} id="userName" type="text" />
