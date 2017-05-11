@@ -59,7 +59,6 @@ server.register([
 	{
 		register: auth
 	},
-
 	{
 		register: items
 	},

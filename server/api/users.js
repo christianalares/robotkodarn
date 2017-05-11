@@ -3,7 +3,7 @@ import User from '../models/user'
 const getUsers = (request, reply) => {
 	User.find({}, (error, users) => {
 	if (error) return reply(error).code(500)
-	console.log(users)
+
 	return reply(users).code(200)
   })
 }

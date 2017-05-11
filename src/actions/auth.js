@@ -2,6 +2,7 @@ import {routeActions} from 'redux-simple-router'
 
 export const signIn = (credentials, path) => (dispatch) => {
 	const request = new XMLHttpRequest()
+
 	request.open('POST', '/auth/login', true)
 	request.setRequestHeader('Content-Type', 'application/json')
 	request.onload = () => {
