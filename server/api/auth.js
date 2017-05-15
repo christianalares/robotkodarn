@@ -3,26 +3,24 @@ import CookieAuth from 'hapi-auth-cookie'
 import User from '../models/user'
 
 const login = (request, reply) => {	
-		if (!request.payload.username || !request.payload.password) {
-			return reply({message: 'Missing username or password'}).code(401)
-		} else {
-			User.findOne({name: request.payload.username}, (error, user) => {
-				if (error) return reply(error).code(500)
-				if (request.payload.username === user.name &&
-					request.payload.password === user.password) {
+	if (!request.payload.username || !request.payload.password) {
+		return reply({message: 'Missing username or password'}).code(401)
+	} else {
+		User.findOne({name: request.payload.username}, (error, user) => {
+			if (error) return reply(error).code(500)
 
-					const { username } = request.payload
+			if (request.payload.username === user.name && request.payload.password === user.password) {
 
-					const test = request.payload
-					console.log({ username })
+				const { username } = request.payload
+				console.log({ username })
 
-					request.cookieAuth.set({username})
-					reply({username}).code(200)
-				} else {
-					reply({message: 'Wrong username or password'}).code(401)
-				}
-			})
-		}
+				request.cookieAuth.set({username})
+				reply({username}).code(200)
+			} else {
+				reply({message: 'Wrong username or password'}).code(401)
+			}
+		})
+	}
 	
 	// NEDAN ÄR JONAS KOD
 	// if (request.payload.username === config.get('auth.username') &&
@@ -70,7 +68,6 @@ exports.register = (server, options, next) => {
 					}
 				}
 			},
-
 			{
 				method: 'GET',
 				path: '/auth/logout',
@@ -80,7 +77,6 @@ exports.register = (server, options, next) => {
 				}
 			}
 		])
-
 		next()
 	})
 }

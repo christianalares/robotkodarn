@@ -27,7 +27,6 @@ export class Admin extends Component {
 
     handleRegisterSubmit(e) {
         e.preventDefault()
-        console.log('hej')
     }
 
     handleClick(loginOrRegister) {
