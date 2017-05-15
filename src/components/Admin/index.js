@@ -11,7 +11,7 @@ export class Admin extends Component {
 		super(props)
 
         this.state = {
-            username: null,
+            email: null,
             password: null,
             usernameRegister: null,
             passwordRegister: null,
@@ -40,8 +40,8 @@ export class Admin extends Component {
                 <div className={styles.login}>
                     <h1>Logga in</h1>
                     <form onSubmit={this.handleSubmit.bind(this)}>
-                        <label htmlFor="userName">Användarnamn</label>
-                        <input ref="username" onChange={e => this.setState({username: e.target.value})} id="userName" type="text" />
+                        <label htmlFor="email">Email</label>
+                        <input ref="email" onChange={e => this.setState({email: e.target.value})} id="email" type="email" />
                         <label htmlFor="password">Lösenord</label>
                         <input ref="password" onChange={e => this.setState({password: e.target.value})} id="password" type="text" />
                         <input type="submit" />

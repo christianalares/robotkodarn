@@ -3,23 +3,26 @@ import CookieAuth from 'hapi-auth-cookie'
 import User from '../models/user'
 
 const login = (request, reply) => {	
-		if (!request.payload.username || !request.payload.password) {
-			return reply({message: 'Missing username or password'}).code(401)
+		if (!request.payload.email || !request.payload.password) {
+			return reply({message: 'Missing email or password'}).code(401)
 		} else {
-			User.findOne({name: request.payload.username}, (error, user) => {
+			User.findOne({email: request.payload.email}, (error, user) => {
 				if (error) return reply(error).code(500)
-				if (request.payload.username === user.name &&
+
+				if (user && request.payload.email === user.email &&
 					request.payload.password === user.password) {
 
-					const { username } = request.payload
+					const { email } = request.payload
 
 					const test = request.payload
-					console.log({ username })
+					console.log({ email })
 
-					request.cookieAuth.set({username})
-					reply({username}).code(200)
+					request.cookieAuth.set({email})
+
+					console.log( request.cookieAuth.set )
+					reply({email}).code(200)
 				} else {
-					reply({message: 'Wrong username or password'}).code(401)
+					reply({message: 'Wrong email or password'}).code(401)
 				}
 			})
 		}
