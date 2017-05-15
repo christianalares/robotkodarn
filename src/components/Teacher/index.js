@@ -13,6 +13,16 @@ import styles from './teacher.css'
 export class Teacher extends Component {
 	constructor (props) {
 		super(props)
+
+		this.getMainPaneClassName = this.getMainPaneClassName.bind(this)
+	}
+
+	getMainPaneClassName() {
+		if(this.props.isSidebarOpen) {
+			return styles.mainPane
+		} else {
+			return styles.mainPane + ' ' + styles.mainPaneExpanded
+		}
 	}
 
 	render () {
@@ -21,7 +31,7 @@ export class Teacher extends Component {
             <div>
                 <Navbar />
                 <Sidebar user='teacher' />
-				<div className={styles.mainPane}>
+				<div className={this.getMainPaneClassName()}>
 					<h2>Intro</h2>
 					<ActionButtons />
 					<Editor />
@@ -35,7 +45,7 @@ export class Teacher extends Component {
 
 function mapStateToProps (state) {
 	return {
-		items: state.items.list
+		isSidebarOpen: state.sidebar.open
 	}
 }
 
