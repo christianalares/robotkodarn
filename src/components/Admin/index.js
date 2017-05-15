@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 
 import { signIn } from '../../actions/auth.js'
 import { toggleUserRegister } from '../../actions/admin'
+import { registerUser } from '../../actions/admin'
+
 import bcrypt from 'bcrypt-nodejs'
 
 import styles from './admin.css'
@@ -14,26 +16,51 @@ export class Admin extends Component {
         this.state = {
             email: null,
             password: null,
-            usernameRegister: null,
-            passwordRegister: null,
-            emailRegister: null
+            nameRegister: null,
+            emailRegister: null,
+            passwordRegister: null
         }
 	}
+    
+    // getSalt() {
+    //     return bcrypt.genSalt(10, () => {})
+    // }
 
     handleSubmit(e) {
         e.preventDefault()
+
         
-        var salt = bcrypt.genSalt(10, () => {})
         
-        bcrypt.hash(this.state.password, salt, null, function(err, hash) {
-            console.log( 'error: ' + err, 'hash: ' + hash, 'salt: ' + salt )
-        });
+        // var salt = bcrypt.genSalt(10, () => {})
+        
+        // bcrypt.hash(this.state.password, salt, null, function(err, hash) {
+        //     console.log( 'error: ' + err, 'hash: ' + hash, 'salt: ' + salt )
+        // });
 
         // this.props.dispatch(signIn(this.state, '/teacher'))
     }
 
     handleRegisterSubmit(e) {
         e.preventDefault()
+
+        bcrypt.genSalt(10, (error, result) => {
+
+            bcrypt.hash(this.state.password, result, null, (err, hash) => {
+
+                var credentials = {
+                    name: this.state.registerName,
+                    password: hash,
+                    salt: result,
+                    email: this.state.registerEmail,
+                }
+
+                // console.log( credentials )
+                this.props.dispatch( registerUser(credentials) )
+            })
+
+        })
+        
+
     }
 
     handleClick(loginOrRegister) {
@@ -50,7 +77,7 @@ export class Admin extends Component {
                         <input ref="email" onChange={e => this.setState({email: e.target.value})} id="email" type="email" />
                         <label htmlFor="password">Lösenord</label>
                         <input ref="password" onChange={e => this.setState({password: e.target.value})} id="password" type="text" />
-                        <input type="submit" />
+                        <input type="submit" value="Logga in" />
                     </form>
                     <a href="#" onClick={() => this.handleClick('register')}>Registrera ny användare...</a>
                 </div>
@@ -60,13 +87,15 @@ export class Admin extends Component {
                 <div className={styles.login}>
                     <h1>Registrera ny användare</h1>
                     <form onSubmit={this.handleRegisterSubmit.bind(this)}>
-                        <label htmlFor="userName">Användarnamn</label>
-                        <input ref="username" onChange={e => this.setState({usernameRegister: e.target.value})} id="userName" type="text" />
+                        <label htmlFor="name">För och efternamn</label>
+                        <input ref="name" onChange={e => this.setState({registerName: e.target.value})} id="name" type="text" />
+
+                        <label htmlFor="email">Email</label>
+                        <input ref="email" onChange={e => this.setState({registerEmail: e.target.value})} id="email" type="text" />
+                        
                         <label htmlFor="password">Lösenord</label>
-                        <input ref="password" onChange={e => this.setState({passwordRegister: e.target.value})} id="password" type="text" />
-                        <label htmlFor="email">E-mail</label>
-                        <input ref="email" onChange={e => this.setState({emailRegister: e.target.value})} id="email" type="text" />
-                        <input type="submit" />
+                        <input ref="password" onChange={e => this.setState({registerPassword: e.target.value})} id="password" type="text" />
+                        <input type="submit" value="Registrera" />
                     </form>
                     <a href="#" onClick={() => this.handleClick('login')}>Tillbaka till inloggning...</a>
                 </div>
@@ -86,7 +115,7 @@ export class Admin extends Component {
 
 function mapStateToProps (state) {
 	return {
-		loginOrRegister: state.admin.loginOrRegister
+		loginOrRegister: state.admin.loginOrRegister,
 	}
 }
 

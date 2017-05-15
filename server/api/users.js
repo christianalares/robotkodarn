@@ -17,10 +17,12 @@ const getUser = (request, reply) => {
 }
 
 const addUser = (request, reply) => {
-	User.findOne({name: request.payload.name}, (error, user) => {
+	console.log( request.payload )
+	User.findOne({email: request.payload.email}, (error, user) => {
 		if (error) return reply(error).code(500)
 
-		if (user) return reply({error: 'User already exists'}).code(400)
+
+		if (user) return reply({error: 'User already exists'}).code(400) //HUR GÖR MAN?
 
 		user = new User(request.payload)
 		user.save(error => {
@@ -36,23 +38,23 @@ exports.register = (server, options, next) => {
 		method: 'GET',
 		path: '/api/users',
 		config: {
-		handler: getUsers,
-		// auth: 'session'
+			handler: getUsers,
+			// auth: 'session'
 		}
 	},
 	{
 		method: 'GET',
 		path: '/api/users/{id}',
 		config: {
-		handler: getUser,
-		// auth: 'session'
+			handler: getUser,
+			// auth: 'session'
 		}
 	},
 	{
 		method: 'POST',
 		path: '/api/users',
 		config: {
-		handler: addUser
+			handler: addUser
 		}
 	}
 

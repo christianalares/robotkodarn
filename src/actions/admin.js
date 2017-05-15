@@ -16,3 +16,20 @@ export const toggleUserRegister = (loginOrRegister) => (dispatch) => {
 		payload: loginOrRegister
 	})
 }
+
+export const registerUser = (credentials) => (dispatch) => {
+	credentials.admin = false
+
+	const request = new XMLHttpRequest()
+	request.open('POST', '/api/users', true)
+	request.setRequestHeader('Content-Type', 'application/json')
+	request.onload = () => {
+		if (request.status >= 200 && request.status < 400) {
+			window.alert('User is registered')
+		}
+		else if (request.status === 401) {
+			dispatch(routeActions.push('/admin'))
+		}
+	}
+	request.send(JSON.stringify(credentials))
+}
