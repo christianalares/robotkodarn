@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { signIn } from '../../actions/auth.js'
 import { toggleUserRegister } from '../../actions/admin'
+import bcrypt from 'bcrypt-nodejs'
 
 import styles from './admin.css'
 
@@ -21,8 +22,14 @@ export class Admin extends Component {
 
     handleSubmit(e) {
         e.preventDefault()
+        
+        var salt = bcrypt.genSalt(10, () => {})
+        
+        bcrypt.hash(this.state.password, salt, null, function(err, hash) {
+            console.log( 'error: ' + err, 'hash: ' + hash, 'salt: ' + salt )
+        });
 
-        this.props.dispatch(signIn(this.state, '/teacher'))
+        // this.props.dispatch(signIn(this.state, '/teacher'))
     }
 
     handleRegisterSubmit(e) {
