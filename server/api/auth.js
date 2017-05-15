@@ -2,7 +2,7 @@ import config from 'config'
 import CookieAuth from 'hapi-auth-cookie'
 import User from '../models/user'
 
-const login = (request, reply) => {	
+const login = (request, reply) => {
 		if (!request.payload.email || !request.payload.password) {
 			return reply({message: 'Missing email or password'}).code(401)
 		} else {
@@ -14,7 +14,6 @@ const login = (request, reply) => {
 
 					const { email } = request.payload
 
-					const test = request.payload
 					console.log({ email })
 
 					request.cookieAuth.set({email})
@@ -73,7 +72,6 @@ exports.register = (server, options, next) => {
 					}
 				}
 			},
-
 			{
 				method: 'GET',
 				path: '/auth/logout',
@@ -83,7 +81,6 @@ exports.register = (server, options, next) => {
 				}
 			}
 		])
-
 		next()
 	})
 }
