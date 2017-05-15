@@ -33,3 +33,22 @@ export const registerUser = (credentials) => (dispatch) => {
 	}
 	request.send(JSON.stringify(credentials))
 }
+
+export const getSalt = (email) => (dispatch) => {
+
+	const request = new XMLHttpRequest()
+	request.open('GET', '/api/users/email/' + email.email, true)
+	request.setRequestHeader('Content-Type', 'application/json')
+	request.onload = () => {
+		if (request.status >= 200 && request.status < 400) {
+			dispatch({
+				type: 'SET_USER',
+				payload: JSON.parse(request.response)
+			})
+		}
+		else if (request.status === 401) {
+			dispatch(routeActions.push('/admin'))
+		}
+	}
+	request.send(JSON.stringify(email))
+}

@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import { signIn } from '../../actions/auth.js'
 import { toggleUserRegister } from '../../actions/admin'
 import { registerUser } from '../../actions/admin'
+import { getSalt } from '../../actions/admin'
 
-import bcrypt from 'bcrypt-nodejs'
+import bcrypt from 'bcryptjs'
 
 import styles from './admin.css'
 
@@ -18,26 +19,39 @@ export class Admin extends Component {
             password: null,
             nameRegister: null,
             emailRegister: null,
-            passwordRegister: null
+            passwordRegister: null,
+            fetchedUser: null,
         }
 	}
-    
-    // getSalt() {
-    //     return bcrypt.genSalt(10, () => {})
-    // }
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.user !== this.props.user) {
+            this.checkPassword(nextProps.user[0])
+        }
+    }
+
+    checkPassword(user) {
+        bcrypt.hash(this.state.password, user.salt, (err, hash) => {
+            console.log('this.state.password: ', this.state.password)
+            console.log('user.salt....: ', user.salt)
+            console.log('user.password: ', user.password)
+            console.log('hash.........: ', hash)
+
+            bcrypt.compare(this.state.password, hash, (err, result) => {
+                console.log(result)
+            })
+        })
+
+    }
+    
     handleSubmit(e) {
         e.preventDefault()
 
-        
-        
-        // var salt = bcrypt.genSalt(10, () => {})
-        
-        // bcrypt.hash(this.state.password, salt, null, function(err, hash) {
-        //     console.log( 'error: ' + err, 'hash: ' + hash, 'salt: ' + salt )
-        // });
-
-        // this.props.dispatch(signIn(this.state, '/teacher'))
+        var credentials = {
+            email: this.state.email,
+            password: this.state.password
+        }
+        this.props.dispatch(getSalt({email: credentials.email}))
     }
 
     handleRegisterSubmit(e) {
@@ -45,7 +59,9 @@ export class Admin extends Component {
 
         bcrypt.genSalt(10, (error, result) => {
 
-            bcrypt.hash(this.state.password, result, null, (err, hash) => {
+            bcrypt.hash(this.state.password, result, (err, hash) => {
+
+                console.log(result, hash)
 
                 var credentials = {
                     name: this.state.registerName,
@@ -54,8 +70,8 @@ export class Admin extends Component {
                     email: this.state.registerEmail,
                 }
 
-                // console.log( credentials )
-                this.props.dispatch( registerUser(credentials) )
+                console.log( credentials )
+                // this.props.dispatch( registerUser(credentials) )
             })
 
         })
@@ -116,6 +132,7 @@ export class Admin extends Component {
 function mapStateToProps (state) {
 	return {
 		loginOrRegister: state.admin.loginOrRegister,
+		user: state.admin.user,
 	}
 }
 

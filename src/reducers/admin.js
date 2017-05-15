@@ -7,6 +7,13 @@ export default handleActions({
             ...state,
             loginOrRegister: action.payload
         })
+    },
+    SET_USER: (state, action) => {
+
+        return ({
+            ...state,
+            user: action.payload
+        })
     }
 }, {
     loginOrRegister: 'login'
