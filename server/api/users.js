@@ -1,5 +1,8 @@
 import User from '../models/user'
 
+// ----------------------------------------
+// Get all the users [GET]
+// ----------------------------------------
 const getUsers = (request, reply) => {
 	User.find({}, (error, users) => {
 	if (error) return reply(error).code(500)
@@ -8,6 +11,9 @@ const getUsers = (request, reply) => {
   })
 }
 
+// ----------------------------------------
+// Get one user with the id [GET]
+// ----------------------------------------
 const getUser = (request, reply) => {
 	User.find({_id: request.params.id}, (error, users) => {
 	if (error) return reply(error).code(500)
@@ -16,11 +22,12 @@ const getUser = (request, reply) => {
   })
 }
 
+// ----------------------------------------
+// Register a new user [POST]
+// ----------------------------------------
 const addUser = (request, reply) => {
-	console.log( request.payload )
 	User.findOne({email: request.payload.email}, (error, user) => {
 		if (error) return reply(error).code(500)
-
 
 		if (user) return reply({error: 'User already exists'}).code(400) //HUR GÖR MAN?
 
@@ -33,30 +40,16 @@ const addUser = (request, reply) => {
 	})
 }
 
-const getSalt = (request, reply) => {
+// ----------------------------------------
+// Get one user with the email [GET]
+// ----------------------------------------
+const getUserByEmail = (request, reply) => {
 	User.find({email: request.params.email}, (error, user) => {
 	if (error) return reply(error).code(500)
 
 	return reply(user).code(200)
   })
 }
-
-// const getSalt = (request, reply) => {
-// 	console.log( request.payload.email )
-	// User.findOne({email: request.payload.email}, (error, user) => {
-	// 	if (error) return reply(error).code(500)
-
-
-	// 	if (user) return reply({error: 'User already exists'}).code(400) //HUR GÖR MAN?
-
-	// 	user = new User(request.payload)
-	// 	user.save(error => {
-	// 		if (error) return reply({error: error.message}).code(400)
-
-	// 		return reply(user).code(200)
-	// 	})
-	// })
-// }
 
 
 exports.register = (server, options, next) => {
@@ -87,7 +80,7 @@ exports.register = (server, options, next) => {
 		method: 'GET',
 		path: '/api/users/email/{email}',
 		config: {
-			handler: getSalt,
+			handler: getUserByEmail,
 			// auth: 'session'
 		}
 	}

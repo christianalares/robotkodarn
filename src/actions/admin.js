@@ -34,7 +34,7 @@ export const registerUser = (credentials) => (dispatch) => {
 	request.send(JSON.stringify(credentials))
 }
 
-export const getSalt = (email) => (dispatch) => {
+export const getUserByEmail = (email) => (dispatch) => {
 
 	const request = new XMLHttpRequest()
 	request.open('GET', '/api/users/email/' + email.email, true)

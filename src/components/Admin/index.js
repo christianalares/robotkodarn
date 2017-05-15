@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { signIn } from '../../actions/auth.js'
 import { toggleUserRegister } from '../../actions/admin'
 import { registerUser } from '../../actions/admin'
-import { getSalt } from '../../actions/admin'
+import { getUserByEmail } from '../../actions/admin'
 
-import bcrypt from 'bcryptjs'
+import forge from 'node-forge'
 
 import styles from './admin.css'
 
@@ -20,7 +20,6 @@ export class Admin extends Component {
             nameRegister: null,
             emailRegister: null,
             passwordRegister: null,
-            fetchedUser: null,
         }
 	}
 
@@ -31,55 +30,46 @@ export class Admin extends Component {
     }
 
     checkPassword(user) {
-        bcrypt.hash(this.state.password, user.salt, (err, hash) => {
-            console.log('this.state.password: ', this.state.password)
-            console.log('user.salt....: ', user.salt)
-            console.log('user.password: ', user.password)
-            console.log('hash.........: ', hash)
+        
+        let md = forge.md.sha256.create()
+        md.update(this.state.password)
+        let hash = md.digest().toHex()
 
-            bcrypt.compare(this.state.password, hash, (err, result) => {
-                console.log(result)
-            })
-        })
-
+        if(hash === user.password) {
+            console.log( 'Inloggad' )
+        } else {
+            console.log( 'FEL!' )
+        }
     }
     
-    handleSubmit(e) {
+    handleLoginSubmit(e) {
         e.preventDefault()
 
         var credentials = {
             email: this.state.email,
             password: this.state.password
         }
-        this.props.dispatch(getSalt({email: credentials.email}))
+        this.props.dispatch(getUserByEmail({email: credentials.email}))
     }
 
     handleRegisterSubmit(e) {
         e.preventDefault()
 
-        bcrypt.genSalt(10, (error, result) => {
+        let md = forge.md.sha256.create()
+        md.update(this.state.registerPassword)
+        let hash = md.digest().toHex()
+       
+        var credentials = {
+            name: this.state.registerName,
+            password: hash,
+            email: this.state.registerEmail,
+        }
 
-            bcrypt.hash(this.state.password, result, (err, hash) => {
-
-                console.log(result, hash)
-
-                var credentials = {
-                    name: this.state.registerName,
-                    password: hash,
-                    salt: result,
-                    email: this.state.registerEmail,
-                }
-
-                console.log( credentials )
-                // this.props.dispatch( registerUser(credentials) )
-            })
-
-        })
-        
+        this.props.dispatch( registerUser(credentials) )       
 
     }
 
-    handleClick(loginOrRegister) {
+    handleLoginOrRegisterClick(loginOrRegister) {
         this.props.dispatch( toggleUserRegister(loginOrRegister) )
     }
 
@@ -88,14 +78,14 @@ export class Admin extends Component {
             return (
                 <div className={styles.login}>
                     <h1>Logga in</h1>
-                    <form onSubmit={this.handleSubmit.bind(this)}>
+                    <form onSubmit={this.handleLoginSubmit.bind(this)}>
                         <label htmlFor="email">Email</label>
                         <input ref="email" onChange={e => this.setState({email: e.target.value})} id="email" type="email" />
                         <label htmlFor="password">Lösenord</label>
                         <input ref="password" onChange={e => this.setState({password: e.target.value})} id="password" type="text" />
                         <input type="submit" value="Logga in" />
                     </form>
-                    <a href="#" onClick={() => this.handleClick('register')}>Registrera ny användare...</a>
+                    <a href="#" onClick={() => this.handleLoginOrRegisterClick('register')}>Registrera ny användare...</a>
                 </div>
             )
         } else {
@@ -113,14 +103,13 @@ export class Admin extends Component {
                         <input ref="password" onChange={e => this.setState({registerPassword: e.target.value})} id="password" type="text" />
                         <input type="submit" value="Registrera" />
                     </form>
-                    <a href="#" onClick={() => this.handleClick('login')}>Tillbaka till inloggning...</a>
+                    <a href="#" onClick={() => this.handleLoginOrRegisterClick('login')}>Tillbaka till inloggning...</a>
                 </div>
             )
         }
     }
 
 	render () {
-
 		return (
             <div>
                 {this.renderContent()}
