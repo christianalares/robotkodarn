@@ -23,7 +23,3 @@ The config file is already set up for connecting to the cloud based db so just s
 First make sure to download the mongo shell, see [mongodb.org](http://mongodb.org) for more info, or just install mong using [homebrew](https://brew.sh/index_se.html):
 
 `brew install mongodb`
-
-Then paste the following command to the terminal:
-
-`mongo "mongodb://robotkodarn-shard-00-00-mgdrh.mongodb.net:27017 robotkodarn-shard-00-01-mgdrh.mongodb.net:27017 robotkodarn-shard-00-02-mgdrh.mongodb.net:27017/test?replicaSet=Robotkodarn-shard-0" --authenticationDatabase admin --ssl --username arduino --password robotkodarn`

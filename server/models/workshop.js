@@ -20,6 +20,9 @@ const workshopSchema = Schema({
 		}
 	}],
 	links: [{
+		_linkID: {
+			type: Number, unique: true, required: true
+		},
 		title: {
 			type: String
 		},

@@ -5,21 +5,21 @@ import User from '../models/user'
 // ----------------------------------------
 const getUsers = (request, reply) => {
 	User.find({}, (error, users) => {
-	if (error) return reply(error).code(500)
+		if (error) return reply(error).code(500)
 
-	return reply(users).code(200)
-  })
+		return reply(users).code(200)
+	})
 }
 
 // ----------------------------------------
 // Get one user with the id [GET]
 // ----------------------------------------
 const getUser = (request, reply) => {
-	User.find({_id: request.params.id}, (error, users) => {
-	if (error) return reply(error).code(500)
+	User.find({_id: request.params.id}, (error, user) => {
+		if (error) return reply(error).code(500)
 
-	return reply(users).code(200)
-  })
+		return reply(user).code(200)
+	})
 }
 
 // ----------------------------------------
@@ -29,7 +29,7 @@ const addUser = (request, reply) => {
 	User.findOne({email: request.payload.email}, (error, user) => {
 		if (error) return reply(error).code(500)
 
-		if (user) return reply({error: 'User already exists'}).code(400) //HUR GÖR MAN?
+		if (user) return reply({error: 'User already exists'}).code(400) //Hur hanteras dessa?
 
 		user = new User(request.payload)
 		user.save(error => {
@@ -44,22 +44,28 @@ const addUser = (request, reply) => {
 // Update a user [PUT]
 // ----------------------------------------
 const updateUser = (request, reply) => {
-	User.find({_id: request.params.id}, (error, users) => {
-	if (error) return reply(error).code(500)
+	User.findOne({_id: request.params.id}, (error, foundUser) => {
+		if (error) return reply(error).code(500)
 
-	return reply(users).code(200)
-  })
+		const i = Object.assign(foundUser, request.payload)
+
+		i.save((error, doc) => {
+			if (error) return reply({error: error.message}).code(400)
+
+			return reply(doc).code(200)
+		})
+	})
 }
 
 // ----------------------------------------
 // Delete a user [DELETE]
 // ----------------------------------------
 const deleteUser = (request, reply) => {
-	User.remove({_id: request.params.id}, (error, users) => {
-	if (error) return reply(error).code(500)
+	User.remove({_id: request.params.id}, (error, user) => {
+		if (error) return reply(error).code(500)
 
-	return reply(users).code(200)
-  })
+		return reply(user).code(200)
+	})
 }
 
 exports.register = (server, options, next) => {
@@ -99,8 +105,7 @@ exports.register = (server, options, next) => {
 		config: {
 			handler: deleteUser
 		}
-	},
-
+	}
 ])
 	next()
 }
