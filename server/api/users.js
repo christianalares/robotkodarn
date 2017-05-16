@@ -44,11 +44,13 @@ const addUser = (request, reply) => {
 // Get one user with the email [GET]
 // ----------------------------------------
 const getUserByEmail = (request, reply) => {
-	User.find({email: request.params.email}, (error, user) => {
-	if (error) return reply(error).code(500)
+	console.log( request )
 
-	return reply(user).code(200)
-  })
+// 	User.find({email: request.params.email}, (error, user) => {
+// 	if (error) return reply(error).code(500)
+
+// 	return reply(user).code(200)
+//   })
 }
 
 
@@ -81,6 +83,15 @@ exports.register = (server, options, next) => {
 		path: '/api/users/email/{email}',
 		config: {
 			handler: getUserByEmail,
+			auth: {
+				mode: 'try',
+				strategy: 'session',
+			},
+			plugins: {
+				'hapi-auth-cookie': {
+					redirectTo: false
+				}
+			}
 			// auth: 'session'
 		}
 	}

@@ -3,7 +3,7 @@ import mongoose, { Schema } from 'mongoose'
 const userSchema = Schema({
 	
     name: {
-        type: String, unique: true, required: true 
+        type: String, required: true 
     },
     password: {
         type: String, required: true

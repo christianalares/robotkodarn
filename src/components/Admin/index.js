@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import { signIn } from '../../actions/auth.js'
 import { toggleUserRegister } from '../../actions/admin'
 import { registerUser } from '../../actions/admin'
-import { getUserByEmail } from '../../actions/admin'
+import { signIn } from '../../actions/admin'
 
 import forge from 'node-forge'
 
@@ -45,11 +44,15 @@ export class Admin extends Component {
     handleLoginSubmit(e) {
         e.preventDefault()
 
+        let md = forge.md.sha256.create()
+        md.update(this.state.password)
+        let hash = md.digest().toHex()
+
         var credentials = {
             email: this.state.email,
-            password: this.state.password
+            password: hash
         }
-        this.props.dispatch(getUserByEmail({email: credentials.email}))
+        this.props.dispatch( signIn(credentials) )
     }
 
     handleRegisterSubmit(e) {
