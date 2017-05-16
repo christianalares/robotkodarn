@@ -2,42 +2,27 @@ import config from 'config'
 import CookieAuth from 'hapi-auth-cookie'
 import User from '../models/user'
 
-const login = (request, reply) => {
-		if (!request.payload.email || !request.payload.password) {
-			return reply({message: 'Missing email or password'}).code(401)
+// ----------------------------------------
+// Get one user with the email [POST]
+// ----------------------------------------
+const getUserByEmail = (request, reply) => {
+	if (!request.payload.email || !request.payload.password) {
+		return reply({message: 'Missing email or password'}).code(401)
+	}
+
+	User.findOne({email: request.payload.email}, (error, user) => {
+		if (error) return reply(error).code(500)
+
+		if(user) {
+			// Email found, check if password is correct
+			return (user.password === request.payload.password)
+				? reply({message: 'Logged in'}).code(200)
+				: reply({message: 'Wrong username and/or password'}).code(401)
 		} else {
-			User.findOne({email: request.payload.email}, (error, user) => {
-				if (error) return reply(error).code(500)
-
-				if (user && request.payload.email === user.email &&
-					request.payload.password === user.password) {
-
-					const { email } = request.payload
-
-					console.log({ email })
-
-					request.cookieAuth.set({email})
-
-					console.log( request.cookieAuth.set )
-					reply({email}).code(200)
-				} else {
-					reply({message: 'Wrong email or password'}).code(401)
-				}
-			})
+			// Email doesn't exist in db
+			reply({message: 'Wrong username and/or password'}).code(401)
 		}
-	
-	// NEDAN ÄR JONAS KOD
-	// if (request.payload.username === config.get('auth.username') &&
-	// 		request.payload.password === config.get('auth.password')) {
-
-	// 		const { username } = request.payload
-
-	// 		request.cookieAuth.set({username})
-
-	// 		reply({username}).code(200)
-	// } else {
-	// 	reply({message: 'Wrong username or password'}).code(401)
-	// }
+	})
 }
 
 const logout = (request, reply) => {
@@ -60,16 +45,17 @@ exports.register = (server, options, next) => {
 				method: 'POST',
 				path: '/auth/login',
 				config: {
-					handler: login,
+					handler: getUserByEmail,
 					auth: {
 						mode: 'try',
-						strategy: 'session'
+						strategy: 'session',
 					},
 					plugins: {
 						'hapi-auth-cookie': {
 							redirectTo: false
 						}
 					}
+					// auth: 'session'
 				}
 			},
 			{

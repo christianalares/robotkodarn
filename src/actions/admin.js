@@ -1,3 +1,5 @@
+import { routeActions } from 'redux-simple-router'
+
 // ----------------------------------------
 // signIn, not currently in use
 // ----------------------------------------
@@ -19,12 +21,13 @@
 // ----------------------------------------
 export const signIn = (credentials, path) => (dispatch) => {
 	const request = new XMLHttpRequest()
-	request.open('GET', '/api/users/email/' + credentials.email, true)
+	request.open('POST', '/auth/login', true)
 	request.setRequestHeader('Content-Type', 'application/json')
 	request.onload = () => {
 		if (request.status >= 200 && request.status < 400) {
-			console.log( request.status )
-			// dispatch(routeActions.push(path))
+			dispatch(routeActions.push(path))
+		} else if(request.status === 401) {
+			window.alert( JSON.parse(request.response).message )
 		}
 	}
 	request.send(JSON.stringify(credentials))

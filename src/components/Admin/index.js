@@ -52,7 +52,7 @@ export class Admin extends Component {
             email: this.state.email,
             password: hash
         }
-        this.props.dispatch( signIn(credentials) )
+        this.props.dispatch( signIn(credentials, '/teacher') )
     }
 
     handleRegisterSubmit(e) {
@@ -124,7 +124,6 @@ export class Admin extends Component {
 function mapStateToProps (state) {
 	return {
 		loginOrRegister: state.admin.loginOrRegister,
-		user: state.admin.user,
 	}
 }
 
