@@ -8,10 +8,13 @@ const workshopSchema = Schema({
 	pincode: {
 		type: String, unique: true, required: true
 	},
-	_userID: {
+	_userId: {
 		type: Number, unique: true, required: true
 	},
 	parts: [{
+		_partId: {
+			type: Number, unique: true, required: true
+		},
 		titel: {
 			type: String, required: true
 		},
@@ -20,7 +23,7 @@ const workshopSchema = Schema({
 		}
 	}],
 	links: [{
-		_linkID: {
+		_linkId: {
 			type: Number, unique: true, required: true
 		},
 		title: {

@@ -27,19 +27,6 @@ export class Admin extends Component {
             this.checkPassword(nextProps.user[0])
         }
     }
-
-    checkPassword(user) {
-        
-        let md = forge.md.sha256.create()
-        md.update(this.state.password)
-        let hash = md.digest().toHex()
-
-        if(hash === user.password) {
-            console.log( 'Inloggad' )
-        } else {
-            console.log( 'FEL!' )
-        }
-    }
     
     handleLoginSubmit(e) {
         e.preventDefault()
