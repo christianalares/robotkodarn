@@ -79,7 +79,7 @@ exports.register = (server, options, next) => {
 	},
 	{
 		method: 'GET',
-		path: '/api/users/{id}',
+		path: '/api/user/{id}',
 		config: {
 			handler: getUser,
 			// auth: 'session'
@@ -87,21 +87,21 @@ exports.register = (server, options, next) => {
 	},
 	{
 		method: 'POST',
-		path: '/api/users',
+		path: '/api/user',
 		config: {
 			handler: addUser
 		}
 	},
 	{
 		method: 'PUT',
-		path: '/api/users/{id}',
+		path: '/api/user/{id}',
 		config: {
 			handler: updateUser
 		}
 	},
 	{
 		method: 'DELETE',
-		path: '/api/users/{id}',
+		path: '/api/user/{id}',
 		config: {
 			handler: deleteUser
 		}

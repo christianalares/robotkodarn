@@ -5,7 +5,7 @@ import User from '../models/user'
 // ----------------------------------------
 // Get one user with the email [POST]
 // ----------------------------------------
-const getUserByEmail = (request, reply) => {
+const signIn = (request, reply) => {
 	if (!request.payload.email || !request.payload.password) {
 		return reply({message: 'Missing email or password'}).code(401)
 	}
@@ -45,7 +45,7 @@ exports.register = (server, options, next) => {
 				method: 'POST',
 				path: '/auth/login',
 				config: {
-					handler: getUserByEmail,
+					handler: signIn,
 					auth: {
 						mode: 'try',
 						strategy: 'session',
