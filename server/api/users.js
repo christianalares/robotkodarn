@@ -40,6 +40,28 @@ const addUser = (request, reply) => {
 	})
 }
 
+// ----------------------------------------
+// Update a user [PUT]
+// ----------------------------------------
+const updateUser = (request, reply) => {
+	User.find({_id: request.params.id}, (error, users) => {
+	if (error) return reply(error).code(500)
+
+	return reply(users).code(200)
+  })
+}
+
+// ----------------------------------------
+// Delete a user [DELETE]
+// ----------------------------------------
+const deleteUser = (request, reply) => {
+	User.remove({_id: request.params.id}, (error, users) => {
+	if (error) return reply(error).code(500)
+
+	return reply(users).code(200)
+  })
+}
+
 exports.register = (server, options, next) => {
 	server.route([{
 		method: 'GET',
@@ -63,7 +85,21 @@ exports.register = (server, options, next) => {
 		config: {
 			handler: addUser
 		}
-	}
+	},
+	{
+		method: 'PUT',
+		path: '/api/users/{id}',
+		config: {
+			handler: updateUser
+		}
+	},
+	{
+		method: 'DELETE',
+		path: '/api/users/{id}',
+		config: {
+			handler: deleteUser
+		}
+	},
 
 ])
 	next()
