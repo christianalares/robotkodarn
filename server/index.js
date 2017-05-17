@@ -8,6 +8,8 @@ import auth from './api/auth'
 import items from './api/items'
 import workshops from './api/workshops'
 import users from './api/users'
+import links from './api/links'
+// import parts from './api/parts'
 
 mongoose.connect(config.get('database.host'))
 mongoose.connection.on('error', console.error.bind(console, 'db error:'))
@@ -67,7 +69,13 @@ server.register([
 	},
 	{
 		register: users
-	}
+	},
+	{
+		register: links
+	},
+	// {
+	// 	register: parts
+	// }
 ], (error) => {
 	if (error) throw error
 
