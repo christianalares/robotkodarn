@@ -48,16 +48,24 @@ const addLink = (request, reply) => {
 // Update a link with {id} [PUT]
 // ----------------------------------------
 const updateLink = (request, reply) => {
-	Link.findOne({_id: request.params.id}, (error, foundLink) => {
+	Workshop.findOne({_id: request.params.wid}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
 
-		const i = Object.assign(foundLink, request.payload)
+		const linkToUpdate = foundWorkshop.links.filter( (link) => link._id == request.params.lid)[0]
+		const index = foundWorkshop.links.indexOf(linkToUpdate)
 
-		i.save((error, doc) => {
+		if(request.payload.title) foundWorkshop.links[index].title = request.payload.title
+		if(request.payload.url) foundWorkshop.links[index].url = request.payload.url
+
+
+		console.log(foundWorkshop)
+		const i = Object.assign(foundWorkshop, request.payload)
+
+		foundWorkshop.save(error => {
 			if (error) return reply({error: error.message}).code(400)
 
-			return reply(doc).code(200)
-		})
+			return reply(foundWorkshop).code(200)
+		})		
 	})
 }
 
@@ -108,7 +116,7 @@ exports.register = (server, options, next) => {
 		},
 		{
 			method: 'PUT',
-			path: '/api/link/{id}',
+			path: '/api/workshop/{wid}/link/{lid}',
 			config: {
 				handler: updateLink
 			}
