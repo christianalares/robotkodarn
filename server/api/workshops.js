@@ -15,7 +15,7 @@ const getWorkshops = (request, reply) => {
 // Get one workshop with {id} [GET]
 // ----------------------------------------
 const getWorkshop = (request, reply) => {
-	Workshop.find({_id: request.params.id}, (error, workshops) => {
+	Workshop.findOne({_id: request.params.id}, (error, workshops) => {
 	if (error) return reply(error).code(500)
 
 	return reply(workshops).code(200)

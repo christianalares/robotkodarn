@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose'
 
 const partSchema = Schema({
     
-    titel: {
+    title: {
         type: String, required: true
     },
     code: {

@@ -1,40 +1,40 @@
-import Link from '../models/link'
+import Part from '../models/part'
 import Workshop from '../models/workshop'
 
 // ----------------------------------------
-// Get all links [GET]
+// Get all part [GET]
 // ----------------------------------------
-const getLinks = (request, reply) => {
+const getParts = (request, reply) => {
 	Workshop.findOne({_id: request.params.id}, (error, foundWorkshop) => {
 	if (error) return reply(error).code(500)
 
-	return reply(foundWorkshop.links).code(200)
+	return reply(foundWorkshop.parts).code(200)
   })
 }
 
 // ----------------------------------------
-// Get one link with {id} [GET]
+// Get one part with {id} [GET]
 // ----------------------------------------
-const getLink = (request, reply) => {
+const getPart = (request, reply) => {
 	Workshop.findOne({_id: request.params.wid}, (error, foundWorkshop) => {
 	if (error) return reply(error).code(500)
 
-	const link = foundWorkshop.links.filter( (link) => link._id == request.params.lid )[0]
+	const part = foundWorkshop.parts.filter( (part) => part._id == request.params.pid )[0]
 
-	return reply(link).code(200)
+	return reply(part).code(200)
   })
 }
 
 // ----------------------------------------
-// Add a link [POST]
+// Add a part [POST]
 // ----------------------------------------
-const addLink = (request, reply) => {
+const addPart = (request, reply) => {
 	Workshop.findOne({_id: request.params.id}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
 
-		const link = new Link(request.payload)
+		const part = new Part(request.payload)
 
-		foundWorkshop.links.push(link)
+		foundWorkshop.parts.push(part)
 
 		foundWorkshop.save(error => {
 			if (error) return reply({error: error.message}).code(400)
@@ -45,18 +45,18 @@ const addLink = (request, reply) => {
 }
 
 // ----------------------------------------
-// Update a link with {id} [PUT]
+// Update a part with {id} [PUT]
 // ----------------------------------------
-const updateLink = (request, reply) => {
+const updatePart = (request, reply) => {
 	Workshop.findOne({_id: request.params.wid}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
 
-		const linkToUpdate = foundWorkshop.links.filter( (link) => link._id == request.params.lid)[0]
-		const index = foundWorkshop.links.indexOf(linkToUpdate)
+		const partToUpdate = foundWorkshop.parts.filter( (part) => part._id == request.params.pid)[0]
+		const index = foundWorkshop.parts.indexOf(partToUpdate)
 		
-		const newLink = Object.assign(linkToUpdate, request.payload)
+		const newPart = Object.assign(partToUpdate, request.payload)
 
-		foundWorkshop.links.splice( index, 1, newLink )
+		foundWorkshop.parts.splice( index, 1, newPart )
 
 		foundWorkshop.save(error => {
 			if (error) return reply({error: error.message}).code(400)
@@ -67,14 +67,14 @@ const updateLink = (request, reply) => {
 }
 
 // ----------------------------------------
-// Delete a link with {id} [DELETE]
+// Delete a part with {id} [DELETE]
 // ----------------------------------------
-const deleteLink = (request, reply) => {
+const deletePart = (request, reply) => {
 	Workshop.findOne({_id: request.params.wid}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
 
-		const linkToDelete = foundWorkshop.links.filter( (link) => link._id == request.params.lid )[0]
-		foundWorkshop.links.splice( foundWorkshop.links.indexOf(linkToDelete), 1 )
+		const partToDelete = foundWorkshop.parts.filter( (part) => part._id == request.params.pid )[0]
+		foundWorkshop.parts.splice( foundWorkshop.parts.indexOf(partToDelete), 1 )
 
 		foundWorkshop.save(error => {
 			if (error) return reply({error: error.message}).code(400)
@@ -90,39 +90,39 @@ exports.register = (server, options, next) => {
 	server.route([
 		{
 			method: 'GET',
-			path: '/api/workshop/{id}/links',
+			path: '/api/workshop/{id}/parts',
 			config: {
-				handler: getLinks,
+				handler: getParts,
 				// auth: 'session'
 			}
 		},
 		{
 			method: 'GET',
-			path: '/api/workshop/{wid}/link/{lid}',
+			path: '/api/workshop/{wid}/part/{pid}',
 			config: {
-				handler: getLink,
+				handler: getPart,
 				// auth: 'session'
 			}
 		},
 		{
 			method: 'POST',
-			path: '/api/workshop/{id}/link',
+			path: '/api/workshop/{id}/part',
 			config: {
-				handler: addLink
+				handler: addPart
 			}
 		},
 		{
 			method: 'PUT',
-			path: '/api/workshop/{wid}/link/{lid}',
+			path: '/api/workshop/{wid}/part/{pid}',
 			config: {
-				handler: updateLink
+				handler: updatePart
 			}
 		},
 		{
 			method: 'DELETE',
-			path: '/api/workshop/{wid}/link/{lid}',
+			path: '/api/workshop/{wid}/part/{pid}',
 			config: {
-				handler: deleteLink
+				handler: deletePart
 			}
 		}
 	])
@@ -130,6 +130,6 @@ exports.register = (server, options, next) => {
 }
 
 exports.register.attributes = {
-	name: 'links'
+	name: 'parts'
 }
 

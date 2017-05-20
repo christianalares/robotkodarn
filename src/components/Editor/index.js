@@ -56,6 +56,9 @@ export class Editor extends Component {
         } else {
             return (
                 <AceEditor
+                    setOptions={{
+                        readOnly: false
+                    }}
                     fontSize='16px'
                     mode='c_cpp'
                     theme='chrome'
