@@ -7,6 +7,7 @@ import Editor from './../Editor'
 import Console from './../Console'
 import ActionButtons from './../ActionButtons'
 import Snippets from './../Snippets'
+import { receiveItems, deleteItem, updateItem } from '../../actions/items'
 
 import styles from './teacher.css'
 
@@ -15,6 +16,11 @@ export class Teacher extends Component {
 		super(props)
 
 		this.getMainPaneClassName = this.getMainPaneClassName.bind(this)
+	}
+
+	//TODO: receiveItems
+	componentWillMount () {
+		this.props.dispatch(receiveItems())
 	}
 
 	getMainPaneClassName() {
