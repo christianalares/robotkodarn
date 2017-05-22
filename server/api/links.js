@@ -1,5 +1,7 @@
-import Link from '../models/link'
+import { Link, linkValidation } from '../models/link'
 import Workshop from '../models/workshop'
+import Joi from 'joi'
+
 
 // ----------------------------------------
 // Get all links [GET]
@@ -31,16 +33,19 @@ const getLink = (request, reply) => {
 const addLink = (request, reply) => {
 	Workshop.findOne({_id: request.params.id}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
-
+		
 		const link = new Link(request.payload)
 
-		foundWorkshop.links.push(link)
+		Joi.validate(link, linkValidation, (validationError, value) => {
+			if (validationError) return reply({error: validationError}).code(400)
 
-		foundWorkshop.save(error => {
-			if (error) return reply({error: error.message}).code(400)
-			return reply(foundWorkshop).code(200)			
+			foundWorkshop.links.push(link)
+
+			foundWorkshop.save(saveError => {
+				if (saveError) return reply({error: saveError.message}).code(400)
+				return reply(foundWorkshop).code(200)			
+			})
 		})
-
 	})
 }
 
@@ -56,12 +61,16 @@ const updateLink = (request, reply) => {
 		
 		const newLink = Object.assign(linkToUpdate, request.payload)
 
-		foundWorkshop.links.splice( index, 1, newLink )
+		Joi.validate(newLink, linkValidation, (validationError, value) => {
+			if (validationError) return reply({error: validationError}).code(400)
 
-		foundWorkshop.save(error => {
-			if (error) return reply({error: error.message}).code(400)
+			foundWorkshop.links.splice( index, 1, newLink )
 
-			return reply(foundWorkshop).code(200)
+			foundWorkshop.save(saveError => {
+				if (saveError) return reply({error: saveError.message}).code(400)
+
+				return reply(foundWorkshop).code(200)
+			})
 		})
 	})
 }
