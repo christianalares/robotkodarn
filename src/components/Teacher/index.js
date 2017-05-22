@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
+import { isLoggedIn } from '../../actions/teacher'
 
 import Navbar from './../Navbar'
 import Sidebar from './../Sidebar'
@@ -15,6 +17,10 @@ export class Teacher extends Component {
 		super(props)
 
 		this.getMainPaneClassName = this.getMainPaneClassName.bind(this)
+	}
+
+	componentWillMount() {
+		this.props.dispatch(isLoggedIn())
 	}
 
 	getMainPaneClassName() {

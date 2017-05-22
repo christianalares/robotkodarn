@@ -1,6 +1,7 @@
 import config from 'config'
 import CookieAuth from 'hapi-auth-cookie'
 import User from '../models/user'
+import { routeActions } from 'redux-simple-router'
 
 // ----------------------------------------
 // Get one user with the email [POST]
@@ -15,9 +16,16 @@ const signIn = (request, reply) => {
 
 		if(user) {
 			// Email found, check if password is correct
-			return (user.password === request.payload.password)
-				? reply({message: 'Logged in'}).code(200)
-				: reply({message: 'Wrong username and/or password'}).code(401)
+			if(user.password === request.payload.password) {
+
+				const user = request.payload
+				request.cookieAuth.set({user}) // Set user cookie
+				console.log(user)
+
+				return reply({message: 'Logged in'}).code(200)
+			} else {
+				return reply({message: 'Wrong username and/or password'}).code(401)
+			}
 		} else {
 			// Email doesn't exist in db
 			reply({message: 'Wrong username and/or password'}).code(401)
@@ -43,7 +51,7 @@ exports.register = (server, options, next) => {
 		server.route([
 			{
 				method: 'POST',
-				path: '/auth/login',
+				path: '/auth/signIn',
 				config: {
 					handler: signIn,
 					auth: {
