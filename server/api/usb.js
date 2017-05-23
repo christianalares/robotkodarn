@@ -3,20 +3,20 @@ var Avrgirl = require('avrgirl-arduino');
 const testUSB = (request, reply) => {
 
     var avrgirl = new Avrgirl({
-        board: 'leonardo',
+        board: 'uno',
         debug: true,
-        manualReset: true
+        manualReset: false
     });
 
     // console.log( avrgirl )
 
-    avrgirl.flash(__dirname + '/sensorer.hex', function (error) {
+    avrgirl.flash(__dirname + '/blink.hex.hex', function (error) {
         if (error) {
-            return reply(error).code(200)
-            // console.log( error )
+            // return reply(error).code(200)
+            console.log( error )
         } else {
-            return reply('done').code(200)
-            // console.log( 'done' )
+            // return reply('done').code(200)
+            console.log( 'done' )
         }
     });
 }
