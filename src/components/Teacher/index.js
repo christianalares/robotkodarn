@@ -9,7 +9,7 @@ import Editor from './../Editor'
 import Console from './../Console'
 import ActionButtons from './../ActionButtons'
 import Snippets from './../Snippets'
-import { receiveItems, deleteItem, updateItem } from '../../actions/items'
+import { receiveItems } from '../../actions/isLoggedIn'
 
 import styles from './teacher.css'
 

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { createItem } from '../../actions/items'
+// import { createItem } from '../../actions/items'
 
 export class Create extends Component {
 	constructor (props) {
@@ -16,7 +16,7 @@ export class Create extends Component {
 	handleSubmit (event) {
 		event.preventDefault()
 
-		this.props.dispatch(createItem(this.state))
+		// this.props.dispatch(createItem(this.state))
 	}
 
 	render () {

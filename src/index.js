@@ -32,13 +32,9 @@ render((
 	<Provider store={store}>
 		<Router history={browserHistory}>
 			<Route path="/" component={App}>
-				<IndexRedirect to='/student'/>
-				
-				<Route path="/list" component={List}/>
-				<Route path="/create" component={Create}/>
-				<Route path="/authenticate" component={Authenticate}/>
+				<IndexRedirect to='/login'/>
 				<Route path="/editor" component={Editor}/>
-				<Route path="/student" component={Student}/>
+				<Route path="/student/8907" component={Student}/>
 				<Route path="/teacher" component={Teacher}/>
 				<Route path="/login" component={Login}/>
 				<Route path="/admin" component={Admin}/>

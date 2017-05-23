@@ -87,29 +87,31 @@ exports.register = (server, options, next) => {
 			method: 'GET',
 			path: '/api/workshop/{id}',
 			config: {
-				handler: getWorkshop,
-				// auth: 'session'
+				handler: getWorkshop
 			}
 		},
 		{
 			method: 'POST',
 			path: '/api/workshop',
 			config: {
-				handler: addWorkshop
+				handler: addWorkshop,
+				auth: 'session'
 			}
 		},
 		{
 			method: 'PUT',
 			path: '/api/workshop/{id}',
 			config: {
-				handler: updateWorkshop
+				handler: updateWorkshop,
+				auth: 'session'
 			}
 		},
 		{
 			method: 'DELETE',
 			path: '/api/workshop/{id}',
 			config: {
-				handler: deleteWorkshop
+				handler: deleteWorkshop,
+				auth: 'session'
 			}
 		}
 	])

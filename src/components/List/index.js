@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { receiveItems, deleteItem, updateItem } from '../../actions/items'
+// import { receiveItems, deleteItem, updateItem } from '../../actions/items'
 import { signOut } from '../../actions/auth'
 import { Update } from '../Update'
 
@@ -15,11 +15,11 @@ export class List extends Component {
 	}
 
 	componentWillMount () {
-		this.props.dispatch(receiveItems())
+		// this.props.dispatch(receiveItems())
 	}
 
 	handleItemDelete (event) {
-		this.props.dispatch(deleteItem(event.target.dataset.id))
+		// this.props.dispatch(deleteItem(event.target.dataset.id))
 	}
 
 	handleItemUpdate (event) {
@@ -29,7 +29,7 @@ export class List extends Component {
 	}
 
 	handleUpdateSubmit (data) {
-		this.props.dispatch(updateItem(data))
+		// this.props.dispatch(updateItem(data))
 	}
 
 	handleSignOut (event) {
