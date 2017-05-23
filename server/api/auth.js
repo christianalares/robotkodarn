@@ -16,16 +16,13 @@ const signIn = (request, reply) => {
 
 		if(user) {
 			// Email found, check if password is correct
-			if(user.password === request.payload.password) {
+			const { email } = request.payload
 
-				const user = request.payload
-				request.cookieAuth.set({user}) // Set user cookie
-				console.log(user)
+			request.cookieAuth.set({email})
 
-				return reply({message: 'Logged in'}).code(200)
-			} else {
-				return reply({message: 'Wrong username and/or password'}).code(401)
-			}
+			return (user.password === request.payload.password)
+				? reply({message: 'Logged in'}).code(200)
+				: reply({message: 'Wrong username and/or password'}).code(401)
 		} else {
 			// Email doesn't exist in db
 			reply({message: 'Wrong username and/or password'}).code(401)
@@ -45,6 +42,7 @@ exports.register = (server, options, next) => {
 		server.auth.strategy('session', 'cookie', {
 			password: config.get('auth.key'),
 			isSecure: process.env.NODE_ENV === 'production',
+			cookie: 'sid-example',
 			isHttpOnly: true
 		})
 
@@ -63,7 +61,7 @@ exports.register = (server, options, next) => {
 							redirectTo: false
 						}
 					}
-					// auth: 'session'
+					//auth: 'session'
 				}
 			},
 			{
