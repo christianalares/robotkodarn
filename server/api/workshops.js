@@ -80,7 +80,7 @@ exports.register = (server, options, next) => {
 			path: '/api/workshops',
 			config: {
 				handler: getWorkshops,
-				// auth: 'session'
+				auth: 'session'
 			}
 		},
 		{
