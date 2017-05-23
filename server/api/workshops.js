@@ -1,4 +1,5 @@
-import Workshop from '../models/workshop'
+import { Workshop, workshopValidation} from '../models/workshop'
+import Joi from 'joi'
 
 // ----------------------------------------
 // Get all workshops [GET]
@@ -28,10 +29,14 @@ const getWorkshop = (request, reply) => {
 const addWorkshop = (request, reply) => {
 	const workshop = new Workshop(request.payload)
 
-	workshop.save(error => {
-		if (error) return reply({error: error.message}).code(400)
+	Joi.validate(workshop, workshopValidation, (validationError, value) => {
+		if (validationError) return reply({error: validationError}).code(400)
 
-		return reply(workshop).code(200)
+		workshop.save(error => {
+			if (error) return reply({error: error.message}).code(400)
+
+			return reply(workshop).code(200)
+		})
 	})
 }
 
@@ -42,12 +47,16 @@ const updateWorkshop = (request, reply) => {
 	Workshop.findOne({_id: request.params.id}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
 
-		const i = Object.assign(foundWorkshop, request.payload)
+		const workshop = Object.assign(foundWorkshop, request.payload)
 
-		i.save((error, doc) => {
-			if (error) return reply({error: error.message}).code(400)
+		Joi.validate(workshop, workshopValidation, (validationError, value) => {
+			if (validationError) return reply({error: validationError}).code(400)
 
-			return reply(doc).code(200)
+			workshop.save((error, doc) => {
+				if (error) return reply({error: error.message}).code(400)
+
+				return reply(doc).code(200)
+			})
 		})
 	})
 }

@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import Joi from 'joi'
 
 const partSchema = Schema({
     
@@ -11,4 +12,10 @@ const partSchema = Schema({
     
 })
 
-export default mongoose.model('Part', partSchema)
+export const partValidation = Joi.object().keys({
+    _id: Joi.object().required(),
+    title: Joi.string().required(),
+    code: Joi.string().min(10).required() 
+}).unknown()
+
+export const Part = mongoose.model('Part', partSchema)

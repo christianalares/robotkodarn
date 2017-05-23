@@ -1,5 +1,6 @@
-import Part from '../models/part'
+import { Part, partValidation } from '../models/part'
 import Workshop from '../models/workshop'
+import Joi from 'joi'
 
 // ----------------------------------------
 // Get all part [GET]
@@ -34,13 +35,16 @@ const addPart = (request, reply) => {
 
 		const part = new Part(request.payload)
 
-		foundWorkshop.parts.push(part)
+		Joi.validate(part, partValidation, (validationError, value) => {
+			if (validationError) return reply({error: validationError}).code(400)
 
-		foundWorkshop.save(error => {
-			if (error) return reply({error: error.message}).code(400)
-			return reply(foundWorkshop).code(200)			
+			foundWorkshop.parts.push(part)
+
+			foundWorkshop.save(saveError => {
+				if (saveError) return reply({error: saveError.message}).code(400)
+				return reply(foundWorkshop).code(200)			
+			})
 		})
-
 	})
 }
 
@@ -56,12 +60,16 @@ const updatePart = (request, reply) => {
 		
 		const newPart = Object.assign(partToUpdate, request.payload)
 
-		foundWorkshop.parts.splice( index, 1, newPart )
+		Joi.validate(newPart, partValidation, (validationError, value) => {
+			if (validationError) return reply({error: validationError}).code(400)
 
-		foundWorkshop.save(error => {
-			if (error) return reply({error: error.message}).code(400)
+			foundWorkshop.parts.splice( index, 1, newPart )
 
-			return reply(foundWorkshop).code(200)
+			foundWorkshop.save(saveError => {
+				if (saveError) return reply({error: saveError.message}).code(400)
+
+				return reply(foundWorkshop).code(200)
+			})
 		})
 	})
 }
