@@ -1,6 +1,7 @@
 import config from 'config'
 import CookieAuth from 'hapi-auth-cookie'
 import User from '../models/user'
+import { routeActions } from 'redux-simple-router'
 
 // ----------------------------------------
 // Get one user with the email [POST]
@@ -48,7 +49,7 @@ exports.register = (server, options, next) => {
 		server.route([
 			{
 				method: 'POST',
-				path: '/auth/login',
+				path: '/auth/signIn',
 				config: {
 					handler: signIn,
 					auth: {
