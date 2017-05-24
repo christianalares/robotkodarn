@@ -1,12 +1,12 @@
 import { handleActions } from 'redux-actions'
 
 export default handleActions({
-	SET_SIDEBAR_OPEN: (state, action) => {
+	IS_LOGGED_IN: (state, action) => {
 		return ({
 			...state,
-			open: action.payload
+			loggedInUser: action.payload
 		})
 	}
 }, {
-	open: true
+	loggedInUser: {}
 })

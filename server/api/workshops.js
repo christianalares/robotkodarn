@@ -1,9 +1,11 @@
-import Workshop from '../models/workshop'
+import { Workshop, workshopValidation} from '../models/workshop'
+import Joi from 'joi'
 
 // ----------------------------------------
 // Get all workshops [GET]
 // ----------------------------------------
 const getWorkshops = (request, reply) => {
+
 	var name = request.auth.artifacts
 
 	Workshop.find({userId: name._id}, (error, workshops) => {
@@ -11,6 +13,7 @@ const getWorkshops = (request, reply) => {
 	// console.log(request.auth.artifacts)
 	return reply(workshops).code(200)
   })
+
 }
 
 // ----------------------------------------
@@ -18,10 +21,10 @@ const getWorkshops = (request, reply) => {
 // ----------------------------------------
 const getWorkshop = (request, reply) => {
 	Workshop.findOne({_id: request.params.id}, (error, workshops) => {
-	if (error) return reply(error).code(500)
+		if (error) return reply(error).code(500)
 
-	return reply(workshops).code(200)
-  })
+			return reply(workshops).code(200)
+	})
 }
 
 // ----------------------------------------
@@ -30,10 +33,14 @@ const getWorkshop = (request, reply) => {
 const addWorkshop = (request, reply) => {
 	const workshop = new Workshop(request.payload)
 
-	workshop.save(error => {
-		if (error) return reply({error: error.message}).code(400)
+	Joi.validate(workshop, workshopValidation, (validationError, value) => {
+		if (validationError) return reply({error: validationError}).code(400)
 
-		return reply(workshop).code(200)
+			workshop.save(error => {
+				if (error) return reply({error: error.message}).code(400)
+
+					return reply(workshop).code(200)
+			})
 	})
 }
 
@@ -44,12 +51,16 @@ const updateWorkshop = (request, reply) => {
 	Workshop.findOne({_id: request.params.id}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
 
-		const i = Object.assign(foundWorkshop, request.payload)
+			const workshop = Object.assign(foundWorkshop, request.payload)
 
-		i.save((error, doc) => {
-			if (error) return reply({error: error.message}).code(400)
+		Joi.validate(workshop, workshopValidation, (validationError, value) => {
+			if (validationError) return reply({error: validationError}).code(400)
 
-			return reply(doc).code(200)
+				workshop.save((error, doc) => {
+					if (error) return reply({error: error.message}).code(400)
+
+						return reply(doc).code(200)
+				})
 		})
 	})
 }
@@ -61,13 +72,14 @@ const deleteWorkshop = (request, reply) => {
 	Workshop.remove({_id: request.params.id}, (error, workshop) => {
 		if (error) return reply(error).code(500)
 
-		return reply(workshop).code(200)
+			return reply(workshop).code(200)
 	})
 }
 
 
 exports.register = (server, options, next) => {
 	server.route([
+<<<<<<< HEAD
 		{
 			method: 'GET',
 			path: '/api/workshops',
@@ -104,8 +116,49 @@ exports.register = (server, options, next) => {
 			config: {
 				handler: deleteWorkshop
 			}
+=======
+	{
+		method: 'GET',
+		path: '/api/workshops',
+		config: {
+			handler: getWorkshops,
+			auth: 'session'
 		}
+	},
+	{
+		method: 'GET',
+		path: '/api/workshop/{id}',
+		config: {
+			handler: getWorkshop
+		}
+	},
+	{
+		method: 'POST',
+		path: '/api/workshop',
+		config: {
+			handler: addWorkshop,
+			auth: 'session'
+		}
+	},
+	{
+		method: 'PUT',
+		path: '/api/workshop/{id}',
+		config: {
+			handler: updateWorkshop,
+			auth: 'session'
+		}
+	},
+	{
+		method: 'DELETE',
+		path: '/api/workshop/{id}',
+		config: {
+			handler: deleteWorkshop,
+			auth: 'session'
+>>>>>>> 8c2c39cd8ecee1ba27de7d9652cf324c5b20b05e
+		}
+	}
 	])
+
 	next()
 }
 

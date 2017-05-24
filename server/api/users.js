@@ -8,7 +8,9 @@ const getUsers = (request, reply) => {
 	// console.log(name)
 	User.find({/*email: name.email*/}, (error, users) => {
 		if (error) return reply(error).code(500)
+
 		return reply(users).code(200)
+
 	})
 }
 
@@ -19,7 +21,7 @@ const getUser = (request, reply) => {
 	User.find({email: request.params.id}, (error, user) => {
 		if (error) return reply(error).code(500)
 
-		return reply(user).code(200)
+			return reply(user).code(200)
 	})
 }
 
@@ -32,11 +34,11 @@ const addUser = (request, reply) => {
 
 		if (user) return reply({error: 'User already exists'}).code(400) //Hur hanteras dessa?
 
-		user = new User(request.payload)
+			user = new User(request.payload)
 		user.save(error => {
 			if (error) return reply({error: error.message}).code(400)
 
-			return reply(user).code(200)
+				return reply(user).code(200)
 		})
 	})
 }
@@ -48,12 +50,12 @@ const updateUser = (request, reply) => {
 	User.findOne({_id: request.params.id}, (error, foundUser) => {
 		if (error) return reply(error).code(500)
 
-		const i = Object.assign(foundUser, request.payload)
+			const i = Object.assign(foundUser, request.payload)
 
 		i.save((error, doc) => {
 			if (error) return reply({error: error.message}).code(400)
 
-			return reply(doc).code(200)
+				return reply(doc).code(200)
 		})
 	})
 }
@@ -65,12 +67,13 @@ const deleteUser = (request, reply) => {
 	User.remove({_id: request.params.id}, (error, user) => {
 		if (error) return reply(error).code(500)
 
-		return reply(user).code(200)
+			return reply(user).code(200)
 	})
 }
 
 exports.register = (server, options, next) => {
-	server.route([{
+	server.route([
+	{
 		method: 'GET',
 		path: '/api/users',
 		config: {
@@ -83,34 +86,42 @@ exports.register = (server, options, next) => {
 		path: '/api/user/{id}',
 		config: {
 			handler: getUser,
-			// auth: 'session'
+			auth: 'session'
 		}
 	},
 	{
 		method: 'POST',
 		path: '/api/user',
 		config: {
-			handler: addUser
+			handler: addUser,
+			auth: 'session'
 		}
 	},
 	{
 		method: 'PUT',
 		path: '/api/user/{id}',
 		config: {
-			handler: updateUser
+			handler: updateUser,
+			auth: 'session'
 		}
 	},
 	{
 		method: 'DELETE',
 		path: '/api/user/{id}',
 		config: {
-			handler: deleteUser
+			handler: deleteUser,
+			auth: 'session'
 		}
 	}
-])
+	])
+
 	next()
 }
 
 exports.register.attributes = {
 	name: 'user'
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 8c2c39cd8ecee1ba27de7d9652cf324c5b20b05e

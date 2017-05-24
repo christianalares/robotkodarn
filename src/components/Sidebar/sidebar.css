@@ -7,12 +7,9 @@
 	border-right: 1px solid rgba(0, 0, 0, .12);
 	box-shadow: inset 0 0 20px rgba(0, 0, 0, .2);
 	transition: margin-left .5s;
-	/*backface-visibility: hidden;*/
 }
 :local .mainSidebarClosed {
 	margin-left: -316px;
-	/*transform: translateX(-316px);*/
-	/*margin-right: -316px;*/
 }
 
 	:local .mainSidebar .content {
@@ -56,7 +53,7 @@
 
 		:local .mainSidebar .partList {
 			margin-top: 20px;
-			height: 50vh;
+			height: 50%;
 		}
 
 			:local .mainSidebar .partList li,
@@ -64,6 +61,7 @@
 				margin: 5px 0 0 40px;
 				font-size: 1.2rem;
 			}
+
 				:local .mainSidebar .partList li a,
 				:local .mainSidebar .referenceList li a {
 					margin-left: 5px;

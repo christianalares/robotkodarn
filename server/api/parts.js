@@ -1,15 +1,16 @@
-import Part from '../models/part'
+import { Part, partValidation } from '../models/part'
 import Workshop from '../models/workshop'
+import Joi from 'joi'
 
 // ----------------------------------------
 // Get all part [GET]
 // ----------------------------------------
 const getParts = (request, reply) => {
 	Workshop.findOne({_id: request.params.id}, (error, foundWorkshop) => {
-	if (error) return reply(error).code(500)
+		if (error) return reply(error).code(500)
 
-	return reply(foundWorkshop.parts).code(200)
-  })
+			return reply(foundWorkshop.parts).code(200)
+	})
 }
 
 // ----------------------------------------
@@ -17,12 +18,12 @@ const getParts = (request, reply) => {
 // ----------------------------------------
 const getPart = (request, reply) => {
 	Workshop.findOne({_id: request.params.wid}, (error, foundWorkshop) => {
-	if (error) return reply(error).code(500)
+		if (error) return reply(error).code(500)
 
-	const part = foundWorkshop.parts.filter( (part) => part._id == request.params.pid )[0]
+			const part = foundWorkshop.parts.filter( (part) => part._id == request.params.pid )[0]
 
-	return reply(part).code(200)
-  })
+		return reply(part).code(200)
+	})
 }
 
 // ----------------------------------------
@@ -32,15 +33,18 @@ const addPart = (request, reply) => {
 	Workshop.findOne({_id: request.params.id}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
 
-		const part = new Part(request.payload)
+			const part = new Part(request.payload)
 
-		foundWorkshop.parts.push(part)
+		Joi.validate(part, partValidation, (validationError, value) => {
+			if (validationError) return reply({error: validationError}).code(400)
 
-		foundWorkshop.save(error => {
-			if (error) return reply({error: error.message}).code(400)
-			return reply(foundWorkshop).code(200)			
+				foundWorkshop.parts.push(part)
+
+			foundWorkshop.save(saveError => {
+				if (saveError) return reply({error: saveError.message}).code(400)
+					return reply(foundWorkshop).code(200)			
+			})
 		})
-
 	})
 }
 
@@ -51,17 +55,21 @@ const updatePart = (request, reply) => {
 	Workshop.findOne({_id: request.params.wid}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
 
-		const partToUpdate = foundWorkshop.parts.filter( (part) => part._id == request.params.pid)[0]
+			const partToUpdate = foundWorkshop.parts.filter( (part) => part._id == request.params.pid)[0]
 		const index = foundWorkshop.parts.indexOf(partToUpdate)
 		
 		const newPart = Object.assign(partToUpdate, request.payload)
 
-		foundWorkshop.parts.splice( index, 1, newPart )
+		Joi.validate(newPart, partValidation, (validationError, value) => {
+			if (validationError) return reply({error: validationError}).code(400)
 
-		foundWorkshop.save(error => {
-			if (error) return reply({error: error.message}).code(400)
+				foundWorkshop.parts.splice( index, 1, newPart )
 
-			return reply(foundWorkshop).code(200)
+			foundWorkshop.save(saveError => {
+				if (saveError) return reply({error: saveError.message}).code(400)
+
+					return reply(foundWorkshop).code(200)
+			})
 		})
 	})
 }
@@ -73,13 +81,13 @@ const deletePart = (request, reply) => {
 	Workshop.findOne({_id: request.params.wid}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
 
-		const partToDelete = foundWorkshop.parts.filter( (part) => part._id == request.params.pid )[0]
+			const partToDelete = foundWorkshop.parts.filter( (part) => part._id == request.params.pid )[0]
 		foundWorkshop.parts.splice( foundWorkshop.parts.indexOf(partToDelete), 1 )
 
 		foundWorkshop.save(error => {
 			if (error) return reply({error: error.message}).code(400)
 
-			return reply(foundWorkshop).code(200)
+				return reply(foundWorkshop).code(200)
 		})
 	})
 }
@@ -88,44 +96,46 @@ const deletePart = (request, reply) => {
 
 exports.register = (server, options, next) => {
 	server.route([
-		{
-			method: 'GET',
-			path: '/api/workshop/{id}/parts',
-			config: {
-				handler: getParts,
-				// auth: 'session'
-			}
-		},
-		{
-			method: 'GET',
-			path: '/api/workshop/{wid}/part/{pid}',
-			config: {
-				handler: getPart,
-				// auth: 'session'
-			}
-		},
-		{
-			method: 'POST',
-			path: '/api/workshop/{id}/part',
-			config: {
-				handler: addPart
-			}
-		},
-		{
-			method: 'PUT',
-			path: '/api/workshop/{wid}/part/{pid}',
-			config: {
-				handler: updatePart
-			}
-		},
-		{
-			method: 'DELETE',
-			path: '/api/workshop/{wid}/part/{pid}',
-			config: {
-				handler: deletePart
-			}
+	{
+		method: 'GET',
+		path: '/api/workshop/{id}/parts',
+		config: {
+			handler: getParts
 		}
+	},
+	{
+		method: 'GET',
+		path: '/api/workshop/{wid}/part/{pid}',
+		config: {
+			handler: getPart
+		}
+	},
+	{
+		method: 'POST',
+		path: '/api/workshop/{id}/part',
+		config: {
+			handler: addPart,
+			auth: 'session'
+		}
+	},
+	{
+		method: 'PUT',
+		path: '/api/workshop/{wid}/part/{pid}',
+		config: {
+			handler: updatePart,
+			auth: 'session'
+		}
+	},
+	{
+		method: 'DELETE',
+		path: '/api/workshop/{wid}/part/{pid}',
+		config: {
+			handler: deletePart,
+			auth: 'session'
+		}
+	}
 	])
+
 	next()
 }
 

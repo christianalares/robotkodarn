@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
+import { isLoggedIn } from '../../actions/isLoggedIn'
 
 import Navbar from './../Navbar'
 import Sidebar from './../Sidebar'
@@ -7,7 +9,6 @@ import Editor from './../Editor'
 import Console from './../Console'
 import ActionButtons from './../ActionButtons'
 import Snippets from './../Snippets'
-import { receiveItems, deleteItem, updateItem } from '../../actions/items'
 
 import styles from './teacher.css'
 
@@ -18,9 +19,9 @@ export class Teacher extends Component {
 		this.getMainPaneClassName = this.getMainPaneClassName.bind(this)
 	}
 
-	//TODO: receiveItems
+
 	componentWillMount () {
-		this.props.dispatch(receiveItems())
+		this.props.dispatch(isLoggedIn())
 	}
 
 	getMainPaneClassName() {
@@ -51,7 +52,8 @@ export class Teacher extends Component {
 
 function mapStateToProps (state) {
 	return {
-		isSidebarOpen: state.sidebar.open
+		isSidebarOpen: state.sidebar.open,
+		isLoggedInUser: state.teacher.isLoggedInUser
 	}
 }
 

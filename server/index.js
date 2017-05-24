@@ -5,11 +5,12 @@ import mongoose from 'mongoose'
 import config from 'config'
 import base from './base'
 import auth from './api/auth'
-import items from './api/items'
+import isLoggedIn from './api/isLoggedIn'
 import workshops from './api/workshops'
 import users from './api/users'
 import links from './api/links'
 import parts from './api/parts'
+import usb from './api/usb'
 
 mongoose.connect(config.get('database.host'))
 mongoose.connection.on('error', console.error.bind(console, 'db error:'))
@@ -29,53 +30,54 @@ server.connection({
 	port: process.env.PORT || 8000
 })
 
-// if (process.env.NODE_ENV === 'development') {
-	const webpack = require('webpack')
-	const WebpackPlugin = require('hapi-webpack-plugin')
-	const wpconfig = require('../webpack/config.dev')
+const webpack = require('webpack')
+const WebpackPlugin = require('hapi-webpack-plugin')
+const wpconfig = require('../webpack/config.dev')
 
-	server.register({
-		register: WebpackPlugin,
-		options: {
-			compiler: webpack(wpconfig),
-			assets: {
-				noInfo: true,
-				publicPath: wpconfig.output.publicPath,
-				quiet: true
-			}
+server.register({
+	register: WebpackPlugin,
+	options: {
+		compiler: webpack(wpconfig),
+		assets: {
+			noInfo: true,
+			publicPath: wpconfig.output.publicPath,
+			quiet: true
 		}
-	}, (error) => {
-		if (error) throw error;
-	})
-// }
+	}
+}, (error) => {
+	if (error) throw error;
+})
 
 server.register([
-	{
-		register: Inert
-	},
+{
+	register: Inert
+},
 
-	{
-		register: base
-	},
+{
+	register: base
+},
 
-	{
-		register: auth
-	},
-	{
-		register: items
-	},
-	{
-		register: workshops
-	},
-	{
-		register: users
-	},
-	{
-		register: links
-	},
-	{
-		register: parts
-	}
+{
+	register: auth
+},
+{
+	register: isLoggedIn
+},
+{
+	register: workshops
+},
+{
+	register: users
+},
+{
+	register: links
+},
+{
+	register: parts
+},
+{
+	register: usb
+}
 ], (error) => {
 	if (error) throw error
 
