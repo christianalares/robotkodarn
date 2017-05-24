@@ -63,16 +63,17 @@ exports.register = (server, options, next) => {
 					}
 					// auth: 'session'
 				}
-			},
-			{
-				method: 'GET',
-				path: '/auth/logout',
-				config: {
-					handler: logout,
-					auth: 'session'
-				}
 			}
-			])
+		},
+		{
+			method: 'GET',
+			path: '/auth/logout',
+			config: {
+				handler: logout,
+				auth: 'session'
+			}
+		}])
+		
 		next()
 	})
 }

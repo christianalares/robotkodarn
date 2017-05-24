@@ -120,8 +120,4 @@ exports.register = (server, options, next) => {
 
 exports.register.attributes = {
 	name: 'user'
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 8c2c39cd8ecee1ba27de7d9652cf324c5b20b05e
