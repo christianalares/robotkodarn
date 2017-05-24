@@ -5,11 +5,15 @@ import Joi from 'joi'
 // Get all workshops [GET]
 // ----------------------------------------
 const getWorkshops = (request, reply) => {
-	Workshop.find({}, (error, workshops) => {
-		if (error) return reply(error).code(500)
 
-			return reply(workshops).code(200)
-	})
+	var name = request.auth.artifacts
+
+	Workshop.find({userId: name._id}, (error, workshops) => {
+	if (error) return reply(error).code(500)
+	// console.log(request.auth.artifacts)
+	return reply(workshops).code(200)
+  })
+
 }
 
 // ----------------------------------------
@@ -75,6 +79,44 @@ const deleteWorkshop = (request, reply) => {
 
 exports.register = (server, options, next) => {
 	server.route([
+<<<<<<< HEAD
+		{
+			method: 'GET',
+			path: '/api/workshops',
+			config: {
+				handler: getWorkshops,
+				auth: 'session'
+			}
+		},
+		{
+			method: 'GET',
+			path: '/api/workshop/{id}',
+			config: {
+				handler: getWorkshop,
+				auth: 'session'
+			}
+		},
+		{
+			method: 'POST',
+			path: '/api/workshop',
+			config: {
+				handler: addWorkshop
+			}
+		},
+		{
+			method: 'PUT',
+			path: '/api/workshop/{id}',
+			config: {
+				handler: updateWorkshop
+			}
+		},
+		{
+			method: 'DELETE',
+			path: '/api/workshop/{id}',
+			config: {
+				handler: deleteWorkshop
+			}
+=======
 	{
 		method: 'GET',
 		path: '/api/workshops',
@@ -112,14 +154,14 @@ exports.register = (server, options, next) => {
 		config: {
 			handler: deleteWorkshop,
 			auth: 'session'
+>>>>>>> 8c2c39cd8ecee1ba27de7d9652cf324c5b20b05e
 		}
 	}
 	])
-	
+
 	next()
 }
 
 exports.register.attributes = {
 	name: 'workshops'
 }
-

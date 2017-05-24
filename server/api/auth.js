@@ -16,10 +16,11 @@ const signIn = (request, reply) => {
 
 			if(user) {
 			// Email found, check if password is correct
-			const { email } = request.payload
 
-			request.cookieAuth.set({email})
+			const { _id } = user
 
+			request.cookieAuth.set({_id})
+			// console.log(request.auth.artifacts)
 			return (user.password === request.payload.password)
 			? reply({message: 'Logged in'}).code(200)
 			: reply({message: 'Wrong username and/or password'}).code(401)
@@ -60,7 +61,7 @@ exports.register = (server, options, next) => {
 					'hapi-auth-cookie': {
 						redirectTo: false
 					}
-				}
+					// auth: 'session'
 				}
 			},
 			{
