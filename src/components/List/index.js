@@ -36,20 +36,27 @@ export class List extends Component {
 		this.props.dispatch(signOut('/authenticate'))
 	}
 
+	handleInfo () {
+		// alert(this.props.items)
+	}
+
 	render () {
 		const updateItem = this.props.items.find(i => i._id === this.state.updateItem)
 		return (
 			<div>
 				<h1>List</h1>
-
 				<nav>
 					<Link to="/create">Create</Link>
 					<button onClick={this.handleSignOut.bind(this)}>Sign out</button>
 				</nav>
+				<button onClick={this.handleInfo.bind(this)}>Sign out</button>
 				<ul>
 					{this.props.items.map(item =>
 						<li key={item._id}>
-							<span>{item.name}</span>
+							<span>{item.title}</span>
+							{item.parts.map(part =>
+							<ul>{part.code}</ul>
+						)}
 							<button
 								onClick={this.handleItemUpdate.bind(this)}
 								data-id={item._id}>
@@ -61,8 +68,16 @@ export class List extends Component {
 									X
 								</button>
 						</li>
+
 					)}
+
 				</ul>
+				{this.props.items.map(item => item.parts).map(part =>
+					<li key={part._id}>
+						<span>{part.code}</span>
+					</li>
+
+				)}
 				{(() => {
 						if (this.state.updateItem) {
 							return <Update

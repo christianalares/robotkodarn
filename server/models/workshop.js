@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 
 const workshopSchema = Schema({
-    
+
     title: {
         type: String, required: true
     },
@@ -9,11 +9,11 @@ const workshopSchema = Schema({
         type: String, unique: true, required: true
     },
     userId: {
-        type: String, unique: true, required: true
+        type: String, required: true
     },
     parts: [],
     links: []
-    
+
 })
 
 export default mongoose.model('Workshop', workshopSchema)
