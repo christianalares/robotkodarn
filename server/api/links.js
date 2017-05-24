@@ -101,40 +101,42 @@ exports.register = (server, options, next) => {
 		method: 'GET',
 		path: '/api/workshop/{id}/links',
 		config: {
-			handler: getLinks,
-				// auth: 'session'
-			}
-		},
-		{
-			method: 'GET',
-			path: '/api/workshop/{wid}/link/{lid}',
-			config: {
-				handler: getLink,
-				// auth: 'session'
-			}
-		},
-		{
-			method: 'POST',
-			path: '/api/workshop/{id}/link',
-			config: {
-				handler: addLink
-			}
-		},
-		{
-			method: 'PUT',
-			path: '/api/workshop/{wid}/link/{lid}',
-			config: {
-				handler: updateLink
-			}
-		},
-		{
-			method: 'DELETE',
-			path: '/api/workshop/{wid}/link/{lid}',
-			config: {
-				handler: deleteLink
-			}
+			handler: getLinks
 		}
-		])
+	},
+	{
+		method: 'GET',
+		path: '/api/workshop/{wid}/link/{lid}',
+		config: {
+			handler: getLink
+		}
+	},
+	{
+		method: 'POST',
+		path: '/api/workshop/{id}/link',
+		config: {
+			handler: addLink,
+			auth: 'session'
+		}
+	},
+	{
+		method: 'PUT',
+		path: '/api/workshop/{wid}/link/{lid}',
+		config: {
+			handler: updateLink,
+			auth: 'session'
+		}
+	},
+	{
+		method: 'DELETE',
+		path: '/api/workshop/{wid}/link/{lid}',
+		config: {
+			handler: deleteLink,
+			auth: 'session'
+		}
+	}
+	])
+
 	next()
 }
 

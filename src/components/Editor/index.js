@@ -17,22 +17,28 @@ int main()
 	std::cout << 'Hello World!';
 }`
 
-function onChange(newValue) {
-	console.log('change', newValue);
-}
+
 
 export class Editor extends Component {
 	constructor (props) {
 		super(props)
+        
+        this.state = {
+            userValue: helloWorld
+        }
 
 		this.handleTabClick = this.handleTabClick.bind(this)
-
+        this.onChange = this.onChange.bind(this)
 	}
 
 
 	handleTabClick(userOrOriginal) {
 		this.props.dispatch( changeEditorTab(userOrOriginal) )
 	}
+
+    onChange(newValue) {
+        this.setState({userValue: newValue})
+    }
 
 	renderTab() {
         if (this.props.activeTab === 'original') {
@@ -44,7 +50,6 @@ export class Editor extends Component {
                     fontSize='16px'
                     mode='c_cpp'
                     theme='chrome'
-                    onChange={onChange}
                     name='codeEditor'
                     width='auto'
                     height='90%'
@@ -62,12 +67,12 @@ export class Editor extends Component {
                     fontSize='16px'
                     mode='c_cpp'
                     theme='chrome'
-                    onChange={onChange}
+                    onChange={this.onChange}
                     name='codeEditor'
                     width='auto'
                     height='90%'
                     editorProps={{$blockScrolling: true}}
-                    value={'helloWorld'}
+                    value={this.state.userValue}
                     showPrintMargin={false}
                 />
             )

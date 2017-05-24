@@ -69,7 +69,8 @@ const deleteUser = (request, reply) => {
 }
 
 exports.register = (server, options, next) => {
-	server.route([{
+	server.route([
+	{
 		method: 'GET',
 		path: '/api/users',
 		config: {
@@ -110,6 +111,7 @@ exports.register = (server, options, next) => {
 		}
 	}
 	])
+	
 	next()
 }
 

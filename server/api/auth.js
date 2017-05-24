@@ -61,7 +61,6 @@ exports.register = (server, options, next) => {
 						redirectTo: false
 					}
 				}
-					//auth: 'session'
 				}
 			},
 			{

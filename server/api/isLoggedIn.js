@@ -1,6 +1,6 @@
 
 const isLoggedIn = (request, reply) => {
-	console.log('Session cookie read for user: ' + request.auth.credentials.email)
+	reply(request.auth).code(200)
 }
 
 exports.register = (server, options, next) => {
