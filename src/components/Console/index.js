@@ -24,7 +24,7 @@ export class Console extends Component {
 
 function mapStateToProps (state) {
 	return {
-		items: state.items.list
+		
 	}
 }
 

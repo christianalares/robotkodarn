@@ -7,10 +7,10 @@ import Joi from 'joi'
 // ----------------------------------------
 const getParts = (request, reply) => {
 	Workshop.findOne({_id: request.params.id}, (error, foundWorkshop) => {
-	if (error) return reply(error).code(500)
+		if (error) return reply(error).code(500)
 
-	return reply(foundWorkshop.parts).code(200)
-  })
+			return reply(foundWorkshop.parts).code(200)
+	})
 }
 
 // ----------------------------------------
@@ -18,12 +18,12 @@ const getParts = (request, reply) => {
 // ----------------------------------------
 const getPart = (request, reply) => {
 	Workshop.findOne({_id: request.params.wid}, (error, foundWorkshop) => {
-	if (error) return reply(error).code(500)
+		if (error) return reply(error).code(500)
 
-	const part = foundWorkshop.parts.filter( (part) => part._id == request.params.pid )[0]
+			const part = foundWorkshop.parts.filter( (part) => part._id == request.params.pid )[0]
 
-	return reply(part).code(200)
-  })
+		return reply(part).code(200)
+	})
 }
 
 // ----------------------------------------
@@ -33,16 +33,16 @@ const addPart = (request, reply) => {
 	Workshop.findOne({_id: request.params.id}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
 
-		const part = new Part(request.payload)
+			const part = new Part(request.payload)
 
 		Joi.validate(part, partValidation, (validationError, value) => {
 			if (validationError) return reply({error: validationError}).code(400)
 
-			foundWorkshop.parts.push(part)
+				foundWorkshop.parts.push(part)
 
 			foundWorkshop.save(saveError => {
 				if (saveError) return reply({error: saveError.message}).code(400)
-				return reply(foundWorkshop).code(200)			
+					return reply(foundWorkshop).code(200)			
 			})
 		})
 	})
@@ -55,7 +55,7 @@ const updatePart = (request, reply) => {
 	Workshop.findOne({_id: request.params.wid}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
 
-		const partToUpdate = foundWorkshop.parts.filter( (part) => part._id == request.params.pid)[0]
+			const partToUpdate = foundWorkshop.parts.filter( (part) => part._id == request.params.pid)[0]
 		const index = foundWorkshop.parts.indexOf(partToUpdate)
 		
 		const newPart = Object.assign(partToUpdate, request.payload)
@@ -63,12 +63,12 @@ const updatePart = (request, reply) => {
 		Joi.validate(newPart, partValidation, (validationError, value) => {
 			if (validationError) return reply({error: validationError}).code(400)
 
-			foundWorkshop.parts.splice( index, 1, newPart )
+				foundWorkshop.parts.splice( index, 1, newPart )
 
 			foundWorkshop.save(saveError => {
 				if (saveError) return reply({error: saveError.message}).code(400)
 
-				return reply(foundWorkshop).code(200)
+					return reply(foundWorkshop).code(200)
 			})
 		})
 	})
@@ -81,13 +81,13 @@ const deletePart = (request, reply) => {
 	Workshop.findOne({_id: request.params.wid}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
 
-		const partToDelete = foundWorkshop.parts.filter( (part) => part._id == request.params.pid )[0]
+			const partToDelete = foundWorkshop.parts.filter( (part) => part._id == request.params.pid )[0]
 		foundWorkshop.parts.splice( foundWorkshop.parts.indexOf(partToDelete), 1 )
 
 		foundWorkshop.save(error => {
 			if (error) return reply({error: error.message}).code(400)
 
-			return reply(foundWorkshop).code(200)
+				return reply(foundWorkshop).code(200)
 		})
 	})
 }
@@ -96,11 +96,11 @@ const deletePart = (request, reply) => {
 
 exports.register = (server, options, next) => {
 	server.route([
-		{
-			method: 'GET',
-			path: '/api/workshop/{id}/parts',
-			config: {
-				handler: getParts,
+	{
+		method: 'GET',
+		path: '/api/workshop/{id}/parts',
+		config: {
+			handler: getParts,
 				// auth: 'session'
 			}
 		},
@@ -133,7 +133,7 @@ exports.register = (server, options, next) => {
 				handler: deletePart
 			}
 		}
-	])
+		])
 	next()
 }
 

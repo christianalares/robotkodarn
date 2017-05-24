@@ -19,7 +19,7 @@ class Navbar extends React.Component {
 
 function mapStateToProps (state) {
 	return {
-		items: state.items.list
+		
 	}
 }
 

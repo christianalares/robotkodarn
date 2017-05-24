@@ -1,7 +1,6 @@
 import { routeActions } from 'redux-simple-router'
 
 export const isLoggedIn = () => (dispatch) => {
-
 	const request = new XMLHttpRequest()
 	request.open('GET', '/api/users', true)
 
@@ -16,5 +15,6 @@ export const isLoggedIn = () => (dispatch) => {
 			dispatch(routeActions.push('/admin'))
 		}
 	}
+
 	request.send()
 }

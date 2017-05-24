@@ -7,7 +7,7 @@ const getUsers = (request, reply) => {
 	User.find({}, (error, users) => {
 		if (error) return reply(error).code(500)
 
-		return reply(users).code(200)
+			return reply(users).code(200)
 	})
 }
 
@@ -18,7 +18,7 @@ const getUser = (request, reply) => {
 	User.find({_id: request.params.id}, (error, user) => {
 		if (error) return reply(error).code(500)
 
-		return reply(user).code(200)
+			return reply(user).code(200)
 	})
 }
 
@@ -31,11 +31,11 @@ const addUser = (request, reply) => {
 
 		if (user) return reply({error: 'User already exists'}).code(400) //Hur hanteras dessa?
 
-		user = new User(request.payload)
+			user = new User(request.payload)
 		user.save(error => {
 			if (error) return reply({error: error.message}).code(400)
 
-			return reply(user).code(200)
+				return reply(user).code(200)
 		})
 	})
 }
@@ -47,12 +47,12 @@ const updateUser = (request, reply) => {
 	User.findOne({_id: request.params.id}, (error, foundUser) => {
 		if (error) return reply(error).code(500)
 
-		const i = Object.assign(foundUser, request.payload)
+			const i = Object.assign(foundUser, request.payload)
 
 		i.save((error, doc) => {
 			if (error) return reply({error: error.message}).code(400)
 
-			return reply(doc).code(200)
+				return reply(doc).code(200)
 		})
 	})
 }
@@ -64,7 +64,7 @@ const deleteUser = (request, reply) => {
 	User.remove({_id: request.params.id}, (error, user) => {
 		if (error) return reply(error).code(500)
 
-		return reply(user).code(200)
+			return reply(user).code(200)
 	})
 }
 
@@ -109,7 +109,7 @@ exports.register = (server, options, next) => {
 			auth: 'session'
 		}
 	}
-])
+	])
 	next()
 }
 

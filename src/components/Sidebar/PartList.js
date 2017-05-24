@@ -32,7 +32,7 @@ class PartList extends React.Component {
 
 function mapStateToProps (state) {
 	return {
-		items: state.items.list
+		
 	}
 }
 

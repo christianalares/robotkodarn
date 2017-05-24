@@ -31,7 +31,7 @@ export class Login extends Component {
 
 function mapStateToProps (state) {
 	return {
-		items: state.items.list
+		
 	}
 }
 
