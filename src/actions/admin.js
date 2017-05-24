@@ -7,6 +7,7 @@ export const signIn = (credentials, path) => (dispatch) => {
 	const request = new XMLHttpRequest()
 	request.open('POST', '/auth/signIn', true)
 	request.setRequestHeader('Content-Type', 'application/json')
+
 	request.onload = () => {
 		if (request.status >= 200 && request.status < 400) {
 			dispatch(routeActions.push(path))
@@ -14,6 +15,7 @@ export const signIn = (credentials, path) => (dispatch) => {
 			window.alert( JSON.parse(request.response).message )
 		}
 	}
+
 	request.send(JSON.stringify(credentials))
 }
 
@@ -39,6 +41,7 @@ export const registerUser = (credentials) => (dispatch) => {
 	const request = new XMLHttpRequest()
 	request.open('POST', '/api/user', true)
 	request.setRequestHeader('Content-Type', 'application/json')
+
 	request.onload = () => {
 		if (request.status >= 200 && request.status < 400) {
 			window.alert('User is registered')
@@ -47,5 +50,6 @@ export const registerUser = (credentials) => (dispatch) => {
 			dispatch(routeActions.push('/admin'))
 		}
 	}
+	
 	request.send(JSON.stringify(credentials))
 }

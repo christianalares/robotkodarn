@@ -22,7 +22,7 @@ export class ActionButtons extends Component {
 
 function mapStateToProps (state) {
 	return {
-		items: state.items.list
+		
 	}
 }
 

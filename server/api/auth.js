@@ -14,15 +14,15 @@ const signIn = (request, reply) => {
 	User.findOne({email: request.payload.email}, (error, user) => {
 		if (error) return reply(error).code(500)
 
-		if(user) {
+			if(user) {
 			// Email found, check if password is correct
 			const { email } = request.payload
 
 			request.cookieAuth.set({email})
 
 			return (user.password === request.payload.password)
-				? reply({message: 'Logged in'}).code(200)
-				: reply({message: 'Wrong username and/or password'}).code(401)
+			? reply({message: 'Logged in'}).code(200)
+			: reply({message: 'Wrong username and/or password'}).code(401)
 		} else {
 			// Email doesn't exist in db
 			reply({message: 'Wrong username and/or password'}).code(401)
@@ -39,28 +39,28 @@ exports.register = (server, options, next) => {
 	server.register(CookieAuth, (error) => {
 		if (error) throw error
 
-		server.auth.strategy('session', 'cookie', {
-			password: config.get('auth.key'),
-			isSecure: process.env.NODE_ENV === 'production',
-			cookie: 'sid-example',
-			isHttpOnly: true
-		})
+			server.auth.strategy('session', 'cookie', {
+				password: config.get('auth.key'),
+				isSecure: process.env.NODE_ENV === 'production',
+				cookie: 'sid-example',
+				isHttpOnly: true
+			})
 
 		server.route([
-			{
-				method: 'POST',
-				path: '/auth/signIn',
-				config: {
-					handler: signIn,
-					auth: {
-						mode: 'try',
-						strategy: 'session',
-					},
-					plugins: {
-						'hapi-auth-cookie': {
-							redirectTo: false
-						}
+		{
+			method: 'POST',
+			path: '/auth/signIn',
+			config: {
+				handler: signIn,
+				auth: {
+					mode: 'try',
+					strategy: 'session',
+				},
+				plugins: {
+					'hapi-auth-cookie': {
+						redirectTo: false
 					}
+				}
 					//auth: 'session'
 				}
 			},
@@ -72,7 +72,7 @@ exports.register = (server, options, next) => {
 					auth: 'session'
 				}
 			}
-		])
+			])
 		next()
 	})
 }

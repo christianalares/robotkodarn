@@ -16,7 +16,7 @@ class WorkshopPincode extends React.Component {
 
 function mapStateToProps (state) {
 	return {
-		items: state.items.list
+		
 	}
 }
 

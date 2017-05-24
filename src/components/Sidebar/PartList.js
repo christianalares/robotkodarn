@@ -7,6 +7,16 @@ import styles from './sidebar.css'
 
 class PartList extends React.Component {
 
+    clickHandler() {
+        let addButton = this.refs.addPart
+        let listItem = addButton.parentElement
+        let newElement = document.createElement('input')
+        newElement.className = 'addInput'
+        
+        listItem.removeChild(addButton)
+        listItem.appendChild(newElement)
+    }
+
     render() {
         return (
             <ul className={styles.partList}>
@@ -14,7 +24,7 @@ class PartList extends React.Component {
                 <li><FA name='file-code-o' /> <a href="#">Motorer</a></li>
                 <li><FA name='file-code-o' /> <a href="#">Sensorer</a></li>
                 <li><FA name='file-code-o' /> <a href="#">LCD-display</a></li>
-                { this.props.user === 'teacher' && (<li><FA name='plus' /> <a href="#">Lägg till...</a></li>) }
+                { this.props.user === 'teacher' && (<li><FA name='plus' /> <a ref="addPart" href="#" onClick={this.clickHandler.bind(this)}>Lägg till...</a></li>) }
             </ul>
         );
     }
@@ -22,7 +32,7 @@ class PartList extends React.Component {
 
 function mapStateToProps (state) {
 	return {
-		items: state.items.list
+		
 	}
 }
 

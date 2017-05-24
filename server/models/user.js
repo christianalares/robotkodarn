@@ -11,10 +11,10 @@ const userSchema = Schema({
     email: {
         type: String, unique: true, required: true
     },
-    admin: {
-        type: Boolean, required: true
+    role: {
+        type: String, required: true
     }
-	
+    
 })
 
 export default mongoose.model('User', userSchema)
