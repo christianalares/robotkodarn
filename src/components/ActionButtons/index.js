@@ -7,6 +7,12 @@ import styles from './actionbuttons.css'
 export class ActionButtons extends Component {
 	constructor (props) {
 		super(props)
+
+		this.compileCode = this.compileCode.bind(this)
+	}
+
+	compileCode() {
+		this.props.dispatch()
 	}
 
 	render () {
@@ -14,7 +20,7 @@ export class ActionButtons extends Component {
 		return (
             <div className={styles.actionButtonWrapper}>
                 <a className="button success" href="#"><FA className={styles.icons} name='cogs' />Testa min kod</a>
-                <a className="button success" href="#"><FA className={styles.icons} name='floppy-o' />Spara fil</a>
+                <a onClick={this.compileCode} className="button success" href="#"><FA className={styles.icons} name='floppy-o' />Kompilera</a>
             </div>
 		)
 	}
