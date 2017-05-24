@@ -4,15 +4,17 @@ import FA from 'react-fontawesome'
 
 import styles from './actionbuttons.css'
 
+import { compileCode } from '../../actions/actionButtons'
+
 export class ActionButtons extends Component {
 	constructor (props) {
 		super(props)
 
-		this.compileCode = this.compileCode.bind(this)
+		this.handleCompileButtonClick = this.handleCompileButtonClick.bind(this)
 	}
 
-	compileCode() {
-		this.props.dispatch()
+	handleCompileButtonClick() {
+		this.props.dispatch( compileCode(this.props.updatedCode) )
 	}
 
 	render () {
@@ -20,7 +22,7 @@ export class ActionButtons extends Component {
 		return (
             <div className={styles.actionButtonWrapper}>
                 <a className="button success" href="#"><FA className={styles.icons} name='cogs' />Testa min kod</a>
-                <a onClick={this.compileCode} className="button success" href="#"><FA className={styles.icons} name='floppy-o' />Kompilera</a>
+                <a onClick={this.handleCompileButtonClick} className="button success" href="#"><FA className={styles.icons} name='floppy-o' />Kompilera</a>
             </div>
 		)
 	}
@@ -28,7 +30,7 @@ export class ActionButtons extends Component {
 
 function mapStateToProps (state) {
 	return {
-		
+		updatedCode: state.editor.updatedCode
 	}
 }
 

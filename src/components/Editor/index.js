@@ -5,7 +5,7 @@ import AceEditor from 'react-ace'
 import 'brace/mode/c_cpp'
 import 'brace/theme/monokai'
 
-import { changeEditorTab } from '../../actions/editor'
+import { changeEditorTab, updateCode } from '../../actions/editor'
 
 import styles from './editor.css'
 
@@ -23,9 +23,9 @@ export class Editor extends Component {
 	constructor (props) {
 		super(props)
         
-        this.state = {
-            userValue: helloWorld
-        }
+        // this.state = {
+        //     userValue: helloWorld
+        // }
 
 		this.handleTabClick = this.handleTabClick.bind(this)
         this.onChange = this.onChange.bind(this)
@@ -37,7 +37,9 @@ export class Editor extends Component {
 	}
 
     onChange(newValue) {
-        this.setState({userValue: newValue})
+        // this.setState({userValue: newValue})
+
+        this.props.dispatch( updateCode(newValue) )
     }
 
 	renderTab() {
@@ -72,7 +74,7 @@ export class Editor extends Component {
                     width='auto'
                     height='90%'
                     editorProps={{$blockScrolling: true}}
-                    value={this.state.userValue}
+                    value={this.props.updatedCode}
                     showPrintMargin={false}
                 />
             )
@@ -95,7 +97,8 @@ export class Editor extends Component {
 
 function mapStateToProps (state) {
 	return {
-		activeTab: state.editor.activeTab
+		activeTab: state.editor.activeTab,
+        updatedCode: state.editor.updatedCode
 	}
 }
 

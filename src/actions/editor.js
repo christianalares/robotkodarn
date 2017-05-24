@@ -4,3 +4,10 @@ export const changeEditorTab = (userOrOriginal) => (dispatch) => {
 		payload: userOrOriginal
 	})
 }
+
+export const updateCode = (updatedCode) => (dispatch) => {
+	dispatch({
+		type: 'UPDATE_CODE',
+		payload: updatedCode
+	})
+}

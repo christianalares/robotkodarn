@@ -1,27 +1,4 @@
-var Avrgirl = require('avrgirl-arduino');
-
-const testUSB = (request, reply) => {
-
-    // var board = {
-    //     name: 'zumo',
-    //     baud: 57600,
-    //     signature: new Buffer([0x1e, 0x95, 0x87]),
-    //     productId: ['0x0036', '0x8036', '0x800c', '0x8036', '0x2300'],
-    //     protocol: 'avr109'
-    // }
-
-    var avrgirl = new Avrgirl({
-        board: 'uno',
-        debug: true,
-        manualReset: false
-    });
-
-    // Avrgirl.list((err, ports) => {
-    //     console.log( ports )
-    // })
-
-    // var file = new Buffer(__dirname + '/1.hex')
-    var file = `:100000000C9461000C947E000C947E000C947E0095
+:100000000C9461000C947E000C947E000C947E0095
 :100010000C947E000C947E000C947E000C947E0068
 :100020000C947E000C947E000C947E000C947E0058
 :100030000C947E000C947E000C947E000C947E0048
@@ -89,34 +66,4 @@ const testUSB = (request, reply) => {
 :10041000892B8C932FBF0895CF93DF930E943E01C9
 :100420000E949800C0E0D0E00E9483002097E1F392
 :0A0430000E940000F9CFF894FFCFFE
-:00000001FF`
-
-    avrgirl.flash(new Buffer(file), function (error) {
-        if (error) {
-            console.log( error )
-        } else {
-            console.log( 'done' )
-        }
-    });
-
-}
-
-
-
-exports.register = (server, options, next) => {
-	server.route([
-	{
-		method: 'GET',
-		path: '/api/usb',
-		config: {
-			handler: testUSB,
-		}
-	}
-	])
-	next()
-}
-
-exports.register.attributes = {
-	name: 'usb'
-}
-
+:00000001FF
