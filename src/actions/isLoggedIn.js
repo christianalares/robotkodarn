@@ -6,7 +6,11 @@ export const isLoggedIn = () => (dispatch) => {
 
 	request.onload = () => {
 		if (request.status >= 200 && request.status < 400) {
-			// Code
+
+			dispatch({
+				type: 'IS_LOGGED_IN',
+				payload: request.responseText.credentials
+			})
 		}
 		else if (request.status === 401) {
 			dispatch(routeActions.push('/admin'))

@@ -52,7 +52,8 @@ export class Teacher extends Component {
 
 function mapStateToProps (state) {
 	return {
-		isSidebarOpen: state.sidebar.open
+		isSidebarOpen: state.sidebar.open,
+		isLoggedInUser: state.teacher.isLoggedInUser
 	}
 }
 

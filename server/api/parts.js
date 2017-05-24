@@ -131,7 +131,7 @@ exports.register = (server, options, next) => {
 		path: '/api/workshop/{wid}/part/{pid}',
 		config: {
 			handler: deletePart,
-			auth: 'sesson'
+			auth: 'session'
 		}
 	}
 	])
