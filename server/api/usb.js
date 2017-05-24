@@ -2,23 +2,32 @@ var Avrgirl = require('avrgirl-arduino');
 
 const testUSB = (request, reply) => {
 
+    // var board = {
+    //     name: 'zumo',
+    //     baud: 57600,
+    //     signature: new Buffer([0x1e, 0x95, 0x87]),
+    //     productId: ['0x0036', '0x8036', '0x800c', '0x8036', '0x2300'],
+    //     protocol: 'avr109'
+    // }
+
     var avrgirl = new Avrgirl({
-        board: 'uno',
+        board: 'leonardo',
         debug: true,
-        manualReset: false
+        manualReset: true
     });
 
-    // console.log( avrgirl )
+    // Avrgirl.list((err, ports) => {
+    //     console.log( ports )
+    // })
 
-    avrgirl.flash(__dirname + '/blink.hex.hex', function (error) {
+    avrgirl.flash(__dirname + '/sensorer.hex', function (error) {
         if (error) {
-            // return reply(error).code(200)
             console.log( error )
         } else {
-            // return reply('done').code(200)
             console.log( 'done' )
         }
     });
+
 }
 
 
