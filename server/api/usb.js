@@ -25,13 +25,13 @@ const testUSB = (request, reply) => {
 
 exports.register = (server, options, next) => {
 	server.route([
-		{
-			method: 'GET',
-			path: '/api/usb',
-			config: {
-				handler: testUSB,
-			}
+	{
+		method: 'GET',
+		path: '/api/usb',
+		config: {
+			handler: testUSB,
 		}
+	}
 	])
 	next()
 }

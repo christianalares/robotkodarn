@@ -100,40 +100,42 @@ exports.register = (server, options, next) => {
 		method: 'GET',
 		path: '/api/workshop/{id}/parts',
 		config: {
-			handler: getParts,
-				// auth: 'session'
-			}
-		},
-		{
-			method: 'GET',
-			path: '/api/workshop/{wid}/part/{pid}',
-			config: {
-				handler: getPart,
-				// auth: 'session'
-			}
-		},
-		{
-			method: 'POST',
-			path: '/api/workshop/{id}/part',
-			config: {
-				handler: addPart
-			}
-		},
-		{
-			method: 'PUT',
-			path: '/api/workshop/{wid}/part/{pid}',
-			config: {
-				handler: updatePart
-			}
-		},
-		{
-			method: 'DELETE',
-			path: '/api/workshop/{wid}/part/{pid}',
-			config: {
-				handler: deletePart
-			}
+			handler: getParts
 		}
-		])
+	},
+	{
+		method: 'GET',
+		path: '/api/workshop/{wid}/part/{pid}',
+		config: {
+			handler: getPart
+		}
+	},
+	{
+		method: 'POST',
+		path: '/api/workshop/{id}/part',
+		config: {
+			handler: addPart,
+			auth: 'session'
+		}
+	},
+	{
+		method: 'PUT',
+		path: '/api/workshop/{wid}/part/{pid}',
+		config: {
+			handler: updatePart,
+			auth: 'session'
+		}
+	},
+	{
+		method: 'DELETE',
+		path: '/api/workshop/{wid}/part/{pid}',
+		config: {
+			handler: deletePart,
+			auth: 'sesson'
+		}
+	}
+	])
+
 	next()
 }
 
