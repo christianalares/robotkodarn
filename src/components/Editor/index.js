@@ -5,7 +5,7 @@ import AceEditor from 'react-ace'
 import 'brace/mode/c_cpp'
 import 'brace/theme/monokai'
 
-import { changeEditorTab, updateCode } from '../../actions/editor'
+import { changeEditorTab, updateCode, uploadCode } from '../../actions/editor'
 
 import styles from './editor.css'
 
@@ -31,14 +31,18 @@ export class Editor extends Component {
         this.onChange = this.onChange.bind(this)
 	}
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.compilerResponse !== this.props.compilerResponse && nextProps.compilerResponse.success) {
+            this.props.dispatch( uploadCode(nextProps.compilerResponse.output) )
+        }
+    }
+
 
 	handleTabClick(userOrOriginal) {
 		this.props.dispatch( changeEditorTab(userOrOriginal) )
 	}
 
     onChange(newValue) {
-        // this.setState({userValue: newValue})
-
         this.props.dispatch( updateCode(newValue) )
     }
 
@@ -98,7 +102,8 @@ export class Editor extends Component {
 function mapStateToProps (state) {
 	return {
 		activeTab: state.editor.activeTab,
-        updatedCode: state.editor.updatedCode
+        updatedCode: state.editor.updatedCode,
+        compilerResponse: state.editor.compilerResponse
 	}
 }
 

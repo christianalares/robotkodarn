@@ -4,7 +4,7 @@ import FA from 'react-fontawesome'
 
 import styles from './actionbuttons.css'
 
-import { compileCode } from '../../actions/actionButtons'
+import { compileCode } from '../../actions/editor'
 
 export class ActionButtons extends Component {
 	constructor (props) {

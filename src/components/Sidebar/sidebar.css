@@ -53,7 +53,7 @@
 
 		:local .mainSidebar .partList {
 			margin-top: 20px;
-			height: 50%;
+			height: 50vh;
 		}
 
 			:local .mainSidebar .partList li,
