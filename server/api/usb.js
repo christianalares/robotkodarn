@@ -24,13 +24,21 @@ const uploadCode = (request, reply) => {
     avrgirl.flash(new Buffer(request.payload), function (error) {
         if (error) {
             return reply({error: error.message}).code(400)
-            // console.log( error )
         } else {
             return reply('OK').code(200)
-            // console.log( 'done' )
         }
     });
 
+}
+
+const pingForUSBConnection = (request, reply) => {
+    Avrgirl.list((err, ports) => {
+        const foundRobot = ports.filter( port => port.manufacturer !== undefined)
+
+        return (foundRobot.length === 1)
+            ? reply(foundRobot[0]).code(200)
+            : reply({error: 'Kunde ej hitta inkopplad någon robot'}).code(400)
+    })
 }
 
 
@@ -42,6 +50,13 @@ exports.register = (server, options, next) => {
 		path: '/api/usb',
 		config: {
 			handler: uploadCode,
+		}
+	},
+    {
+		method: 'GET',
+		path: '/api/usb',
+		config: {
+			handler: pingForUSBConnection,
 		}
 	}
 	])

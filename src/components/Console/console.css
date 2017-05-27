@@ -2,6 +2,9 @@
 	margin-top: 20px;
 	height: 30%;
 }
+	:local .consoleWrapper h4 a {
+		float: right;
+	}
 	:local .console {
 		width: 100%;
 		height: calc(100% - 34px);

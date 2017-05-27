@@ -57,8 +57,6 @@ export const uploadCode = (compiledCode) => (dispatch) => {
             dispatch({
                 type: 'SET_CONSOLE_OUTPUT',
                 payload: {
-					key: +new Date(),
-					timestamp: new Date(),
 					type: 'success',
 					heading: 'Lyckat',
 					message: 'Kod uppladdad till robot'
@@ -68,11 +66,9 @@ export const uploadCode = (compiledCode) => (dispatch) => {
 			dispatch({
                 type: 'SET_CONSOLE_OUTPUT',
                 payload: {
-					key: +new Date(),
-					timestamp: new Date(),
 					type: 'error',
-					heading: 'Fel',
-					message: 'Någonting gick fel vid uppladdning till robot'
+					heading: 'Fel från kompilator',
+					message: JSON.parse(request.response).error
 				}
             })
 		}
@@ -83,6 +79,33 @@ export const uploadCode = (compiledCode) => (dispatch) => {
 export const setConsoleOutput = (output) => (dispatch) => {
 	dispatch({
 		type: 'SET_CONSOLE_OUTPUT',
-		payload: output
+		payload: { type: output.type, heading: output.heading, message: output.message }
 	})
+}
+
+export const clearConsole = () => (dispatch) => {
+	dispatch({
+		type: 'CLEAR_CONSOLE'
+	})
+}
+
+export const pingForUSBConnection = () => (dispatch) => {
+	const request = new XMLHttpRequest()
+	request.open('GET', '/api/usb', true)
+	request.setRequestHeader('Content-Type', 'application/json')
+
+	request.onload = () => {
+		if (request.status >= 200 && request.status < 400) {
+			dispatch({
+				type: 'SET_CONNECTED_ROBOT',
+				payload: request.response
+			})
+		} else {
+			dispatch({
+				type: 'SET_CONNECTED_ROBOT',
+				payload: null
+			})
+		}
+	}
+	request.send()
 }

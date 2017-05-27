@@ -1,11 +1,16 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import { setConsoleOutput } from '../../actions/editor'
+import { setConsoleOutput, clearConsole } from '../../actions/editor'
 
 import styles from './console.css'
 
 export class Console extends Component {
+	constructor(props) {
+		super(props)
+
+		this.handleClearConsoleClick = this.handleClearConsoleClick.bind(this)
+	}
 	
 	componentWillReceiveProps(nextProps) {
 		if(nextProps.compilerResponse !== this.props.compilerResponse) {
@@ -13,16 +18,12 @@ export class Console extends Component {
 
 			if(nextProps.compilerResponse.success) {
 				msg = {
-					key: +new Date(),
-					timestamp: new Date(),
 					type: 'success',
 					heading: 'Kompilering klar',
 					message: 'Laddar upp till robot...'
 				}
 			} else if(nextProps.compilerResponse.debug) {
 				msg = {
-					key: +new Date(),
-					timestamp: new Date(),
 					type: 'error',
 					heading: 'Något gick fel',
 					message: nextProps.compilerResponse.debug
@@ -32,10 +33,14 @@ export class Console extends Component {
 		}
 	}
 
+	handleClearConsoleClick() {
+		this.props.dispatch( clearConsole() )
+	}
+
 	render() {
 		return (
 			<div className={styles.consoleWrapper}>
-				<h4>Konsol</h4>
+				<h4>Konsol <a onClick={this.handleClearConsoleClick} href="#">Rensa konsol</a></h4>
 				<div className={styles.console}>
 					<pre>
 						{this.props.consoleOutput.map( message => {
