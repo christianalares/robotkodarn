@@ -17,7 +17,8 @@ export default handleActions({
 	SET_COMPILER_RESPONSE: (state, action) => {
 		return ({
 			...state,
-			compilerResponse: action.payload
+			compilerResponse: action.payload.compilerResponse,
+			willUpload: action.payload.willUpload
 		})
 	},
 	SET_CONSOLE_OUTPUT: (state, action) => {

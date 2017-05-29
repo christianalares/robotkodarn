@@ -30,3 +30,6 @@
 		:local .console .success {
 			color: #00b491;
 		}
+		:local .console .info {
+			color: #3498db;
+		}

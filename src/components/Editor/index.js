@@ -5,7 +5,7 @@ import AceEditor from 'react-ace'
 import 'brace/mode/c_cpp'
 import 'brace/theme/monokai'
 
-import { changeEditorTab, updateCode, uploadCode } from '../../actions/editor'
+import { changeEditorTab, updateCode, uploadCode, setConsoleOutput } from '../../actions/editor'
 
 import styles from './editor.css'
 
@@ -28,8 +28,29 @@ export class Editor extends Component {
 	}
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.compilerResponse !== this.props.compilerResponse && nextProps.compilerResponse.success) {
-            this.props.dispatch( uploadCode(nextProps.compilerResponse.output) )
+        let msg;
+
+        if(nextProps.compilerResponse !== this.props.compilerResponse) {
+            if(nextProps.compilerResponse.success && nextProps.willUpload) {
+
+                msg = {
+					type: 'success',
+					heading: 'Kompilering klar',
+					message: 'Laddar upp till robot...'
+				}
+                this.props.dispatch( setConsoleOutput(msg) )
+
+                this.props.dispatch( uploadCode(nextProps.compilerResponse.output) )
+            } else if(nextProps.compilerResponse.success && !nextProps.willUpload) {
+                // "Testa min kod" --> success
+                msg = {
+					type: 'success',
+					heading: 'Kompilering klar',
+					message: 'Din kod ser bra ut!'
+				}
+                this.props.dispatch( setConsoleOutput(msg) )
+            }
+            
         }
     }
     componentWillMount() {
@@ -108,7 +129,8 @@ function mapStateToProps (state) {
 	return {
 		activeTab: state.editor.activeTab,
         updatedCode: state.editor.updatedCode,
-        compilerResponse: state.editor.compilerResponse
+        compilerResponse: state.editor.compilerResponse,
+        willUpload: state.editor.willUpload,
 	}
 }
 

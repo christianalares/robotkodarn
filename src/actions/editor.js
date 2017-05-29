@@ -12,7 +12,7 @@ export const updateCode = (updatedCode) => (dispatch) => {
 	})
 }
 
-export const compileCode = (codeToCompile) => (dispatch) => {
+export const compileCode = (codeToCompile, willUpload) => (dispatch) => {
 	const request = new XMLHttpRequest()
 	request.open('POST', 'http://192.168.33.15/hemligt/v1', true)
 	request.setRequestHeader('Content-Type', 'application/json')
@@ -37,7 +37,10 @@ export const compileCode = (codeToCompile) => (dispatch) => {
 		if (request.status >= 200 && request.status < 400) {
             dispatch({
                 type: 'SET_COMPILER_RESPONSE',
-                payload: JSON.parse(request.response)
+                payload: {
+					compilerResponse: JSON.parse(request.response),
+					willUpload: willUpload
+				}
             })
 		} else if(request.status === 401) {
 			window.alert( JSON.parse(request.response).message )

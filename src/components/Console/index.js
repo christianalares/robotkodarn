@@ -14,22 +14,16 @@ export class Console extends Component {
 	
 	componentWillReceiveProps(nextProps) {
 		if(nextProps.compilerResponse !== this.props.compilerResponse) {
-			let msg
-
-			if(nextProps.compilerResponse.success) {
-				msg = {
-					type: 'success',
-					heading: 'Kompilering klar',
-					message: 'Laddar upp till robot...'
-				}
-			} else if(nextProps.compilerResponse.debug) {
-				msg = {
+			
+			if(nextProps.compilerResponse.debug) {
+				let msg = {
 					type: 'error',
 					heading: 'Något gick fel',
 					message: nextProps.compilerResponse.debug
 				}
+			
+				this.props.dispatch( setConsoleOutput(msg) )
 			}
-			this.props.dispatch( setConsoleOutput(msg) )
 		}
 	}
 

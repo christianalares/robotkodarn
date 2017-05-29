@@ -14,7 +14,7 @@ export class ActionButtons extends Component {
 			connectedArduino: null
 		}
 
-		this.handleCompileButtonClick = this.handleCompileButtonClick.bind(this)
+		this.handleUploadButtonClick = this.handleUploadButtonClick.bind(this)
 		this.handleTestButtonClick = this.handleTestButtonClick.bind(this)
 		this.renderUploadButtonClassNames = this.renderUploadButtonClassNames.bind(this)
 	}
@@ -22,14 +22,15 @@ export class ActionButtons extends Component {
 		this.pingForUSBConnection(2000)
 	}
 
-	handleCompileButtonClick() {
+	handleUploadButtonClick() {
 		if(this.props.connectedArduino) {
 			this.props.dispatch( setConsoleOutput({
-				type: '',
+				type: 'info',
 				heading: 'Kompilerar',
 				message: 'Skickar kod till kompilator'
 			}) )
-			this.props.dispatch( compileCode(this.props.updatedCode) )
+			// true = will be uploaded to robot
+			this.props.dispatch( compileCode(this.props.updatedCode, true) )
 		} else {
 			this.props.dispatch( setConsoleOutput({
 				type: 'error',
@@ -40,11 +41,12 @@ export class ActionButtons extends Component {
 	}
 	handleTestButtonClick() {
 		this.props.dispatch( setConsoleOutput({
-			type: '',
+			type: 'info',
 			heading: 'Testar kod',
 			message: 'Skickar kod till kompilator...'
 		}) )
-		this.props.dispatch( compileCode(this.props.updatedCode) )
+		// false = will not be uploaded to robot (only compiled)
+		this.props.dispatch( compileCode(this.props.updatedCode, false) )
 	}
 
 	pingForUSBConnection(howOften) {
@@ -65,7 +67,7 @@ export class ActionButtons extends Component {
 		return (
             <div className={styles.actionButtonWrapper}>
                 <a onClick={this.handleTestButtonClick} className="button success" href="#"><FA className={styles.icons} name='cogs' />Testa min kod</a>
-                <a onClick={this.handleCompileButtonClick} className={this.renderUploadButtonClassNames()} href="#"><FA className={styles.icons} name='usb' />Ladda över kod</a>
+                <a onClick={this.handleUploadButtonClick} className={this.renderUploadButtonClassNames()} href="#"><FA className={styles.icons} name='usb' />Ladda över kod</a>
             </div>
 		)
 	}
