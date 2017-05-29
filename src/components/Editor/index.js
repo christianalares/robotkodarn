@@ -22,10 +22,6 @@ int main()
 export class Editor extends Component {
 	constructor (props) {
 		super(props)
-        
-        // this.state = {
-        //     userValue: helloWorld
-        // }
 
 		this.handleTabClick = this.handleTabClick.bind(this)
         this.onChange = this.onChange.bind(this)
@@ -36,6 +32,10 @@ export class Editor extends Component {
             this.props.dispatch( uploadCode(nextProps.compilerResponse.output) )
         }
     }
+    componentWillMount() {
+        // Set value in codeeditor?
+        console.log( localStorage.getItem('code') )
+    }
 
 
 	handleTabClick(userOrOriginal) {
@@ -44,27 +44,15 @@ export class Editor extends Component {
 
     onChange(newValue) {
         this.props.dispatch( updateCode(newValue) )
+        this.saveToLocalStorage()
+    }
+
+    saveToLocalStorage() {
+        localStorage.setItem('code', this.props.updatedCode)
     }
 
 	renderTab() {
-        if (this.props.activeTab === 'original') {
-            return (
-                <AceEditor
-                    setOptions={{
-                        readOnly: true
-                    }}
-                    fontSize='16px'
-                    mode='c_cpp'
-                    theme='chrome'
-                    name='codeEditor'
-                    width='auto'
-                    height='90%'
-                    editorProps={{$blockScrolling: true}}
-                    value={helloWorld}
-                    showPrintMargin={false}
-                />
-            )
-        } else {
+        if (this.props.activeTab === 'user') {
             return (
                 <AceEditor
                     setOptions={{
@@ -79,6 +67,23 @@ export class Editor extends Component {
                     height='90%'
                     editorProps={{$blockScrolling: true}}
                     value={this.props.updatedCode}
+                    showPrintMargin={false}
+                />
+            )
+        } else {
+            return (
+                <AceEditor
+                    setOptions={{
+                        readOnly: true
+                    }}
+                    fontSize='16px'
+                    mode='c_cpp'
+                    theme='chrome'
+                    name='codeEditor'
+                    width='auto'
+                    height='90%'
+                    editorProps={{$blockScrolling: true}}
+                    value={helloWorld}
                     showPrintMargin={false}
                 />
             )

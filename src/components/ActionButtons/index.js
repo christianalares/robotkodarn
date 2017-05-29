@@ -15,6 +15,7 @@ export class ActionButtons extends Component {
 		}
 
 		this.handleCompileButtonClick = this.handleCompileButtonClick.bind(this)
+		this.handleTestButtonClick = this.handleTestButtonClick.bind(this)
 		this.renderUploadButtonClassNames = this.renderUploadButtonClassNames.bind(this)
 	}
 	componentDidMount() {
@@ -23,6 +24,11 @@ export class ActionButtons extends Component {
 
 	handleCompileButtonClick() {
 		if(this.props.connectedArduino) {
+			this.props.dispatch( setConsoleOutput({
+				type: '',
+				heading: 'Kompilerar',
+				message: 'Skickar kod till kompilator'
+			}) )
 			this.props.dispatch( compileCode(this.props.updatedCode) )
 		} else {
 			this.props.dispatch( setConsoleOutput({
@@ -31,6 +37,14 @@ export class ActionButtons extends Component {
 				message: 'Hittade ingen inkopplad robot'
 			}) )
 		}
+	}
+	handleTestButtonClick() {
+		this.props.dispatch( setConsoleOutput({
+			type: '',
+			heading: 'Testar kod',
+			message: 'Skickar kod till kompilator...'
+		}) )
+		this.props.dispatch( compileCode(this.props.updatedCode) )
 	}
 
 	pingForUSBConnection(howOften) {
@@ -50,7 +64,7 @@ export class ActionButtons extends Component {
 
 		return (
             <div className={styles.actionButtonWrapper}>
-                <a className="button success" href="#"><FA className={styles.icons} name='cogs' />Testa min kod</a>
+                <a onClick={this.handleTestButtonClick} className="button success" href="#"><FA className={styles.icons} name='cogs' />Testa min kod</a>
                 <a onClick={this.handleCompileButtonClick} className={this.renderUploadButtonClassNames()} href="#"><FA className={styles.icons} name='usb' />Ladda över kod</a>
             </div>
 		)
