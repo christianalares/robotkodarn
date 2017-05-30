@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import AceEditor from 'react-ace'
 
-import FA from 'react-fontawesome' 
+import FA from 'react-fontawesome'
 
 import 'brace/mode/c_cpp'
 import 'brace/theme/monokai'
@@ -135,19 +135,33 @@ export class Editor extends Component {
     }
 
 	render () {
-		return (
-			<div className={styles.codeWrapper}>
-                <button className={styles.undo} onClick={()=> {this.refs.editor.editor.undo()}}><FA name='undo' /></button>
-                <button className={styles.redo} onClick={()=> {this.refs.editor.editor.redo()}}><FA name='repeat' /></button>
+		if (this.props.activeTab === 'user') {
+			return (
+				<div className={styles.codeWrapper}>
+	                <button className={styles.undo} onClick={()=> {this.refs.editor.editor.undo()}}><FA name='undo' /></button>
+	                <button className={styles.redo} onClick={()=> {this.refs.editor.editor.redo()}}><FA name='repeat' /></button>
 
-				<ul>
-					<li onClick={() => this.handleTabClick('user')} className={this.props.activeTab === 'user' && styles.active}><a href='#'>Din kod</a></li>
-					<li onClick={() => this.handleTabClick('original')} className={this.props.activeTab === 'original' && styles.active}><a href='#'>Original</a></li>
-				</ul>
-                {this.renderTab()}
-			</div>
+					<ul>
+						<li onClick={() => this.handleTabClick('user')} className={this.props.activeTab === 'user' && styles.active}><a href='#'>Din kod</a></li>
+						<li onClick={() => this.handleTabClick('original')} className={this.props.activeTab === 'original' && styles.active}><a href='#'>Original</a></li>
+					</ul>
+	                {this.renderTab()}
+				</div>
 
-		)
+			)
+	} else {
+			return (
+				<div className={styles.codeWrapper}>
+
+					<ul>
+						<li onClick={() => this.handleTabClick('user')} className={this.props.activeTab === 'user' && styles.active}><a href='#'>Din kod</a></li>
+						<li onClick={() => this.handleTabClick('original')} className={this.props.activeTab === 'original' && styles.active}><a href='#'>Original</a></li>
+					</ul>
+	                {this.renderTab()}
+				</div>
+
+			)
+		}
 	}
 }
 

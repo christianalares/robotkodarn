@@ -1,4 +1,5 @@
 :local .mainNavbar {
+    text-align: center;
     position: absolute;
     top: 0;
     left: 0;
@@ -8,11 +9,16 @@
 }
 
 :local .logo {
-    font-size: 4em;
+    letter-spacing: 7px;
+    font-size: 3em;
     margin: 10px;
+    display: inline-block;
+    font-family: "Reenie Beanie";
+    color: white;
 }
 
 :local .workshopPinCode {
+    display: inline-block;
     float: right;
     color: white;
     border: 1px solid white;
