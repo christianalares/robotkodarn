@@ -11,6 +11,7 @@ class Navbar extends React.Component {
         return (
             <nav className={styles.mainNavbar}>
                 <div className={styles.logoRobot}></div>
+                <h3 className={styles.logo}>Robotkodarn</h3>
                 <WorkshopPincode />
             </nav>
         );
@@ -19,7 +20,7 @@ class Navbar extends React.Component {
 
 function mapStateToProps (state) {
 	return {
-		
+
 	}
 }
 
