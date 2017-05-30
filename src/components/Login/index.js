@@ -24,7 +24,7 @@ export class Login extends Component {
 			const parsedWorkshop = JSON.parse(newProps.currentWorkshop)
 
 			if(parsedWorkshop.pincode) {
-				this.props.dispatch( routeActions.push('/student/' + parsedWorkshop.pincode) )
+				this.props.dispatch( routeActions.push('/id/' + parsedWorkshop.pincode) )
 			}
 		}
 	}

@@ -27,6 +27,8 @@ export class Student extends Component {
 
 	render () {
 
+		console.log(this.props)
+
 		return (
             <div>
                 <Navbar />
