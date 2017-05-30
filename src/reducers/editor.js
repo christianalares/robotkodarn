@@ -50,6 +50,13 @@ export default handleActions({
 		})
 	},
 
+	SET_ACTIVE_PART_INDEX: (state, action) => {
+		return ({
+			...state,
+			activePartIndex: action.payload
+		})
+	}
+
 	
 
 }, {
@@ -66,5 +73,6 @@ void loop() {
 }`,
 	compilerResponse: null,
 	consoleOutput: [],
-	connectedArduino: null
+	connectedArduino: null,
+	activePartIndex: 0
 })

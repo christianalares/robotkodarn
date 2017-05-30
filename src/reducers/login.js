@@ -4,9 +4,11 @@ export default handleActions({
 	SET_WORKSHOP: (state, action) => {
 		return ({
 			...state,
-			currentWorkshop: action.payload
+			currentWorkshop: action.payload,
+			loginAttemptTimestamp: +new Date()
 		})
 	}
 }, {
-	currentWorkshop: null
+	currentWorkshop: null,
+	loginAttemptTimestamp: +new Date()
 })

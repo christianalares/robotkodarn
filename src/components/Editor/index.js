@@ -27,6 +27,11 @@ export class Editor extends Component {
 
 		this.handleTabClick = this.handleTabClick.bind(this)
         this.onChange = this.onChange.bind(this)
+
+        this.state = {
+            workshop: null,
+            userCode: null
+        }
 	}
 
     componentWillReceiveProps(nextProps) {
@@ -51,13 +56,25 @@ export class Editor extends Component {
 					message: 'Din kod ser bra ut!'
 				}
                 this.props.dispatch( setConsoleOutput(msg) )
-            }
-            
+            }            
+        }
+
+        if(nextProps.activePartIndex !== this.props.activePartIndex) {
+            this.setState({
+                userCode: this.props.workshop.parts[nextProps.activePartIndex].code
+            })
         }
     }
     componentWillMount() {
-        // Set value in codeeditor?
-        console.log( localStorage.getItem('code') )
+        this.setState({
+            workshop: this.props.workshop
+        })
+    }
+
+    componentDidMount() {
+        this.setState({
+            userCode: this.props.workshop.parts[this.props.activePartIndex].code
+        })
     }
 
 
@@ -67,6 +84,9 @@ export class Editor extends Component {
 
     onChange(newValue) {
         this.props.dispatch( updateCode(newValue) )
+        this.setState({
+            userCode: newValue
+        })
         this.saveToLocalStorage()
     }
 
@@ -90,7 +110,7 @@ export class Editor extends Component {
                     width='auto'
                     height='90%'
                     editorProps={{$blockScrolling: true}}
-                    value={this.props.updatedCode}
+                    value={this.state.userCode || 'Laddar...'}
                     showPrintMargin={false}
                 />
             )
@@ -137,6 +157,7 @@ function mapStateToProps (state) {
         updatedCode: state.editor.updatedCode,
         compilerResponse: state.editor.compilerResponse,
         willUpload: state.editor.willUpload,
+        activePartIndex: state.editor.activePartIndex
 	}
 }
 

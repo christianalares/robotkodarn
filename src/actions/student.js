@@ -10,21 +10,9 @@ export const findWorkshopByPin = (pin) => (dispatch) => {
 				type: 'SET_WORKSHOP',
 				payload: request.response
 			})
-		}
-		// Error from server
-		else if (request.status === 500) {
-			dispatch({
-				type: 'SET_WORKSHOP',
-				payload: 'error'
-			})
-		}
-		// No workshop found
-		else if (request.status === 400) {
-			dispatch({
-				type: 'SET_WORKSHOP',
-				payload: 'notfound'
-			})
-		}
+		} else {
+            dispatch( routeActions.push('/login') )
+        }
 	}
 	
 	request.send()

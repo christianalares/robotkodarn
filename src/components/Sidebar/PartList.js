@@ -2,29 +2,28 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import FA from 'react-fontawesome' 
 
+import { setActivePartIndex } from '../../actions/editor'
+
 import styles from './sidebar.css'
 
 
 class PartList extends React.Component {
 
-    clickHandler() {
-        let addButton = this.refs.addPart
-        let listItem = addButton.parentElement
-        let newElement = document.createElement('input')
-        newElement.className = 'addInput'
-        
-        listItem.removeChild(addButton)
-        listItem.appendChild(newElement)
+    changePart(index) {
+        this.props.dispatch( setActivePartIndex(index) )
+    }
+
+    renderParts() {
+        return this.props.parts.map( (part, index) => {
+            return (<li key={part._id}><FA name='file-code-o' /><a onClick={() => this.changePart(index)} href="#">{part.title}</a></li>)
+        } )
     }
 
     render() {
         return (
             <ul className={styles.partList}>
-                <li className={styles.active}><FA name='file-code-o' /> <a href="#">Intro</a></li>
-                <li><FA name='file-code-o' /> <a href="#">Motorer</a></li>
-                <li><FA name='file-code-o' /> <a href="#">Sensorer</a></li>
-                <li><FA name='file-code-o' /> <a href="#">LCD-display</a></li>
-                { this.props.user === 'teacher' && (<li><FA name='plus' /> <a ref="addPart" href="#" onClick={this.clickHandler.bind(this)}>Lägg till...</a></li>) }
+                {this.renderParts()}
+                {/*{ this.props.user === 'teacher' && (<li><FA name='plus' /> <a ref="addPart" href="#" onClick={}>Lägg till...</a></li>) }*/}
             </ul>
         );
     }

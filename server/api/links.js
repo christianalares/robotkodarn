@@ -1,5 +1,5 @@
 import { Link, linkValidation } from '../models/link'
-import Workshop from '../models/workshop'
+import { Workshop } from '../models/workshop'
 import Joi from 'joi'
 
 

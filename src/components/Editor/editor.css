@@ -45,7 +45,7 @@
 			:local .undo,
 			:local .redo {
 				position: absolute;
-				top: 30px;
+				top: 50px;
 				width: 30px;
 				height: 30px;
 				z-index: 100;

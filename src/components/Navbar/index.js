@@ -11,7 +11,7 @@ class Navbar extends React.Component {
         return (
             <nav className={styles.mainNavbar}>
                 <div className={styles.logoRobot}></div>
-                <WorkshopPincode />
+                <WorkshopPincode pincode={this.props.pincode} />
             </nav>
         );
     }

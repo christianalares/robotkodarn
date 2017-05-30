@@ -1,5 +1,5 @@
 import { Part, partValidation } from '../models/part'
-import Workshop from '../models/workshop'
+import { Workshop } from '../models/workshop'
 import Joi from 'joi'
 
 // ----------------------------------------
@@ -8,8 +8,8 @@ import Joi from 'joi'
 const getParts = (request, reply) => {
 	Workshop.findOne({_id: request.params.id}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
-
-			return reply(foundWorkshop.parts).code(200)
+		
+		return reply(foundWorkshop.parts).code(200)
 	})
 }
 

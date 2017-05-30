@@ -112,3 +112,10 @@ export const pingForUSBConnection = () => (dispatch) => {
 	}
 	request.send()
 }
+
+export const setActivePartIndex = (index) => (dispatch) => {
+	dispatch({
+		type: 'SET_ACTIVE_PART_INDEX',
+		payload: index
+	})
+}
