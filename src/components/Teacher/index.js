@@ -43,7 +43,7 @@ export class Teacher extends Component {
 					<ActionButtons />
 					<Editor />
 					<Snippets />
-					<Console user="teacher" />
+					<Console />
 				</div>
             </div>
 		)

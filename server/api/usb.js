@@ -1,6 +1,18 @@
 var Avrgirl = require('avrgirl-arduino');
 
-const testUSB = (request, reply) => {
+const uploadCode = (request, reply) => {
+
+    // var board = {
+    //     name: 'zumo',
+    //     baud: 57600,
+    //     signature: new Buffer([0x1e, 0x95, 0x87]),
+    //     productId: ['0x0036', '0x8036', '0x800c', '0x8036', '0x2300'],
+    //     protocol: 'avr109'
+    // }
+
+    // Avrgirl.list((err, ports) => {
+    //     console.log( ports )
+    // })
 
     var avrgirl = new Avrgirl({
         board: 'uno',
@@ -8,17 +20,25 @@ const testUSB = (request, reply) => {
         manualReset: false
     });
 
-    // console.log( avrgirl )
 
-    avrgirl.flash(__dirname + '/blink.hex.hex', function (error) {
+    avrgirl.flash(new Buffer(request.payload), function (error) {
         if (error) {
-            // return reply(error).code(200)
-            console.log( error )
+            return reply({error: error.message}).code(400)
         } else {
-            // return reply('done').code(200)
-            console.log( 'done' )
+            return reply('OK').code(200)
         }
     });
+
+}
+
+const pingForUSBConnection = (request, reply) => {
+    Avrgirl.list((err, ports) => {
+        const foundRobot = ports.filter( port => port.manufacturer !== undefined)
+
+        return (foundRobot.length === 1)
+            ? reply(foundRobot[0]).code(200)
+            : reply({error: 'Kunde ej hitta inkopplad någon robot'}).code(400)
+    })
 }
 
 
@@ -26,10 +46,17 @@ const testUSB = (request, reply) => {
 exports.register = (server, options, next) => {
 	server.route([
 	{
+		method: 'POST',
+		path: '/api/usb',
+		config: {
+			handler: uploadCode,
+		}
+	},
+    {
 		method: 'GET',
 		path: '/api/usb',
 		config: {
-			handler: testUSB,
+			handler: pingForUSBConnection,
 		}
 	}
 	])

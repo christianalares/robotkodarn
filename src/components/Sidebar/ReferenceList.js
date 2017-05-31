@@ -7,14 +7,17 @@ import styles from './sidebar.css'
 
 class ReferenceList extends React.Component {
 
+    renderLinks() {
+        return this.props.links.map(link => {
+            return (<li><FA name='external-link' /> <a href={link.url}>{link.title}</a></li>)
+        })
+    }
+
     render() {
         return (
             <ul className={styles.referenceList}>
-                <li><FA name='external-link' /> <a href="#">http://...</a></li>
-                <li><FA name='external-link' /> <a href="#">http://...</a></li>
-                <li><FA name='external-link' /> <a href="#">http://...</a></li>
-                <li><FA name='external-link' /> <a href="#">http://...</a></li>
-                { this.props.user === 'teacher' && (<li><FA name='plus' /> <a href="#">Lägg till...</a></li>) }
+                { this.renderLinks() }
+                {/*{ this.props.user === 'teacher' && (<li><FA name='plus' /> <a href="#">Lägg till...</a></li>) }*/}
             </ul>
         );
     }

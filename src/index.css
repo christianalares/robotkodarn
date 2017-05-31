@@ -148,3 +148,12 @@ hr {
         border-radius: 3px;
         font-size: .8rem;
     }
+
+.button.disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+.button.disabled:hover {
+    background-color: #18bc9c;
+    border-color: #18bc9c;
+}

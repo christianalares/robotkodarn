@@ -4,10 +4,13 @@ import User from '../models/user'
 // Get all the users [GET]
 // ----------------------------------------
 const getUsers = (request, reply) => {
-	User.find({}, (error, users) => {
+	var name = request.auth.artifacts
+	// console.log(name)
+	User.find({/*email: name.email*/}, (error, users) => {
 		if (error) return reply(error).code(500)
 
-			return reply(users).code(200)
+		return reply(users).code(200)
+
 	})
 }
 
@@ -15,7 +18,7 @@ const getUsers = (request, reply) => {
 // Get one user with the id [GET]
 // ----------------------------------------
 const getUser = (request, reply) => {
-	User.find({_id: request.params.id}, (error, user) => {
+	User.find({email: request.params.id}, (error, user) => {
 		if (error) return reply(error).code(500)
 
 			return reply(user).code(200)
@@ -111,7 +114,7 @@ exports.register = (server, options, next) => {
 		}
 	}
 	])
-	
+
 	next()
 }
 

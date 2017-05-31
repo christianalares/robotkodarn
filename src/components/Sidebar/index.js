@@ -40,11 +40,11 @@ class Sidebar extends React.Component {
 		return (
 			<div className={this.getSidebarClassName()}>
 				<div className="content">
-					<h2>Workshop 1</h2>
-					<PartList user={this.props.user} />
+					<h2>{this.props.workshop.title}</h2>
+					<PartList parts={this.props.workshop.parts} />
 					<hr />
 					<h2>Referenslänkar</h2>
-					<ReferenceList user={this.props.user} />
+					<ReferenceList links={this.props.workshop.links} />
 				</div>
 				<a className={styles.closeBtn} href="#" onClick={this.handleSidebarClick}><FA className={this.getCloseBtnClassName()} name='angle-double-left'/></a>
 			</div>

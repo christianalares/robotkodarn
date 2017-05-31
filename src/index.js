@@ -24,14 +24,14 @@ const reduxRouterMiddleware = syncHistory(browserHistory)
 const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware, thunkMiddleware)(createStore)
 const store = createStoreWithMiddleware(reducers)
 
-
 render((
 	<Provider store={store}>
 		<Router history={browserHistory}>
 			<Route path="/" component={App}>
 				<IndexRedirect to='/login'/>
+				<Route path="/pin" component={Student}/>
 				<Route path="/editor" component={Editor}/>
-				<Route path="/student/8907" component={Student}/>
+				<Route path="/id/:pin" component={Student}/>
 				<Route path="/teacher" component={Teacher}/>
 				<Route path="/login" component={Login}/>
 				<Route path="/admin" component={Admin}/>

@@ -8,7 +8,7 @@ class WorkshopPincode extends React.Component {
     render() {
         return (
             <p className={styles.workshopPinCode}>
-                8907
+                {this.props.pincode}
             </p>
         );
     }

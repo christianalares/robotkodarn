@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose'
 import Joi from 'joi'
 
 const workshopSchema = Schema({
-    
+
     title: {
         type: String, required: true
     },
@@ -14,7 +14,7 @@ const workshopSchema = Schema({
     },
     parts: [],
     links: []
-    
+
 })
 
 export const workshopValidation = Joi.object().keys({

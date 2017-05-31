@@ -5,11 +5,15 @@ import Joi from 'joi'
 // Get all workshops [GET]
 // ----------------------------------------
 const getWorkshops = (request, reply) => {
-	Workshop.find({}, (error, workshops) => {
-		if (error) return reply(error).code(500)
 
-			return reply(workshops).code(200)
-	})
+	// var name = request.auth.artifacts
+
+	Workshop.find({/*userId: name._id*/}, (error, workshops) => {
+		if (error) return reply(error).code(500)
+		// console.log(request.auth.artifacts)
+		return reply(workshops).code(200)
+  })
+
 }
 
 // ----------------------------------------
@@ -19,7 +23,7 @@ const getWorkshop = (request, reply) => {
 	Workshop.findOne({_id: request.params.id}, (error, workshops) => {
 		if (error) return reply(error).code(500)
 
-			return reply(workshops).code(200)
+		return reply(workshops).code(200)
 	})
 }
 
@@ -35,7 +39,7 @@ const addWorkshop = (request, reply) => {
 			workshop.save(error => {
 				if (error) return reply({error: error.message}).code(400)
 
-					return reply(workshop).code(200)
+				return reply(workshop).code(200)
 			})
 	})
 }
@@ -55,7 +59,7 @@ const updateWorkshop = (request, reply) => {
 				workshop.save((error, doc) => {
 					if (error) return reply({error: error.message}).code(400)
 
-						return reply(doc).code(200)
+					return reply(doc).code(200)
 				})
 		})
 	})
@@ -68,7 +72,19 @@ const deleteWorkshop = (request, reply) => {
 	Workshop.remove({_id: request.params.id}, (error, workshop) => {
 		if (error) return reply(error).code(500)
 
-			return reply(workshop).code(200)
+		return reply(workshop).code(200)
+	})
+}
+
+// ----------------------------------------
+// Get one workshop with {id} [GET]
+// ----------------------------------------
+const getWorkshopByPin = (request, reply) => {
+	Workshop.findOne({pincode: request.params.pin}, (error, foundWorkshop) => {
+		if (error) return reply(error).code(500) // Error
+		if(!foundWorkshop) return reply(error).code(400) // No workshop found
+
+		return reply(foundWorkshop).code(200) // OK, return the workshop
 	})
 }
 
@@ -80,7 +96,7 @@ exports.register = (server, options, next) => {
 		path: '/api/workshops',
 		config: {
 			handler: getWorkshops,
-			auth: 'session'
+			// auth: 'session'
 		}
 	},
 	{
@@ -113,13 +129,19 @@ exports.register = (server, options, next) => {
 			handler: deleteWorkshop,
 			auth: 'session'
 		}
+	},
+	{
+		method: 'GET',
+		path: '/api/workshop/pin/{pin}',
+		config: {
+			handler: getWorkshopByPin
+		}
 	}
 	])
-	
+
 	next()
 }
 
 exports.register.attributes = {
 	name: 'workshops'
 }
-
