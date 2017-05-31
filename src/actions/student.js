@@ -1,19 +1,13 @@
 import { routeActions } from 'redux-simple-router'
+import axios from 'axios'
 
 export const findWorkshopByPin = (pin) => (dispatch) => {
-	const request = new XMLHttpRequest()
-	request.open('GET', '/api/workshop/pin/' + pin, true)
-
-	request.onload = () => {
-		if (request.status >= 200 && request.status < 400) {
-			dispatch({
-				type: 'SET_WORKSHOP',
-				payload: request.response
-			})
-		} else {
-            dispatch( routeActions.push('/login') )
-        }
-	}
-	
-	request.send()
+	axios.get('/api/workshop/pin/' + pin)
+	.then(response => {
+		dispatch({
+			type: 'SET_WORKSHOP',
+			payload: request.response
+		})
+	})
+	.catch(error => dispatch( routeActions.push('/login') ))
 }
