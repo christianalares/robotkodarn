@@ -1,21 +1,18 @@
 import { routeActions } from 'redux-simple-router'
+import axios from 'axios'
 
 export const isLoggedIn = () => (dispatch) => {
-	const request = new XMLHttpRequest()
-	request.open('GET', '/api/isLoggedIn', true)
 
-	request.onload = () => {
-		if (request.status >= 200 && request.status < 400) {
+	axios.get('/api/isLoggedIn')
+	.then(response => {
 
-			dispatch({
-				type: 'IS_LOGGED_IN',
-				payload: request.responseText.credentials
-			})
-		}
-		else if (request.status === 401) {
-			dispatch(routeActions.push('/admin'))
-		}
-	}
-	
-	request.send()
+		dispatch({
+			type: 'IS_LOGGED_IN',
+			payload: response.data.credentials.email
+		})
+	})
+	.catch(error => {
+		console.log(error)
+		dispatch(routeActions.push('/admin'))
+	})
 }

@@ -29,9 +29,9 @@ const addUser = (request, reply) => {
 	User.findOne({email: request.payload.email}, (error, user) => {
 		if (error) return reply(error).code(500)
 
-		if (user) return reply({error: 'User already exists'}).code(400) //Hur hanteras dessa?
+		if (user) return reply({error: 'User already exists'}).code(400)
 
-			user = new User(request.payload)
+		user = new User(request.payload)
 		user.save(error => {
 			if (error) return reply({error: error.message}).code(400)
 

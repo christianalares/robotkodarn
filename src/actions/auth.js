@@ -1,14 +1,9 @@
 import {routeActions} from 'redux-simple-router'
+import axios from 'axios'
 
 export const signOut = (path) => (dispatch) => {
-	const request = new XMLHttpRequest()
-	request.open('GET', '/auth/logout', true)
 
-	request.onload = () => {
-		if (request.status >= 200 && request.status < 400) {
-			dispatch(routeActions.push(path))
-		}
-	}
-	
-	request.send()
+	axios.get('/auth/logout')
+	.then(response => dispatch(routeActions.push(path)))
+	.catch(error => console.log(error))
 }

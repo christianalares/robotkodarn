@@ -10,7 +10,7 @@ const workshopSchema = Schema({
         type: String, unique: true, required: true
     },
     userId: {
-        type: String, unique: true, required: true
+        type: String, required: true
     },
     parts: [],
     links: []

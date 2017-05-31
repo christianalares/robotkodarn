@@ -1,22 +1,17 @@
 import { routeActions } from 'redux-simple-router'
+import axios from 'axios'
 
 // ----------------------------------------
 // signIn, takes email and hashed input
 // ----------------------------------------
 export const signIn = (credentials, path) => (dispatch) => {
-	const request = new XMLHttpRequest()
-	request.open('POST', '/auth/signIn', true)
-	request.setRequestHeader('Content-Type', 'application/json')
+	const data = JSON.stringify(credentials)
 
-	request.onload = () => {
-		if (request.status >= 200 && request.status < 400) {
-			dispatch(routeActions.push(path))
-		} else if(request.status === 401) {
-			window.alert( JSON.parse(request.response).message )
-		}
-	}
-
-	request.send(JSON.stringify(credentials))
+	axios.post('/auth/signIn', data, {
+		headers: { 'content-type': 'application/json' }
+	})
+	.then(response => dispatch(routeActions.push(path)))
+	.catch(error => console.log(error))
 }
 
 // ----------------------------------------
@@ -37,19 +32,14 @@ export const toggleUserRegister = (loginOrRegister) => (dispatch) => {
 // ----------------------------------------
 export const registerUser = (credentials) => (dispatch) => {
 	credentials.admin = false
+	const data = JSON.stringify(credentials)
 
-	const request = new XMLHttpRequest()
-	request.open('POST', '/api/user', true)
-	request.setRequestHeader('Content-Type', 'application/json')
-
-	request.onload = () => {
-		if (request.status >= 200 && request.status < 400) {
-			window.alert('User is registered')
-		}
-		else if (request.status === 401) {
-			dispatch(routeActions.push('/admin'))
-		}
-	}
-	
-	request.send(JSON.stringify(credentials))
+	axios.post('/api/user', data, {
+		headers: { 'content-type': 'application/json' }
+	})
+	.then(response => window.alert('User is registered'))
+	.catch(error => {
+		console.log(error)
+		dispatch(routeActions.push('/admin'))
+	})
 }
