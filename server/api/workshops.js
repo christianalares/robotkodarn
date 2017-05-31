@@ -80,6 +80,8 @@ const deleteWorkshop = (request, reply) => {
 // Get one workshop with {id} [GET]
 // ----------------------------------------
 const getWorkshopByPin = (request, reply) => {
+	// console.log( 'langd: ', request.params.pin.length )
+
 	Workshop.findOne({pincode: request.params.pin}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500) // Error
 		if(!foundWorkshop) return reply(error).code(400) // No workshop found

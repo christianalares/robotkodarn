@@ -10,7 +10,7 @@ import Snippets from './../Snippets'
 
 import styles from './student.css'
 
-import { findWorkshopByPin, setUserCode } from '../../actions/student'
+import { findWorkshopByPin, setCurrentParts } from '../../actions/student'
 
 export class Student extends Component {
 	constructor (props) {
@@ -23,16 +23,32 @@ export class Student extends Component {
 		}
 	}
 	componentWillMount() {
-		// console.log( 'currentWorkshop', this.props.currentWorkshop )
 		this.props.dispatch( findWorkshopByPin(this.props.params.pin) )
-	}
-	componentDidMount() {
-		let userCode = JSON.parse(this.props.currentWorkshop)
-		this.props.dispatch( setUserCode(userCode) )
+		if(this.props.currentWorkshop) {
+			this.setState( {
+				workshop: JSON.parse(this.props.currentWorkshop)
+			}, () => {
+
+				let currentParts = JSON.parse(this.props.currentWorkshop).parts
+				this.props.dispatch( setCurrentParts(currentParts) )
+
+			} )
+		}
 	}
 
-	componentWillReceiveProps(newProps) {
-		this.setState( { workshop: JSON.parse(newProps.currentWorkshop) } )
+	componentWillReceiveProps(nextProps) {
+
+		if(this.props.currentWorkshop !== nextProps.currentWorkshop) {
+
+			this.setState( {
+				workshop: JSON.parse(nextProps.currentWorkshop)
+			}, () => {
+
+				let currentParts = JSON.parse(nextProps.currentWorkshop).parts
+				this.props.dispatch( setCurrentParts(currentParts) )
+
+			} )
+		}
 	}
 
 	getMainPaneClassName() {
@@ -45,15 +61,15 @@ export class Student extends Component {
 
 	renderWorkshop() {
 
-		if(this.props.currentWorkshop) {
+		if(this.state.workshop) {
 			return (
 				<div>
-					<Navbar pincode={this.state.workshop.pincode} />
-					<Sidebar workshop={this.state.workshop} />
+					<Navbar />
+					<Sidebar />
 					<div className={this.getMainPaneClassName()}>
-						<h2>test</h2>
+						<h2>{this.state.workshop.parts[this.props.activePartIndex].title}</h2>
 						<ActionButtons />
-						<Editor workshop={this.state.workshop} />
+						<Editor />
 						<Snippets />
 						<Console />
 					</div>
@@ -73,8 +89,7 @@ function mapStateToProps (state) {
 	return {
 		isSidebarOpen: state.sidebar.open,
 		currentWorkshop: state.login.currentWorkshop,
-		userCode: state.student.userCode,
-		// activePartIndex: state.editor.activePartIndex
+		activePartIndex: state.editor.activePartIndex
 	}
 }
 

@@ -5,13 +5,6 @@ export const changeEditorTab = (userOrOriginal) => (dispatch) => {
 	})
 }
 
-export const updateCode = (updatedCode) => (dispatch) => {
-	dispatch({
-		type: 'UPDATE_CODE',
-		payload: updatedCode
-	})
-}
-
 export const compileCode = (codeToCompile, willUpload) => (dispatch) => {
 	const request = new XMLHttpRequest()
 	request.open('POST', 'http://192.168.33.15/hemligt/v1', true)

@@ -1,12 +1,12 @@
 import { handleActions } from 'redux-actions'
 
 export default handleActions({
-	SET_USER_CODE: (state, action) => {
+	SET_CURRENT_PARTS: (state, action) => {
 		return ({
 			...state,
-			userCode: action.payload
+			currentParts: action.payload
 		})
 	}
 }, {
-	userCode: {}
+	currentParts: [],
 })

@@ -9,12 +9,14 @@
 }
 
 :local .logo {
-    letter-spacing: 7px;
+    letter-spacing: 5px;
     font-size: 3em;
     margin: 10px;
-    display: inline-block;
     font-family: "Reenie Beanie";
     color: white;
+    float: left;
+    margin-left: 50%;
+    transform: translateX(-50%);
 }
 
 :local .workshopPinCode {

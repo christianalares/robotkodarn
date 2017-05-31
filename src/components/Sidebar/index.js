@@ -54,7 +54,8 @@ class Sidebar extends React.Component {
 
 function mapStateToProps (state) {
 	return {
-		isSidebarOpen: state.sidebar.open
+		isSidebarOpen: state.sidebar.open,
+		workshop: JSON.parse(state.login.currentWorkshop)
 	}
 }
 

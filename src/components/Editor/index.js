@@ -9,6 +9,7 @@ import brace from 'brace';
 import 'brace/theme/textmate'
 
 import { changeEditorTab, updateCode, uploadCode, setConsoleOutput } from '../../actions/editor'
+import { setCurrentParts } from '../../actions/student'
 
 import styles from './editor.css'
 
@@ -31,7 +32,7 @@ export class Editor extends Component {
 
         this.state = {
             workshop: null,
-            userCode: null
+            currentParts: null
         }
 	}
 
@@ -60,22 +61,32 @@ export class Editor extends Component {
             }            
         }
 
-        if(nextProps.activePartIndex !== this.props.activePartIndex) {
+        // When currentParts has gone from null to the currentParts
+        if(this.props.currentParts !== nextProps.currentParts) {
             this.setState({
-                userCode: this.props.workshop.parts[nextProps.activePartIndex].code
+                currentParts: nextProps.currentParts
             })
         }
     }
     componentWillMount() {
-        this.setState({
-            workshop: this.props.workshop
-        })
+        if(localStorage.getItem('code')) {
+            let LS = JSON.parse( localStorage.getItem('code') )
+
+            console.log( LS )
+
+            this.setState({
+                currentParts: LS,
+                workshop: this.props.workshop
+            })
+        } else {
+            this.setState({
+                workshop: this.props.workshop
+            })
+        }
     }
 
     componentDidMount() {
-        this.setState({
-            userCode: this.props.workshop.parts[this.props.activePartIndex].code
-        })
+        // console.log( 123, this.props.currentParts )
     }
 
 
@@ -84,16 +95,21 @@ export class Editor extends Component {
 	}
 
     onChange(newValue) {
+        let copyOfParts = this.state.currentParts
+        copyOfParts[this.props.activePartIndex].code = newValue
         this.setState({
-            userCode: newValue
+            currentParts: copyOfParts
         })
-        this.props.dispatch( updateCode(this.state.userCode) )
+        
+        this.props.dispatch( setCurrentParts(copyOfParts) )
+
+
         
         this.saveToLocalStorage()
     }
 
     saveToLocalStorage() {
-        localStorage.setItem('code', this.props.updatedCode)
+        localStorage.setItem( 'code', JSON.stringify(this.state.currentParts) )
     }
 
 	renderTab() {
@@ -112,7 +128,7 @@ export class Editor extends Component {
                     width='auto'
                     height='90%'
                     editorProps={{$blockScrolling: true}}
-                    value={this.state.userCode || 'Laddar...'}
+                    value={this.state.currentParts[this.props.activePartIndex].code || 'Laddar...'}
                     showPrintMargin={false}
                 />
             )
@@ -129,7 +145,7 @@ export class Editor extends Component {
                     width='auto'
                     height='90%'
                     editorProps={{$blockScrolling: true}}
-                    value={helloWorld}
+                    value={this.state.workshop.parts[this.props.activePartIndex].code}
                     showPrintMargin={false}
                 />
             )
@@ -148,28 +164,32 @@ export class Editor extends Component {
     }
 
 	render () {
-        return (
-            <div className={styles.codeWrapper}>
-                {this.renderControlPanelIfUser()}
+        if(this.state.currentParts) { 
+            return (
+                <div className={styles.codeWrapper}>
+                    {this.renderControlPanelIfUser()}
 
-                <ul>
-                    <li onClick={() => this.handleTabClick('user')} className={this.props.activeTab === 'user' && styles.active}><a href='#'>Din kod</a></li>
-                    <li onClick={() => this.handleTabClick('original')} className={this.props.activeTab === 'original' && styles.active}><a href='#'>Original</a></li>
-                </ul>
-                {this.renderTab()}
-            </div>
-        )
+                    <ul>
+                        <li onClick={() => this.handleTabClick('user')} className={this.props.activeTab === 'user' && styles.active}><a href='#'>Din kod</a></li>
+                        <li onClick={() => this.handleTabClick('original')} className={this.props.activeTab === 'original' && styles.active}><a href='#'>Original</a></li>
+                    </ul>
+                    {this.renderTab()}
+                </div>
+            )
+        } else {
+            return <h1>Laddar...</h1>
+        }
 	}
 }
 
 function mapStateToProps (state) {
 	return {
 		activeTab: state.editor.activeTab,
-        updatedCode: state.editor.updatedCode,
         compilerResponse: state.editor.compilerResponse,
         willUpload: state.editor.willUpload,
         activePartIndex: state.editor.activePartIndex,
-        userCode: state.student.userCode
+        currentParts: state.student.currentParts,
+        workshop: JSON.parse(state.login.currentWorkshop)
 	}
 }
 

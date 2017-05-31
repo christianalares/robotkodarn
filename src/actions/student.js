@@ -18,9 +18,9 @@ export const findWorkshopByPin = (pin) => (dispatch) => {
 	request.send()
 }
 
-export const setUserCode = (setUserCode) => (dispatch) => {
+export const setCurrentParts = (currentParts) => (dispatch) => {
 	dispatch({
-		type: 'SET_USER_CODE',
-		payload: setUserCode
+		type: 'SET_CURRENT_PARTS',
+		payload: currentParts
 	})
 }

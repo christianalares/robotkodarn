@@ -16,7 +16,7 @@ class WorkshopPincode extends React.Component {
 
 function mapStateToProps (state) {
 	return {
-		
+		pincode: JSON.parse(state.login.currentWorkshop).pincode
 	}
 }
 

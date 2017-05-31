@@ -61,16 +61,6 @@ export default handleActions({
 
 }, {
 	activeTab: 'user',
-	updatedCode: `void setup() {
-	pinMode(LED_BUILTIN, OUTPUT);
-}
-
-void loop() {
-	digitalWrite(LED_BUILTIN, HIGH);
-	delay(200);
-	digitalWrite(LED_BUILTIN, LOW);
-	delay(200);
-}`,
 	compilerResponse: null,
 	consoleOutput: [],
 	connectedArduino: null,

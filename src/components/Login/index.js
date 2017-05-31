@@ -12,12 +12,12 @@ export class Login extends Component {
 		super(props)
 
 		this.state = {
-			pin: null,
+			pinInputValue: '',
 			workshopNotFound: false,
 			inputClassName: ''
 		}
 
-		this.updatePin = this.updatePin.bind(this)
+		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
@@ -25,29 +25,43 @@ export class Login extends Component {
 		// Input has changed and new response came
 		// TODO: Check every time you press?
 		if(newProps.loginAttemptTimestamp !== this.props.loginAttemptTimestamp) {
-			if(newProps.currentWorkshop === 'notfound' || this.props.currentWorkshop === 'notfound') {
+			if(newProps.currentWorkshop === 'notfound') {
 				this.setState({
 					workshopNotFound: true,
 					inputClassName: 'animated shake'
 				})
 			} else {
-				this.setState({ workshopNotFound: false })
-				
-				const parsedWorkshop = JSON.parse(newProps.currentWorkshop)
-				this.props.dispatch( routeActions.push('/id/' + parsedWorkshop.pincode) )
+				// TODO: This is strange... return the whole HTML file?!
+				if( newProps.currentWorkshop.substr(0, 1) !== '<') {
+					this.setState({ workshopNotFound: false })
+					
+					const parsedWorkshop = JSON.parse(newProps.currentWorkshop)
+					this.props.dispatch( routeActions.push('/id/' + parsedWorkshop.pincode) )
+				}
 			}
 
 		}
 	}
 
-	updatePin(e) {
+	handleChange(e) {
 		this.setState({
-			pin: e.target.value
+			pinInputValue: e.target.value
 		})
 	}
-	handleSubmit() {
+	handleSubmit(e) {
+		e.preventDefault()
+		
+		let pinToSend
+
 		this.setState({ inputClassName: '' })
-		this.props.dispatch( findWorkshopByPin(this.state.pin) )
+
+		if(this.state.pinInputValue.length === 0) {
+			pinToSend = 'X'
+		} else {
+			pinToSend = this.state.pinInputValue		
+		}
+		
+		this.props.dispatch( findWorkshopByPin(pinToSend) )
 	}
 
 	render () {
@@ -56,8 +70,10 @@ export class Login extends Component {
                 <div className={styles.wrapper}>
                     <h1 className={styles.logo}>Robotkodarn</h1>
                     <div className={styles.loginField}>
-                        <input className={this.state.inputClassName} required onChange={(e) => this.updatePin(e)} type="text" placeholder="Workshop PIN" />
-                        <button onClick={this.handleSubmit} className="button primary">Logga in</button>
+						<form>
+							<input type="text" value={this.state.pinInputValue} className={this.state.inputClassName} onChange={this.handleChange} placeholder="Workshop PIN" />
+							<input type="submit" onClick={this.handleSubmit} className="button primary" value="Logga in" />
+						</form>
                     </div>
                 </div>
 				{ this.state.workshopNotFound && <p className={styles.workshopNotFound}>Kunde inte hitta någon workshop med denna PIN-kod</p> }

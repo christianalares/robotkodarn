@@ -9,7 +9,7 @@ class ReferenceList extends React.Component {
 
     renderLinks() {
         return this.props.links.map(link => {
-            return (<li key={link._id}><FA name='external-link' /> <a href={link.url}>{link.title}</a></li>)
+            return (<li key={link._id}><FA name='external-link' /> <a target="_blank" href={link.url}>{link.title}</a></li>)
         })
     }
 

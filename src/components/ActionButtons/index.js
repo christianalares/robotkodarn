@@ -30,7 +30,7 @@ export class ActionButtons extends Component {
 				message: 'Skickar kod till kompilator'
 			}) )
 			// true = will be uploaded to robot
-			this.props.dispatch( compileCode(this.props.updatedCode, true) )
+			this.props.dispatch( compileCode(this.props.currentParts[this.props.activePartIndex].code, true) )
 		} else {
 			this.props.dispatch( setConsoleOutput({
 				type: 'error',
@@ -46,7 +46,7 @@ export class ActionButtons extends Component {
 			message: 'Skickar kod till kompilator...'
 		}) )
 		// false = will not be uploaded to robot (only compiled)
-		this.props.dispatch( compileCode(this.props.updatedCode, false) )
+		this.props.dispatch( compileCode(this.props.currentParts[this.props.activePartIndex].code, false) )
 	}
 
 	pingForUSBConnection(howOften) {
@@ -75,8 +75,9 @@ export class ActionButtons extends Component {
 
 function mapStateToProps (state) {
 	return {
-		updatedCode: state.editor.updatedCode,
-		connectedArduino: state.editor.connectedArduino
+		connectedArduino: state.editor.connectedArduino,
+		currentParts: state.student.currentParts,
+		activePartIndex: state.editor.activePartIndex
 	}
 }
 
