@@ -10,8 +10,7 @@ import Snippets from './../Snippets'
 
 import styles from './student.css'
 
-import { findWorkshopByPin } from '../../actions/student'
-// import { findWorkshopByPin } from './../../actions/student'
+import { findWorkshopByPin, setUserCode } from '../../actions/student'
 
 export class Student extends Component {
 	constructor (props) {
@@ -24,9 +23,12 @@ export class Student extends Component {
 		}
 	}
 	componentWillMount() {
-		// console.log( getWorkshop )
 		// console.log( 'currentWorkshop', this.props.currentWorkshop )
 		this.props.dispatch( findWorkshopByPin(this.props.params.pin) )
+	}
+	componentDidMount() {
+		let userCode = JSON.parse(this.props.currentWorkshop)
+		this.props.dispatch( setUserCode(userCode) )
 	}
 
 	componentWillReceiveProps(newProps) {
@@ -44,14 +46,12 @@ export class Student extends Component {
 	renderWorkshop() {
 
 		if(this.props.currentWorkshop) {
-			console.log( this.state.workshop )
-
 			return (
 				<div>
 					<Navbar pincode={this.state.workshop.pincode} />
 					<Sidebar workshop={this.state.workshop} />
 					<div className={this.getMainPaneClassName()}>
-						<h2>{this.state.workshop.title}</h2>
+						<h2>test</h2>
 						<ActionButtons />
 						<Editor workshop={this.state.workshop} />
 						<Snippets />
@@ -72,7 +72,9 @@ export class Student extends Component {
 function mapStateToProps (state) {
 	return {
 		isSidebarOpen: state.sidebar.open,
-		currentWorkshop: state.login.currentWorkshop
+		currentWorkshop: state.login.currentWorkshop,
+		userCode: state.student.userCode,
+		// activePartIndex: state.editor.activePartIndex
 	}
 }
 

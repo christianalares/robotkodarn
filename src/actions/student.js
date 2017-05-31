@@ -17,3 +17,10 @@ export const findWorkshopByPin = (pin) => (dispatch) => {
 	
 	request.send()
 }
+
+export const setUserCode = (setUserCode) => (dispatch) => {
+	dispatch({
+		type: 'SET_USER_CODE',
+		payload: setUserCode
+	})
+}

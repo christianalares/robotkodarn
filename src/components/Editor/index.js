@@ -84,10 +84,11 @@ export class Editor extends Component {
 	}
 
     onChange(newValue) {
-        this.props.dispatch( updateCode(newValue) )
         this.setState({
             userCode: newValue
         })
+        this.props.dispatch( updateCode(this.state.userCode) )
+        
         this.saveToLocalStorage()
     }
 
@@ -167,7 +168,8 @@ function mapStateToProps (state) {
         updatedCode: state.editor.updatedCode,
         compilerResponse: state.editor.compilerResponse,
         willUpload: state.editor.willUpload,
-        activePartIndex: state.editor.activePartIndex
+        activePartIndex: state.editor.activePartIndex,
+        userCode: state.student.userCode
 	}
 }
 

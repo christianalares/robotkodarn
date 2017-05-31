@@ -4,6 +4,7 @@ import sidebar from './sidebar'
 import editor from './editor'
 import admin from './admin'
 import teacher from './teacher'
+import student from './student'
 import login from './login'
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
 	editor,
 	admin,
 	teacher,
+	student,
 	login
 })
