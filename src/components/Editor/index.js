@@ -5,7 +5,8 @@ import AceEditor from 'react-ace'
 import FA from 'react-fontawesome'
 
 import 'brace/mode/c_cpp'
-import 'brace/theme/monokai'
+import brace from 'brace';
+import 'brace/theme/textmate'
 
 import { changeEditorTab, updateCode, uploadCode, setConsoleOutput } from '../../actions/editor'
 
@@ -102,9 +103,9 @@ export class Editor extends Component {
                     setOptions={{
                         readOnly: false
                     }}
+                    theme="textmate"
                     fontSize='16px'
                     mode='c_cpp'
-                    theme='chrome'
                     onChange={this.onChange}
                     name='codeEditor'
                     width='auto'
@@ -120,9 +121,9 @@ export class Editor extends Component {
                     setOptions={{
                         readOnly: true
                     }}
+                    theme="textmate"
                     fontSize='16px'
                     mode='c_cpp'
-                    theme='chrome'
                     name='codeEditor'
                     width='auto'
                     height='90%'
