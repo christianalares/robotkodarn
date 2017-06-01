@@ -50,12 +50,12 @@ export class ActionButtons extends Component {
 	}
 
 	pingForUSBConnection(howOften) {
-		// setInterval(() => {
-		// 	this.props.dispatch( pingForUSBConnection() )
-		// 	this.setState({
-		// 		connectedArduino: this.props.connectedArduino
-		// 	})
-		// }, howOften)
+		setInterval(() => {
+			this.props.dispatch( pingForUSBConnection() )
+			this.setState({
+				connectedArduino: this.props.connectedArduino
+			})
+		}, howOften)
 	}
 	renderUploadButtonClassNames() {
 		return (this.state.connectedArduino)
