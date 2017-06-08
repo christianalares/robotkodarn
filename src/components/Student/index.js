@@ -70,7 +70,6 @@ export class Student extends Component {
 						<h2>{this.state.workshop.parts[this.props.activePartIndex].title}</h2>
 						<ActionButtons />
 						<Editor />
-						<Snippets />
 						<Console />
 					</div>
 				</div>
