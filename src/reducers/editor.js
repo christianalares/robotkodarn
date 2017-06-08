@@ -32,7 +32,7 @@ export default handleActions({
 
 		return ({
 			...state,
-			consoleOutput: [consoleMessage, ...state.consoleOutput]
+			consoleOutput: [...state.consoleOutput, consoleMessage]
 		})
 	},
 
