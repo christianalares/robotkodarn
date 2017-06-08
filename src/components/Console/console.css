@@ -13,6 +13,7 @@
 		font-size: 1rem;
 		overflow: scroll;
 	}
+
 		:local .console pre {
 			margin: 5px;
 			color: #333;
@@ -20,6 +21,10 @@
 		:local .console pre div {
 			border-bottom: 1px solid rgba(0, 0, 0, .1);
 			padding: 5px;
+		}
+		:local .console pre div:last-of-type {
+			animation: fadeout 2s;
+			animation-iteration-count: 1;
 		}
 		:local .console .timestamp {
 			color: #bbb;
@@ -33,3 +38,8 @@
 		:local .console .info {
 			color: #3498db;
 		}
+
+@keyframes :local(fadeout) {
+	0% {background-color: #FFFDD0;}
+	100% {background-color: #FFF;}
+}

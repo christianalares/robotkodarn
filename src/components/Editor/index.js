@@ -69,20 +69,20 @@ export class Editor extends Component {
         }
     }
     componentWillMount() {
-        if(localStorage.getItem('code')) {
-            let LS = JSON.parse( localStorage.getItem('code') )
+        // if(localStorage.getItem('code')) {
+        //     let LS = JSON.parse( localStorage.getItem('code') )
 
-            console.log( LS )
+        //     console.log( LS )
 
-            this.setState({
-                currentParts: LS,
-                workshop: this.props.workshop
-            })
-        } else {
-            this.setState({
-                workshop: this.props.workshop
-            })
-        }
+        //     this.setState({
+        //         currentParts: LS,
+        //         workshop: this.props.workshop
+        //     })
+        // } else {
+        //     this.setState({
+        //         workshop: this.props.workshop
+        //     })
+        // }
     }
 
     componentDidMount() {
