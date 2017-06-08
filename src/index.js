@@ -14,6 +14,7 @@ import Student from './components/Student'
 import Teacher from './components/Teacher'
 import Login from './components/Login'
 import Admin from './components/Admin'
+import AdminPage from './components/AdminPage'
 
 import './index.css'
 
@@ -35,6 +36,7 @@ render((
 				<Route path="/teacher" component={Teacher}/>
 				<Route path="/login" component={Login}/>
 				<Route path="/admin" component={Admin}/>
+				<Route path="/adminpage" component={AdminPage}/>
 			</Route>
 		</Router>
 	</Provider>

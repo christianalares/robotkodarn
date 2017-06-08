@@ -66,4 +66,3 @@ exports.register = (server, options, next) => {
 exports.register.attributes = {
 	name: 'usb'
 }
-

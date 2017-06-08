@@ -1,4 +1,5 @@
 import { Workshop, workshopValidation} from '../models/workshop'
+import CookieAuth from 'hapi-auth-cookie'
 import Joi from 'joi'
 
 // ----------------------------------------
@@ -10,10 +11,9 @@ const getWorkshops = (request, reply) => {
 
 	Workshop.find({/*userId: name._id*/}, (error, workshops) => {
 		if (error) return reply(error).code(500)
-		// console.log(request.auth.artifacts)
+
 		return reply(workshops).code(200)
   })
-
 }
 
 // ----------------------------------------
@@ -28,10 +28,26 @@ const getWorkshop = (request, reply) => {
 }
 
 // ----------------------------------------
+// Get one workshop with {id} [GET]
+// ----------------------------------------
+const getWorkshopsByUserId = (request, reply) => {
+	let name = request.auth.artifacts
+
+	Workshop.find({userId: name._id}, (error, workshops) => {
+		if (error) return reply(error).code(500)
+
+		return reply(workshops).code(200)
+	})
+}
+
+// ----------------------------------------
 // Add a workshop [POST]
 // ----------------------------------------
 const addWorkshop = (request, reply) => {
+	let name = request.auth.artifacts
 	const workshop = new Workshop(request.payload)
+	workshop.userId = name._id
+	console.log(workshop)
 
 	Joi.validate(workshop, workshopValidation, (validationError, value) => {
 		if (validationError) return reply({error: validationError}).code(400)
@@ -98,7 +114,15 @@ exports.register = (server, options, next) => {
 		path: '/api/workshops',
 		config: {
 			handler: getWorkshops,
-			// auth: 'session'
+			auth: 'session'
+		}
+	},
+	{
+		method: 'GET',
+		path: '/api/workshopsbyuser',
+		config: {
+			handler: getWorkshopsByUserId,
+			auth: 'session'
 		}
 	},
 	{

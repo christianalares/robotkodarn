@@ -6,6 +6,7 @@ import admin from './admin'
 import teacher from './teacher'
 import student from './student'
 import login from './login'
+import adminpage from './adminpage'
 
 export default combineReducers({
 	routeReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
 	admin,
 	teacher,
 	student,
-	login
+	login,
+	adminpage
 })
