@@ -14,3 +14,17 @@ export const getWorkshopsByUserId = () => (dispatch) => {
 	})
 	.catch(error => console.log(error))
 }
+
+export const addPart = (credentials, id) => (dispatch) => {
+
+	axios.post('/api/workshop/' + id + '/part', credentials, {
+		headers: { 'content-type': 'application/json' }
+	})
+	.then(response => {
+		dispatch({
+			type: 'SET_PARTS',
+			payload: response.data
+		})
+	})
+	.catch(error => console.log(error))
+}

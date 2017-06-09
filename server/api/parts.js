@@ -1,4 +1,5 @@
 import { Part, partValidation } from '../models/part'
+import CookieAuth from 'hapi-auth-cookie'
 import { Workshop } from '../models/workshop'
 import Joi from 'joi'
 
@@ -8,7 +9,7 @@ import Joi from 'joi'
 const getParts = (request, reply) => {
 	Workshop.findOne({_id: request.params.id}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
-		
+
 		return reply(foundWorkshop.parts).code(200)
 	})
 }
@@ -32,17 +33,17 @@ const getPart = (request, reply) => {
 const addPart = (request, reply) => {
 	Workshop.findOne({_id: request.params.id}, (error, foundWorkshop) => {
 		if (error) return reply(error).code(500)
-
 			const part = new Part(request.payload)
 
 		Joi.validate(part, partValidation, (validationError, value) => {
+			console.log(part)
+			console.log(request.payload)
 			if (validationError) return reply({error: validationError}).code(400)
-
 				foundWorkshop.parts.push(part)
 
 			foundWorkshop.save(saveError => {
 				if (saveError) return reply({error: saveError.message}).code(400)
-					return reply(foundWorkshop).code(200)			
+					return reply(foundWorkshop).code(200)
 			})
 		})
 	})
@@ -57,7 +58,7 @@ const updatePart = (request, reply) => {
 
 			const partToUpdate = foundWorkshop.parts.filter( (part) => part._id == request.params.pid)[0]
 		const index = foundWorkshop.parts.indexOf(partToUpdate)
-		
+
 		const newPart = Object.assign(partToUpdate, request.payload)
 
 		Joi.validate(newPart, partValidation, (validationError, value) => {
@@ -142,4 +143,3 @@ exports.register = (server, options, next) => {
 exports.register.attributes = {
 	name: 'parts'
 }
-

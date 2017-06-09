@@ -7,6 +7,13 @@ export default handleActions({
             ...state,
             userWorkshops: action.payload
         })
+    },
+    SET_PARTS: (state, action) => {
+
+        return ({
+            ...state,
+            workshopParts: action.payload
+        })
     }
 }, {
     userWorkshops: []
