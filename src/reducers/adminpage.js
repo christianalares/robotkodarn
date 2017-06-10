@@ -14,6 +14,13 @@ export default handleActions({
             ...state,
             selectedIndex: action.payload
         })
+    },
+    SET_PARTS: (state, action) => {
+
+        return ({
+            ...state,
+            workshopParts: action.payload
+        })
     }
 }, {
     userWorkshops: [],

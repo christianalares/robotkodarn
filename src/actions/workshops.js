@@ -23,16 +23,25 @@ export const setSelectedWorkshop = (index) => (dispatch) => {
 	})
 }
 
-export const removeSelectedWorkshop = (name) => (dispatch) => {
+export const removeSelectedWorkshop = (workshop) => (dispatch) => {
 
-	// axios.delete('/api/workshop/', {
-	// 	headers: { 'content-type': 'application/json' }
-	// })
-	// .then(response => {
-	// 	dispatch({
-	// 		type: 'SET_WORKSHOPS',
-	// 		payload: response.data
-	// 	})
-	// })
-	// .catch(error => console.log(error))
+	axios.delete('/api/workshop/' + workshop._id, {
+		headers: { 'content-type': 'application/json' }
+	})
+	.then(response => console.log(workshop.title + ' är nu borttagen.'))
+	.catch(error => console.log(error))
+}
+
+export const addPart = (credentials, id) => (dispatch) => {
+
+	axios.post('/api/workshop/' + id + '/part', credentials, {
+		headers: { 'content-type': 'application/json' }
+	})
+	.then(response => {
+		dispatch({
+			type: 'SET_PARTS',
+			payload: response.data
+		})
+	})
+	.catch(error => console.log(error))
 }
