@@ -12,7 +12,6 @@ export const isLoggedIn = () => (dispatch) => {
 		})
 	})
 	.catch(error => {
-		console.log(error)
-		dispatch(routeActions.push('/admin'))
+		dispatch(routeActions.push('/admin')).then(console.log(error))
 	})
 }

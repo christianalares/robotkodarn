@@ -7,7 +7,15 @@ export default handleActions({
             ...state,
             userWorkshops: action.payload
         })
+    },
+    SET_SELECTED_INDEX: (state, action) => {
+
+        return ({
+            ...state,
+            selectedIndex: action.payload
+        })
     }
 }, {
-    userWorkshops: []
+    userWorkshops: [],
+    selectedIndex: null
 })
