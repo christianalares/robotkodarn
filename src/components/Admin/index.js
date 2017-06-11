@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { routeActions } from 'redux-simple-router'
 
-import { toggleUserRegister } from '../../actions/admin'
-import { registerUser } from '../../actions/admin'
-import { signIn } from '../../actions/admin'
+import { toggleUserRegister, registerUser, signIn } from '../../actions/admin'
+import { isLoggedIn } from '../../actions/isLoggedIn'
 
 import forge from 'node-forge'
 
@@ -23,9 +23,14 @@ export class Admin extends Component {
 	}
 
     componentWillReceiveProps(nextProps) {
+
         if(nextProps.user !== this.props.user) {
             this.checkPassword(nextProps.user[0])
         }
+    }
+
+    componentWillMount() {
+        this.props.dispatch(isLoggedIn('/adminpage'))
     }
     
     handleLoginSubmit(e) {

@@ -21,8 +21,16 @@ export default handleActions({
             ...state,
             workshopParts: action.payload
         })
+    },
+    SET_MESSAGE: (state, action) => {
+
+        return ({
+            ...state,
+            message: action.payload
+        })
     }
 }, {
     userWorkshops: [],
-    selectedIndex: null
+    selectedIndex: null,
+    message: null
 })

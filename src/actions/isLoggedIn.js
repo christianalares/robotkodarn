@@ -1,7 +1,7 @@
 import { routeActions } from 'redux-simple-router'
 import axios from 'axios'
 
-export const isLoggedIn = () => (dispatch) => {
+export const isLoggedIn = (path) => (dispatch) => {
 
 	axios.get('/api/isLoggedIn')
 	.then(response => {
@@ -10,8 +10,9 @@ export const isLoggedIn = () => (dispatch) => {
 			type: 'IS_LOGGED_IN',
 			payload: response.data.credentials.email
 		})
+		if (path != null) dispatch(routeActions.push(path))
 	})
 	.catch(error => {
-		dispatch(routeActions.push('/admin')).then(console.log(error))
+		dispatch(routeActions.push('/admin'))
 	})
 }

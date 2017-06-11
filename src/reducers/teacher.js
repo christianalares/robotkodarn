@@ -8,5 +8,5 @@ export default handleActions({
 		})
 	}
 }, {
-	loggedInUser: {}
+	loggedInUser: null
 })

@@ -2,15 +2,30 @@
 	width: 100%;
 }
 
-:local header {
-	transition: background-color 1s ease;
+:local .header {
+	/*color: transparent;
+	background-color: transparent;*/
+	position: fixed;
+	top: 0;
+	left: 0;
 	width: 100%;
-	background-color: lightgreen;
+
+	color: black;
+	background-color: rgba(0, 255, 0, 0.5);
 }
 
-:local header h5 {
+:local .header h5 {
+	width: 90%;
+	display: inline-block;
 	text-align: center;
-	padding: 20px 0;
+	padding: 10px 0;
+}
+
+:local .header button {
+	color: black;
+	width: 10%;
+	display: inline-block;
+	width: auto;
 }
 
 :local .list {
@@ -28,11 +43,18 @@
 	width: 50%;
 }
 
-:local select {
+:local .input a {
+	display: block;
+	text-align: center;
+	margin: 10px 0;
+	font-size: 20px;
+}
+
+:local .list select {
 	width: 100%;
 }
 
-:local select option {
+:local .list select option {
 	font-size: 16px;
 }
 
