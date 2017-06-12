@@ -8,11 +8,25 @@ export default handleActions({
             userWorkshops: action.payload
         })
     },
-    SET_SELECTED_INDEX: (state, action) => {
+    SET_SELECTED_WORKSHOP_INDEX: (state, action) => {
 
         return ({
             ...state,
-            selectedIndex: action.payload
+            selectedWorkshopIndex: action.payload
+        })
+    },
+    SET_SELECTED_PART_INDEX: (state, action) => {
+
+        return ({
+            ...state,
+            selectedPartIndex: action.payload
+        })
+    },
+    SET_SELECTED_LINK_INDEX: (state, action) => {
+
+        return ({
+            ...state,
+            selectedLinkIndex: action.payload
         })
     },
     SET_PARTS: (state, action) => {
@@ -31,6 +45,8 @@ export default handleActions({
     }
 }, {
     userWorkshops: [],
-    selectedIndex: null,
+    selectedWorkshopIndex: null,
+    selectedPartIndex: null,
+    selectedLinkIndex: null,
     message: null
 })

@@ -76,7 +76,7 @@ export class Admin extends Component {
                         <label htmlFor="email">Email</label>
                         <input ref="email" onChange={e => this.setState({email: e.target.value})} id="email" type="email" />
                         <label htmlFor="password">Lösenord</label>
-                        <input ref="password" onChange={e => this.setState({password: e.target.value})} id="password" type="text" />
+                        <input ref="password" onChange={e => this.setState({password: e.target.value})} id="password" type="password" />
                         <input type="submit" value="Logga in" />
                     </form>
                     <a href="#" onClick={() => this.handleLoginOrRegisterClick('register')}>Registrera ny användare...</a>
