@@ -9,6 +9,7 @@ import { createWorkshop,
          setSelectedLink, 
          removeSelectedWorkshop,
          removeSelectedPart, 
+         removeSelectedLink,
          addPart, 
          addLink,
          changeTitle } from '../../actions/workshops'
@@ -35,6 +36,7 @@ export class AdminPage extends Component {
         this.handleSelectWorkshopPart   =   this.handleSelectWorkshopPart.bind(this)
         this.handleSelectWorkshopLink   =   this.handleSelectWorkshopLink.bind(this)
         this.handleRemovePart           =   this.handleRemovePart.bind(this)
+        this.handleRemoveLink           =   this.handleRemoveLink.bind(this)
 
         this.state = {
             title: null,
@@ -110,6 +112,7 @@ export class AdminPage extends Component {
         const selectedWorkshop = this.props.userWorkshops[index]
 
         this.props.dispatch(addPart(credentials, selectedWorkshop))
+        setTimeout(() => this.props.dispatch(getWorkshopsByUserId()), 300)
         this.setState({addPart: false})
     }
 
@@ -126,6 +129,19 @@ export class AdminPage extends Component {
         }
     }
 
+    handleRemoveLink() {
+
+        const index = this.props.selectedWorkshopIndex
+        const linkIndex = this.props.selectedLinkIndex
+        const selectedWorkshop = this.props.userWorkshops[index]
+        const link = selectedWorkshop.links[linkIndex]
+
+        if (confirm(`Vill du verkligen ta bort ${link.title}?`)) {
+            this.props.dispatch(removeSelectedLink(link, selectedWorkshop))
+            setTimeout(() => this.props.dispatch(getWorkshopsByUserId()), 300)
+        }
+    }
+
     handleCreateLink(e) {
         e.preventDefault()
 
@@ -138,6 +154,7 @@ export class AdminPage extends Component {
         }
 
         this.props.dispatch(addLink(credentials, selectedWorkshop))
+        setTimeout(() => this.props.dispatch(getWorkshopsByUserId()), 300)
         this.setState({addLink: false})
     }
 
@@ -252,8 +269,8 @@ export class AdminPage extends Component {
                             </form>
                         </div> : 
                         <div>
-                            <input type="button" onClick={() => {this.state.addLink == false ? this.setState({addLink: true}) : this.setState({addLink: false})}} value="Lägg till" />
-                            <input type="button" value="Ta bort" />
+                            <input type="button" onClick={() => this.state.addLink == false ? this.setState({addLink: true}) : this.setState({addLink: false})} value="Lägg till" />
+                            <input type="button" onClick={() => this.handleRemoveLink()} value="Ta bort" />
                         </div>}
                 </div>
             )

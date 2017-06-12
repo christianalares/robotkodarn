@@ -81,6 +81,20 @@ export const removeSelectedPart = (part, workshop) => (dispatch) => {
 	.catch(error => console.log(error))
 }
 
+export const removeSelectedLink = (link, workshop) => (dispatch) => {
+
+	axios.delete('/api/workshop/' + workshop._id + '/link/' + link._id, {
+		headers: { 'content-type': 'application/json' }
+	})
+	.then(response => {
+		dispatch({
+			type: 'SET_MESSAGE',
+			payload: `Delmomentet ${link.title} är nu borttagen.`
+		})
+	})
+	.catch(error => console.log(error))
+}
+
 export const addPart = (credentials, workshop) => (dispatch) => {
 
 	axios.post('/api/workshop/' + workshop._id + '/part', credentials, {
