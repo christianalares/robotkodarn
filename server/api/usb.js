@@ -35,6 +35,9 @@ const pingForUSBConnection = (request, reply) => {
     Avrgirl.list((err, ports) => {
         const foundRobot = ports.filter( port => port.manufacturer !== undefined)
 
+        // if(foundRobot.length === 1) {
+        //     reply(foundRobot[0]).code(200)
+        // }
         return (foundRobot.length === 1)
             ? reply(foundRobot[0]).code(200)
             : reply({error: 'Kunde ej hitta inkopplad någon robot'}).code(400)
