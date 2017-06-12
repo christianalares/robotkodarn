@@ -88,14 +88,14 @@ export class AdminPage extends Component {
         })
     }
 
-    handleRemoveWorkshop(e) {
-        e.preventDefault()
+    handleRemoveWorkshop() {
 
         const index = this.props.selectedWorkshopIndex
         const selectedWorkshop = this.props.userWorkshops[index]
 
         if (confirm(`Vill du verkligen ta bort ${this.getSelectedTitle()}?`)) {
             this.props.dispatch(removeSelectedWorkshop(selectedWorkshop))
+            this.props.dispatch(setSelectedWorkshop(null))
             setTimeout(() => this.props.dispatch(getWorkshopsByUserId()), 300) // wait for workshop to be created then get workshops again
         }
     }
@@ -125,6 +125,7 @@ export class AdminPage extends Component {
 
         if (confirm(`Vill du verkligen ta bort ${part.title}?`)) {
             this.props.dispatch(removeSelectedPart(part, selectedWorkshop))
+            this.props.dispatch(setSelectedPart(null))
             setTimeout(() => this.props.dispatch(getWorkshopsByUserId()), 300)
         }
     }
@@ -138,6 +139,7 @@ export class AdminPage extends Component {
 
         if (confirm(`Vill du verkligen ta bort ${link.title}?`)) {
             this.props.dispatch(removeSelectedLink(link, selectedWorkshop))
+           	this.props.dispatch(setSelectedLink(null))
             setTimeout(() => this.props.dispatch(getWorkshopsByUserId()), 300)
         }
     }
@@ -236,10 +238,8 @@ export class AdminPage extends Component {
                             <input type="submit" value="Spara" />
                         </form> 
                     </div> :
-                    <div>
-                        <input type="button" onClick={() => {this.state.addLink == false ? this.setState({addPart: true}) : null}} value="Lägg till" />
-                        <input type="button" onClick={() => this.handleRemovePart()} value="Ta bort" />
-                    </div>}
+                        <input type="button" onClick={() => {this.state.addPart == false ? this.setState({addPart: true}) : null}} value="Lägg till" />}
+                        {this.props.selectedPartIndex != null ? <input type="button" onClick={() => this.handleRemovePart()} value="Ta bort" /> : ''}
                 </div>
             )
         }
@@ -268,10 +268,8 @@ export class AdminPage extends Component {
                                 <input type="submit" value="Spara" />
                             </form>
                         </div> : 
-                        <div>
-                            <input type="button" onClick={() => this.state.addLink == false ? this.setState({addLink: true}) : this.setState({addLink: false})} value="Lägg till" />
-                            <input type="button" onClick={() => this.handleRemoveLink()} value="Ta bort" />
-                        </div>}
+                        <input type="button" onClick={() => this.state.addLink == false ? this.setState({addLink: true}) : this.setState({addLink: false})} value="Lägg till" />}
+                        {this.props.selectedLinkIndex != null ? <input type="button" onClick={() => this.handleRemoveLink()} value="Ta bort" /> : ''}
                 </div>
             )
         }
@@ -283,7 +281,7 @@ export class AdminPage extends Component {
                 <header className={styles.header}><h5>{this.props.message}</h5><button onClick={this.logOut}>Logga ut</button></header>
                 <div className={styles.list}>
                     {this.renderListWithWorkshops()}
-                    {this.props.selectedWorkshopIndex != null ? <input type="submit" value="Ta bort" /> : ''}
+                    {this.props.selectedWorkshopIndex != null ? <input type="button" onClick={() => this.handleRemoveWorkshop()} value="Ta bort" /> : ''}
                     {this.renderListWithParts()}
                     {this.renderListWithLinks()}
                 </div>

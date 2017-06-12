@@ -79,7 +79,6 @@ export class Admin extends Component {
                         <input ref="password" onChange={e => this.setState({password: e.target.value})} id="password" type="password" />
                         <input type="submit" value="Logga in" />
                     </form>
-                    <a href="#" onClick={() => this.handleLoginOrRegisterClick('register')}>Registrera ny användare...</a>
                 </div>
             )
         } else {
