@@ -75,7 +75,12 @@ export class Student extends Component {
 				</div>
 			)
 		} else {
-			return <h1>LADDAR</h1>
+			return (
+				<div>
+					<img src="../../img/loader.gif" />
+					<h1>LADDAR</h1>
+				</div>
+				)
 		}
 	}
 

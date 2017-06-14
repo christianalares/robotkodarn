@@ -208,9 +208,9 @@ export class AdminPage extends Component {
                     <form onSubmit={this.handleCreateWorkshop.bind(this)}>
                         <label htmlFor="name">Namn på workshop</label>
                         <input ref="name" onChange={e => this.setState({title: e.target.value})} id="name" type="text" />
-                        <input type="submit" value="Skapa workshop" />
+                        <input className="button primary" type="submit" value="Skapa workshop" />
                     </form>
-                </div> : <input type="button" onClick={() => {this.state.addWorkshop == false ? this.setState({addWorkshop: true}) : null}} value="Lägg till" />}
+                </div> : <input className="button primary" type="button" onClick={() => {this.state.addWorkshop == false ? this.setState({addWorkshop: true}) : null}} value="Lägg till" />}
             </div>
         )
     }
@@ -238,8 +238,8 @@ export class AdminPage extends Component {
                             <input type="submit" value="Spara" />
                         </form> 
                     </div> :
-                        <input type="button" onClick={() => {this.state.addPart == false ? this.setState({addPart: true}) : null}} value="Lägg till" />}
-                        {this.props.selectedPartIndex != null ? <input type="button" onClick={() => this.handleRemovePart()} value="Ta bort" /> : ''}
+                        <input className="button primary" type="button" onClick={() => {this.state.addPart == false ? this.setState({addPart: true}) : null}} value="Lägg till" />}
+                        {this.props.selectedPartIndex != null ? <input className="button danger" type="button" onClick={() => this.handleRemovePart()} value="Ta bort" /> : ''}
                 </div>
             )
         }
@@ -268,8 +268,8 @@ export class AdminPage extends Component {
                                 <input type="submit" value="Spara" />
                             </form>
                         </div> : 
-                        <input type="button" onClick={() => this.state.addLink == false ? this.setState({addLink: true}) : this.setState({addLink: false})} value="Lägg till" />}
-                        {this.props.selectedLinkIndex != null ? <input type="button" onClick={() => this.handleRemoveLink()} value="Ta bort" /> : ''}
+                        <input className="button primary" type="button" onClick={() => this.state.addLink == false ? this.setState({addLink: true}) : this.setState({addLink: false})} value="Lägg till" />}
+                        {this.props.selectedLinkIndex != null ? <input className="button danger" type="button" onClick={() => this.handleRemoveLink()} value="Ta bort" /> : ''}
                 </div>
             )
         }
@@ -281,7 +281,7 @@ export class AdminPage extends Component {
                 <header className={styles.header}><h5>{this.props.message}</h5><button onClick={this.logOut}>Logga ut</button></header>
                 <div className={styles.list}>
                     {this.renderListWithWorkshops()}
-                    {this.props.selectedWorkshopIndex != null ? <input type="button" onClick={() => this.handleRemoveWorkshop()} value="Ta bort" /> : ''}
+                    {this.props.selectedWorkshopIndex != null ? <input className="button danger" type="button" onClick={() => this.handleRemoveWorkshop()} value="Ta bort" /> : ''}
                     {this.renderListWithParts()}
                     {this.renderListWithLinks()}
                 </div>
@@ -295,7 +295,7 @@ export class AdminPage extends Component {
                                 <input type="text" value={this.getSelectedPincode()} disabled />
                                 <label>Titel</label>
                                 <input type="text" placeholder={this.getSelectedTitle()} onChange={e => this.setState({newTitle: e.target.value})} />
-                                <input type="submit" value="Uppdatera" />
+                                <input className="button primary" type="submit" value="Uppdatera" />
                             </form>
                         </div> : <h5>Välj en workshop för att ändra</h5>}
                 </div>
