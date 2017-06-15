@@ -2,6 +2,8 @@ var Avrgirl = require('avrgirl-arduino');
 
 const uploadCode = (request, reply) => {
 
+    // kind of what you need to specify your own robot?
+
     // var board = {
     //     name: 'zumo',
     //     baud: 57600,
