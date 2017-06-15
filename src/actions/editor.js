@@ -7,30 +7,36 @@ export const changeEditorTab = (userOrOriginal) => (dispatch) => {
 
 export const compileCode = (codeToCompile, willUpload) => (dispatch) => {
 	
-	// request.onload = () => {
-	// 	if (request.status >= 200 && request.status < 400) {
-    //         dispatch({
-    //             type: 'SET_COMPILER_RESPONSE',
-    //             payload: {
-	// 				compilerResponse: JSON.parse(request.response),
-	// 				willUpload: willUpload
-	// 			}
-    //         })
-	// 	} else if(request.status === 401) {
-	// 		window.alert( JSON.parse(request.response).message )
-	// 	}
-	// }
-	// request.send( JSON.stringify(objToSend) )
-
 	const request = new XMLHttpRequest()
 	request.open('POST', '/api/editor', true)
 	request.setRequestHeader('Content-Type', 'application/json')
 
-
 	request.onload = () => {
-		console.log( request.response )
+		if (request.status >= 200 && request.status < 400) {
+	        dispatch({
+	            type: 'SET_COMPILER_RESPONSE',
+	            payload: {
+					compilerResponse: {
+						response: request.response,
+						timestamp: +new Date
+					},
+					willUpload: willUpload,
+				}
+	        })
+		} else {
+			 dispatch({
+	            type: 'SET_COMPILER_RESPONSE',
+	            payload: {
+					compilerResponse: {
+						response: JSON.parse(request.response),
+						timestamp: +new Date
+					},
+					willUpload: willUpload,
+				}
+	        })
+		}
 	}
-	request.send()
+	request.send( JSON.stringify(codeToCompile) )
 }
 
 export const uploadCode = (compiledCode) => (dispatch) => {

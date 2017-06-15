@@ -15,11 +15,11 @@ export class Console extends Component {
 	componentWillReceiveProps(nextProps) {
 		if(nextProps.compilerResponse !== this.props.compilerResponse) {
 			
-			if(nextProps.compilerResponse.debug) {
+			if(nextProps.compilerResponse.response.error) {
 				let msg = {
 					type: 'error',
 					heading: 'Något gick fel',
-					message: nextProps.compilerResponse.debug
+					message: nextProps.compilerResponse.response.error
 				}
 			
 				this.props.dispatch( setConsoleOutput(msg) )

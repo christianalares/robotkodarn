@@ -23,7 +23,8 @@
 			padding: 5px;
 		}
 		:local .console pre div:last-of-type {
-			animation: fadeout 2s;
+			background: #fffef1;
+			animation: fadeout 3s;
 			animation-iteration-count: 1;
 		}
 		:local .console .timestamp {
@@ -41,5 +42,5 @@
 
 @keyframes :local(fadeout) {
 	0% {background-color: #FFFDD0;}
-	100% {background-color: #FFF;}
+	100% {background-color: #fffef1;}
 }

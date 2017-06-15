@@ -27,7 +27,7 @@ export class ActionButtons extends Component {
 			this.props.dispatch( setConsoleOutput({
 				type: 'info',
 				heading: 'Kompilerar',
-				message: 'Skickar kod till kompilator'
+				message: 'Skickar kod till kompilator...'
 			}) )
 			// true = will be uploaded to robot
 			this.props.dispatch( compileCode(this.props.currentParts[this.props.activePartIndex].code, true) )

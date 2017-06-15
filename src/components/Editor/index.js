@@ -40,7 +40,8 @@ export class Editor extends Component {
         let msg;
 
         if(nextProps.compilerResponse !== this.props.compilerResponse) {
-            if(nextProps.compilerResponse.success && nextProps.willUpload) {
+
+            if(!nextProps.compilerResponse.response.error && nextProps.willUpload) {
 
                 msg = {
 					type: 'success',
@@ -49,8 +50,9 @@ export class Editor extends Component {
 				}
                 this.props.dispatch( setConsoleOutput(msg) )
 
-                this.props.dispatch( uploadCode(nextProps.compilerResponse.output) )
-            } else if(nextProps.compilerResponse.success && !nextProps.willUpload) {
+                this.props.dispatch( uploadCode(nextProps.compilerResponse.response) )
+
+            } else if(!nextProps.compilerResponse.response.error && !nextProps.willUpload) {
                 // "Testa min kod" --> success
                 msg = {
 					type: 'success',
