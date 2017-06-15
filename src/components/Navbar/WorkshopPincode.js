@@ -10,7 +10,7 @@ class WorkshopPincode extends React.Component {
             <p className={styles.workshopPinCode}>
                 {this.props.pincode}
             </p>
-        );
+        )
     }
 }
 

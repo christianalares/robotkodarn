@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
+import { findWorkshopByPin } from '../../actions/workshops'
+import { setCurrentParts } from '../../actions/student'
+
 import Navbar from './../Navbar'
 import Sidebar from './../Sidebar'
 import Editor from './../Editor'
@@ -9,8 +12,6 @@ import ActionButtons from './../ActionButtons'
 import Snippets from './../Snippets'
 
 import styles from './student.css'
-
-import { findWorkshopByPin, setCurrentParts } from '../../actions/student'
 
 export class Student extends Component {
 	constructor (props) {
@@ -24,43 +25,35 @@ export class Student extends Component {
 	}
 	componentWillMount() {
 		this.props.dispatch( findWorkshopByPin(this.props.params.pin) )
+
 		if(this.props.currentWorkshop) {
-			this.setState( {
+			this.setState({
 				workshop: JSON.parse(this.props.currentWorkshop)
 			}, () => {
-
 				let currentParts = JSON.parse(this.props.currentWorkshop).parts
 				this.props.dispatch( setCurrentParts(currentParts) )
-
-			} )
+			})
 		}
 	}
 
 	componentWillReceiveProps(nextProps) {
-
 		if(this.props.currentWorkshop !== nextProps.currentWorkshop) {
 
-			this.setState( {
+			this.setState({
 				workshop: JSON.parse(nextProps.currentWorkshop)
 			}, () => {
-
 				let currentParts = JSON.parse(nextProps.currentWorkshop).parts
 				this.props.dispatch( setCurrentParts(currentParts) )
-
-			} )
+			})
 		}
 	}
 
 	getMainPaneClassName() {
-		if(this.props.isSidebarOpen) {
-			return styles.mainPane
-		} else {
-			return styles.mainPane + ' ' + styles.mainPaneExpanded
-		}
+		if(this.props.isSidebarOpen) return styles.mainPane
+		else return styles.mainPane + ' ' + styles.mainPaneExpanded
 	}
 
 	renderWorkshop() {
-
 		if(this.state.workshop) {
 			return (
 				<div>
@@ -80,7 +73,7 @@ export class Student extends Component {
 					<img src="../../img/loader.gif" />
 					<h1>LADDAR</h1>
 				</div>
-				)
+			)
 		}
 	}
 

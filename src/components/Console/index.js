@@ -53,7 +53,11 @@ export class Console extends Component {
 									timestamp = `${h}:${m}:${s}`
 
 								return (
-									<div key={message.key}><span className={styles.timestamp}>[{timestamp}]</span> <span className={styles[message.type]}>{message.heading}:</span><br/>{message.message}</div>
+									<div key={message.key}>
+										<span className={styles.timestamp}>[{timestamp}]</span>
+										<span className={styles[message.type]}>{message.heading}:</span><br/>
+										{message.message}
+									</div>
 								)
 							})
 						}

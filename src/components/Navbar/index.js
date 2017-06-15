@@ -25,14 +25,8 @@ class Navbar extends React.Component {
                 <h3 className={styles.logo}>Robotkodarn</h3>
                 <WorkshopPincode pincode={this.props.pincode} />
             </nav>
-        );
+        )
     }
 }
 
-function mapStateToProps (state) {
-	return {
-
-	}
-}
-
-export default connect(mapStateToProps)(Navbar)
+export default connect()(Navbar)
