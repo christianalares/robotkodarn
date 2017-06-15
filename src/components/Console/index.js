@@ -25,6 +25,8 @@ export class Console extends Component {
 				this.props.dispatch( setConsoleOutput(msg) )
 			}
 		}
+
+		//Fix to make console scroll to bottom on new messages
 		setTimeout(()=> {
 			this.scrollToBottom()
 		}, 50)

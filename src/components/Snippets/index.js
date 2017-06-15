@@ -9,6 +9,8 @@ import ActionButtons from './../ActionButtons'
 
 import styles from './snippets.css'
 
+//This component is not used but will hopefully be developed some time soon...
+
 export class Snippets extends Component {
 	constructor (props) {
 		super(props)
