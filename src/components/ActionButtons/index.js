@@ -20,17 +20,23 @@ export class ActionButtons extends Component {
 	}
 
 	componentDidMount() {
+		// check for connected arduino every 2 seconds
 		this.pingForUSBConnection(2000)
 	}
 
 	handleUploadButtonClick() {
 		if(this.props.connectedArduino) {
+
+			// setConsoleOutput takes an object with these three props.
+			// type can take info, success and warning that makes the heading
+			// colors to blue, green and red (or black if none provided)
 			this.props.dispatch( setConsoleOutput({
 				type: 'info',
 				heading: 'Kompilerar',
 				message: 'Skickar kod till kompilator...'
 			}) )
-			// true = will be uploaded to robot
+			
+			// true = will also be uploaded to robot after compiled
 			this.props.dispatch( compileCode(this.props.currentParts[this.props.activePartIndex].code, true) )
 		} else {
 			this.props.dispatch( setConsoleOutput({
@@ -51,6 +57,7 @@ export class ActionButtons extends Component {
 		this.props.dispatch( compileCode(this.props.currentParts[this.props.activePartIndex].code, false) )
 	}
 
+	// check for connected arduino
 	pingForUSBConnection(howOften) {
 		setInterval(() => {
 			this.props.dispatch( pingForUSBConnection() )

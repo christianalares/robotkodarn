@@ -13,15 +13,6 @@ import { setCurrentParts } from '../../actions/student'
 
 import styles from './editor.css'
 
-const helloWorld = `
-// my first program in C++
-#include <iostream>
-
-int main()
-{
-	std::cout << 'Hello World!';
-}`
-
 export class Editor extends Component {
 	constructor (props) {
 		super(props)
@@ -29,6 +20,7 @@ export class Editor extends Component {
 		this.handleTabClick = this.handleTabClick.bind(this)
         this.onChange = this.onChange.bind(this)
 
+        // we use local state to force react to update DOM by itself more easily when changed
         this.state = {
             workshop: null,
             currentParts: null
@@ -51,8 +43,8 @@ export class Editor extends Component {
 
                 this.props.dispatch( uploadCode(nextProps.compilerResponse.response) )
 
+            // "Testa min kod" without errors
             } else if(!nextProps.compilerResponse.response.error && !nextProps.willUpload) {
-                // "Testa min kod" --> success
                 msg = {
 					type: 'success',
 					heading: 'Kompilering klar',
@@ -62,7 +54,7 @@ export class Editor extends Component {
             }            
         }
 
-        // When currentParts has gone from null to the currentParts
+        // When currentParts has gone changed
         if(this.props.currentParts !== nextProps.currentParts) {
             this.setState({
                 currentParts: nextProps.currentParts
@@ -75,11 +67,6 @@ export class Editor extends Component {
             workshop: this.props.workshop
         })
     }
-
-    componentDidMount() {
-        // console.log( 123, this.props.currentParts )
-    }
-
 
 	handleTabClick(userOrOriginal) {
 		this.props.dispatch( changeEditorTab(userOrOriginal) )
@@ -94,8 +81,9 @@ export class Editor extends Component {
         
         this.props.dispatch( setCurrentParts(copyOfParts) )
 
-
-        
+        // saving code to localStorage on every new key stroke
+        // at the time it never loads anything from localStorage so this function
+        // is kind of useless atm...        
         this.saveToLocalStorage()
     }
 

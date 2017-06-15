@@ -69,10 +69,7 @@ export class Student extends Component {
 			)
 		} else {
 			return (
-				<div>
-					<img src="../../img/loader.gif" />
-					<h1>LADDAR</h1>
-				</div>
+				<i className={styles.spinner}></i>
 			)
 		}
 	}
