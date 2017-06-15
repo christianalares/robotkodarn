@@ -15,6 +15,35 @@ export const signIn = (credentials, path) => (dispatch) => {
 }
 
 // ----------------------------------------
+// signOut, clears cookies
+// ----------------------------------------
+export const signOut = (path) => (dispatch) => {
+
+	axios.get('/auth/logout')
+	.then(response => dispatch(routeActions.push(path)))
+	.catch(error => console.log(error))
+}
+
+// ----------------------------------------
+// isLoggedIn, checks session cookie
+// ----------------------------------------
+export const isLoggedIn = (path) => (dispatch) => {
+
+	axios.get('/api/isLoggedIn')
+	.then(response => {
+
+		dispatch({
+			type: 'IS_LOGGED_IN',
+			payload: response.data.credentials.email
+		})
+		if (path != null) dispatch(routeActions.push(path))
+	})
+	.catch(error => {
+		dispatch(routeActions.push('/admin'))
+	})
+}
+
+// ----------------------------------------
 // toggleUserRegister, toggle the form
 // betweet login or registration
 // ----------------------------------------

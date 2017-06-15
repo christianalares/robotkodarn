@@ -11,7 +11,6 @@ import reducers from './reducers'
 import App from './components/App'
 import Editor from './components/Editor'
 import Student from './components/Student'
-import Teacher from './components/Teacher'
 import Login from './components/Login'
 import Admin from './components/Admin'
 import AdminPage from './components/AdminPage'
@@ -33,7 +32,6 @@ render((
 				<Route path="/pin" component={Student}/>
 				<Route path="/editor" component={Editor}/>
 				<Route path="/id/:pin" component={Student}/>
-				<Route path="/teacher" component={Teacher}/>
 				<Route path="/login" component={Login}/>
 				<Route path="/admin" component={Admin}/>
 				<Route path="/adminpage" component={AdminPage}/>

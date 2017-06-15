@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import FA from 'react-fontawesome'
+
+import { toggleSidebar } from '../../actions/student'
+
 import PartList from './PartList'
 import ReferenceList from './ReferenceList'
-import { toggleSidebar } from '../../actions/sidebar'
-
-
 import styles from './sidebar.css'
 
 class Sidebar extends React.Component {
@@ -23,20 +23,15 @@ class Sidebar extends React.Component {
 
 
 	getSidebarClassName() {
-		if (this.props.isSidebarOpen) {
-			return styles.mainSidebar
-		} else {
-			return styles.mainSidebar + ' ' + styles.mainSidebarClosed
-		}
+		if (this.props.isSidebarOpen) return styles.mainSidebar
+		else return styles.mainSidebar + ' ' + styles.mainSidebarClosed
 	}
 
 	getCloseBtnClassName() {
-		if (!this.props.isSidebarOpen) {
-			return styles.rotated
-		}
+		if (!this.props.isSidebarOpen) return styles.rotated
 	}
 
-	render () {
+	render() {
 		return (
 			<div className={this.getSidebarClassName()}>
 				<div className="content">

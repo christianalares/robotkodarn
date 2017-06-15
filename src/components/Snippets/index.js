@@ -15,7 +15,6 @@ export class Snippets extends Component {
 	}
 
 	render () {
-
 		return (
             <div className={styles.snippetsWrapper}>
                 <a href="#" className="button xs primary">Snippet 1</a>
@@ -28,10 +27,4 @@ export class Snippets extends Component {
 	}
 }
 
-function mapStateToProps (state) {
-	return {
-		
-	}
-}
-
-export default connect(mapStateToProps)(Snippets)
+export default connect()(Snippets)

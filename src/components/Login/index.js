@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { routeActions } from 'redux-simple-router'
 
-import { findWorkshopByPin } from './../../actions/login'
+import { findWorkshopByPin } from '../../actions/workshops'
 
 import styles from './login.css'
-import animate from './../../animate.css'
+import animate from '../../animate.css'
 
 export class Login extends Component {
 	constructor (props) {
@@ -44,27 +44,21 @@ export class Login extends Component {
 	}
 
 	handleChange(e) {
-		this.setState({
-			pinInputValue: e.target.value
-		})
+		this.setState({ pinInputValue: e.target.value })
 	}
 	handleSubmit(e) {
 		e.preventDefault()
-		
 		let pinToSend
 
 		this.setState({ inputClassName: '' })
 
-		if(this.state.pinInputValue.length === 0) {
-			pinToSend = 'X'
-		} else {
-			pinToSend = this.state.pinInputValue		
-		}
+		if(this.state.pinInputValue.length === 0) pinToSend = 'X'
+		else pinToSend = this.state.pinInputValue
 		
 		this.props.dispatch( findWorkshopByPin(pinToSend) )
 	}
 
-	render () {
+	render() {
 		return (
             <div className="screen">
                 <div className={styles.wrapper}>
@@ -76,7 +70,7 @@ export class Login extends Component {
 						</form>
                     </div>
                 </div>
-				{ this.state.workshopNotFound && <p className={styles.workshopNotFound}>Kunde inte hitta någon workshop med denna PIN-kod</p> }
+				{this.state.workshopNotFound && <p className={styles.workshopNotFound}>Kunde inte hitta någon workshop med denna PIN-kod</p>}
             </div>
 		)
 	}

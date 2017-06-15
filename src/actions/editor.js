@@ -1,3 +1,7 @@
+
+// ----------------------------------------
+// changeEditorTab, sets state to pressed tab
+// ----------------------------------------
 export const changeEditorTab = (userOrOriginal) => (dispatch) => {
 	dispatch({
 		type: 'SET_EDITOR_TAB',
@@ -5,6 +9,9 @@ export const changeEditorTab = (userOrOriginal) => (dispatch) => {
 	})
 }
 
+// ----------------------------------------
+// compileCode, sends code to compiler
+// ----------------------------------------
 export const compileCode = (codeToCompile, willUpload) => (dispatch) => {
 	
 	// request.onload = () => {
@@ -33,6 +40,9 @@ export const compileCode = (codeToCompile, willUpload) => (dispatch) => {
 	request.send()
 }
 
+// ----------------------------------------
+// uploadCode, uploads compiled code to Arduino unit
+// ----------------------------------------
 export const uploadCode = (compiledCode) => (dispatch) => {
 	const request = new XMLHttpRequest()
 	request.open('POST', '/api/usb', true)
@@ -63,6 +73,9 @@ export const uploadCode = (compiledCode) => (dispatch) => {
 	request.send( JSON.stringify(compiledCode) )
 }
 
+// ----------------------------------------
+// setConsoleOutput, sets output message shown in console
+// ----------------------------------------
 export const setConsoleOutput = (output) => (dispatch) => {
 	dispatch({
 		type: 'SET_CONSOLE_OUTPUT',
@@ -70,12 +83,18 @@ export const setConsoleOutput = (output) => (dispatch) => {
 	})
 }
 
+// ----------------------------------------
+// clearConsole, clears console
+// ----------------------------------------
 export const clearConsole = () => (dispatch) => {
 	dispatch({
 		type: 'CLEAR_CONSOLE'
 	})
 }
 
+// ----------------------------------------
+// pingForUSBConnection, watches computer connection ports
+// ----------------------------------------
 export const pingForUSBConnection = () => (dispatch) => {
 	const request = new XMLHttpRequest()
 	request.open('GET', '/api/usb', true)
@@ -97,6 +116,9 @@ export const pingForUSBConnection = () => (dispatch) => {
 	request.send()
 }
 
+// ----------------------------------------
+// setActivePartIndex, sets clicked part to state
+// ----------------------------------------
 export const setActivePartIndex = (index) => (dispatch) => {
 	dispatch({
 		type: 'SET_ACTIVE_PART_INDEX',

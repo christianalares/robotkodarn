@@ -13,15 +13,14 @@ import { setCurrentParts } from '../../actions/student'
 
 import styles from './editor.css'
 
-const helloWorld = `// my first program in C++
+const helloWorld = `
+// my first program in C++
 #include <iostream>
 
 int main()
 {
 	std::cout << 'Hello World!';
 }`
-
-
 
 export class Editor extends Component {
 	constructor (props) {
@@ -68,6 +67,7 @@ export class Editor extends Component {
             })
         }
     }
+
     componentWillMount() {
         this.setState({
             workshop: this.props.workshop
@@ -102,9 +102,8 @@ export class Editor extends Component {
     }
 
 	renderTab() {
-        if (this.props.activeTab === 'user') {
-            return (
-                <AceEditor
+        if (this.props.activeTab === 'user')
+            return <AceEditor
                     ref="editor"
                     setOptions={{
                         readOnly: false
@@ -118,12 +117,9 @@ export class Editor extends Component {
                     height='90%'
                     editorProps={{$blockScrolling: true}}
                     value={this.state.currentParts[this.props.activePartIndex].code || 'Laddar...'}
-                    showPrintMargin={false}
-                />
-            )
-        } else {
-            return (
-                <AceEditor
+                    showPrintMargin={false} />
+        else
+            return <AceEditor
                     setOptions={{
                         readOnly: true
                     }}
@@ -135,10 +131,7 @@ export class Editor extends Component {
                     height='90%'
                     editorProps={{$blockScrolling: true}}
                     value={this.state.workshop.parts[this.props.activePartIndex].code}
-                    showPrintMargin={false}
-                />
-            )
-        }
+                    showPrintMargin={false} />
     }
 
     renderControlPanelIfUser() {
@@ -165,9 +158,7 @@ export class Editor extends Component {
                     {this.renderTab()}
                 </div>
             )
-        } else {
-            return <h1>Laddar...</h1>
-        }
+        } else return <h1>Laddar...</h1>
 	}
 }
 

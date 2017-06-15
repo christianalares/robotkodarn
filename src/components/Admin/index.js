@@ -2,11 +2,9 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { routeActions } from 'redux-simple-router'
 
-import { toggleUserRegister, registerUser, signIn } from '../../actions/admin'
-import { isLoggedIn } from '../../actions/isLoggedIn'
+import { toggleUserRegister, registerUser, signIn, isLoggedIn } from '../../actions/authentication'
 
 import forge from 'node-forge'
-
 import styles from './admin.css'
 
 export class Admin extends Component {
@@ -23,7 +21,6 @@ export class Admin extends Component {
 	}
 
     componentWillReceiveProps(nextProps) {
-
         if(nextProps.user !== this.props.user) {
             this.checkPassword(nextProps.user[0])
         }
@@ -44,6 +41,7 @@ export class Admin extends Component {
             email: this.state.email,
             password: hash
         }
+
         this.props.dispatch( signIn(credentials, '/adminpage') )
     }
 
@@ -79,7 +77,6 @@ export class Admin extends Component {
                         <input ref="password" onChange={e => this.setState({password: e.target.value})} id="password" type="password" />
                         <input type="submit" value="Logga in" />
                     </form>
-                    {/*<a href="#" onClick={() => this.handleLoginOrRegisterClick('register')}>Registrera ny användare...</a>*/}
                 </div>
             )
         } else {
@@ -104,11 +101,7 @@ export class Admin extends Component {
     }
 
 	render () {
-		return (
-            <div>
-                {this.renderContent()}
-            </div>
-        )
+		return <div>{this.renderContent()}</div>
 	}
 }
 

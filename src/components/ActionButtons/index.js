@@ -2,9 +2,9 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import FA from 'react-fontawesome'
 
-import styles from './actionbuttons.css'
-
 import { compileCode, pingForUSBConnection, setConsoleOutput } from '../../actions/editor'
+
+import styles from './actionbuttons.css'
 
 export class ActionButtons extends Component {
 	constructor (props) {
@@ -14,10 +14,11 @@ export class ActionButtons extends Component {
 			connectedArduino: null
 		}
 
-		this.handleUploadButtonClick = this.handleUploadButtonClick.bind(this)
-		this.handleTestButtonClick = this.handleTestButtonClick.bind(this)
-		this.renderUploadButtonClassNames = this.renderUploadButtonClassNames.bind(this)
+		this.handleUploadButtonClick		=	this.handleUploadButtonClick.bind(this)
+		this.handleTestButtonClick			=	this.handleTestButtonClick.bind(this)
+		this.renderUploadButtonClassNames	=	this.renderUploadButtonClassNames.bind(this)
 	}
+
 	componentDidMount() {
 		this.pingForUSBConnection(2000)
 	}
@@ -39,6 +40,7 @@ export class ActionButtons extends Component {
 			}) )
 		}
 	}
+
 	handleTestButtonClick() {
 		this.props.dispatch( setConsoleOutput({
 			type: 'info',
@@ -57,13 +59,14 @@ export class ActionButtons extends Component {
 			})
 		}, howOften)
 	}
+
 	renderUploadButtonClassNames() {
 		return (this.state.connectedArduino)
 			? 'button success'
 			: 'button success disabled'
 	}
+	
 	render () {
-
 		return (
             <div className={styles.actionButtonWrapper}>
                 <a onClick={this.handleTestButtonClick} className="button success" href="#"><FA className={styles.icons} name='cogs' />Testa min kod</a>

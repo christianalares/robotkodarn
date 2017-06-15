@@ -9,24 +9,24 @@ class ReferenceList extends React.Component {
 
     renderLinks() {
         return this.props.links.map(link => {
-            return (<li key={link._id}><FA name='external-link' /> <a target="_blank" href={link.url}>{link.title}</a></li>)
+            return (
+                <li key={link._id}>
+                    <FA name='external-link' />
+                    <a target="_blank" href={link.url}>
+                        {link.title}
+                    </a>
+                </li>
+            )
         })
     }
 
     render() {
         return (
             <ul className={styles.referenceList}>
-                { this.renderLinks() }
-                {/*{ this.props.user === 'teacher' && (<li><FA name='plus' /> <a href="#">Lägg till...</a></li>) }*/}
+                {this.renderLinks()}
             </ul>
-        );
+        )
     }
 }
 
-function mapStateToProps (state) {
-	return {
-		
-	}
-}
-
-export default connect(mapStateToProps)(ReferenceList)
+export default connect()(ReferenceList)
