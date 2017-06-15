@@ -6,40 +6,31 @@ export const changeEditorTab = (userOrOriginal) => (dispatch) => {
 }
 
 export const compileCode = (codeToCompile, willUpload) => (dispatch) => {
+	
+	// request.onload = () => {
+	// 	if (request.status >= 200 && request.status < 400) {
+    //         dispatch({
+    //             type: 'SET_COMPILER_RESPONSE',
+    //             payload: {
+	// 				compilerResponse: JSON.parse(request.response),
+	// 				willUpload: willUpload
+	// 			}
+    //         })
+	// 	} else if(request.status === 401) {
+	// 		window.alert( JSON.parse(request.response).message )
+	// 	}
+	// }
+	// request.send( JSON.stringify(objToSend) )
+
 	const request = new XMLHttpRequest()
-	request.open('POST', 'http://192.168.33.15/hemligt/v1', true)
+	request.open('POST', '/api/editor', true)
 	request.setRequestHeader('Content-Type', 'application/json')
 
-    var objToSend = {
-        files: [{
-            filename: 'robotkodarn.ino',
-            content: codeToCompile
-        }],
-        libraries: [],
-        logging: true,
-        format: 'hex',
-        version: '105',
-        build: {
-            mcu: 'atmega328p',
-            f_cpu: '16000000L',
-            core: 'arduino',
-            variant: 'standard'
-        }
-    }
+
 	request.onload = () => {
-		if (request.status >= 200 && request.status < 400) {
-            dispatch({
-                type: 'SET_COMPILER_RESPONSE',
-                payload: {
-					compilerResponse: JSON.parse(request.response),
-					willUpload: willUpload
-				}
-            })
-		} else if(request.status === 401) {
-			window.alert( JSON.parse(request.response).message )
-		}
+		console.log( request.response )
 	}
-	request.send( JSON.stringify(objToSend) )
+	request.send()
 }
 
 export const uploadCode = (compiledCode) => (dispatch) => {

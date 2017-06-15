@@ -32,7 +32,23 @@ export const getWorkshopsByUserId = () => (dispatch) => {
 export const setSelectedWorkshop = (index) => (dispatch) => {
 
 	dispatch({
-		type: 'SET_SELECTED_INDEX',
+		type: 'SET_SELECTED_WORKSHOP_INDEX',
+		payload: index
+	})
+}
+
+export const setSelectedPart = (index) => (dispatch) => {
+
+	dispatch({
+		type: 'SET_SELECTED_PART_INDEX',
+		payload: index
+	})
+}
+
+export const setSelectedLink = (index) => (dispatch) => {
+
+	dispatch({
+		type: 'SET_SELECTED_LINK_INDEX',
 		payload: index
 	})
 }
@@ -46,6 +62,34 @@ export const removeSelectedWorkshop = (workshop) => (dispatch) => {
 		dispatch({
 			type: 'SET_MESSAGE',
 			payload: `Workshopen ${workshop.title} är nu borttagen.`
+		})
+	})
+	.catch(error => console.log(error))
+}
+
+export const removeSelectedPart = (part, workshop) => (dispatch) => {
+
+	axios.delete('/api/workshop/' + workshop._id + '/part/' + part._id, {
+		headers: { 'content-type': 'application/json' }
+	})
+	.then(response => {
+		dispatch({
+			type: 'SET_MESSAGE',
+			payload: `Delmomentet ${part.title} är nu borttagen.`
+		})
+	})
+	.catch(error => console.log(error))
+}
+
+export const removeSelectedLink = (link, workshop) => (dispatch) => {
+
+	axios.delete('/api/workshop/' + workshop._id + '/link/' + link._id, {
+		headers: { 'content-type': 'application/json' }
+	})
+	.then(response => {
+		dispatch({
+			type: 'SET_MESSAGE',
+			payload: `Delmomentet ${link.title} är nu borttagen.`
 		})
 	})
 	.catch(error => console.log(error))
@@ -78,6 +122,20 @@ export const addLink = (credentials, workshop) => (dispatch) => {
 		dispatch({
 			type: 'SET_MESSAGE',
 			payload: `Workshopen ${workshop.title} har nu referenslänken ${credentials.title}.`
+		})
+	})
+	.catch(error => console.log(error))
+}
+
+export const changeTitle = (credentials, workshop) => (dispatch) => {
+
+	axios.put('/api/workshop/' + workshop._id, credentials, {
+		headers: { 'content-type': 'application/json' }
+	})
+	.then(response => {
+		dispatch({
+			type: 'SET_MESSAGE',
+			payload: `Workshopen ${workshop.title} har nu titeln ${credentials.title}.`
 		})
 	})
 	.catch(error => console.log(error))

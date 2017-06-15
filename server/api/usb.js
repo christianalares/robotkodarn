@@ -1,4 +1,20 @@
+var avrpizza = require('avr-pizza');
 var Avrgirl = require('avrgirl-arduino');
+
+const compileCode = (request, reply) => {
+    var pkg = {
+        sketch: __dirname + '/blink.ino',
+        board: 'uno'
+    };
+
+    // console.log( pkg )
+
+    avrpizza.compile(pkg, function(error, hex) {
+        console.log(error); // hex = NodeJS Buffer containing hex file contents
+        console.log('------------------------------------------------------------------'); // hex = NodeJS Buffer containing hex file contents
+        console.log(hex); // hex = NodeJS Buffer containing hex file contents
+    });
+}
 
 const uploadCode = (request, reply) => {
 
@@ -60,6 +76,13 @@ exports.register = (server, options, next) => {
 		path: '/api/usb',
 		config: {
 			handler: pingForUSBConnection,
+		}
+	},
+    {
+		method: 'POST',
+		path: '/api/usb/compile',
+		config: {
+			handler: compileCode,
 		}
 	}
 	])

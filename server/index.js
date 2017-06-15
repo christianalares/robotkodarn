@@ -11,6 +11,7 @@ import users from './api/users'
 import links from './api/links'
 import parts from './api/parts'
 import usb from './api/usb'
+import editor from './api/editor'
 
 mongoose.connect(config.get('database.host'))
 mongoose.connection.on('error', console.error.bind(console, 'db error:'))
@@ -77,6 +78,9 @@ server.register([
 },
 {
 	register: usb
+},
+{
+	register: editor
 }
 ], (error) => {
 	if (error) throw error
